@@ -8,7 +8,9 @@
 
 ## Milestones
 *	MS1 (Apr 7, Monday): 
+
 	Crawler crawls some webpages for testing. 
+	
 	Initial design for other modules (Indexer, Lexicon, PageRank).
 
 ## Modules
