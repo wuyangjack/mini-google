@@ -9,13 +9,13 @@
 ## Milestones
 
 ## Modules
-Crawler (Chenyang)
+### Crawler (Chenyang)
 * 	Support chunk encoding.
 * 	Database: URL(key), Timestamp, HTML, Links.
 
-Indexer (Xuan)
+### Indexer (Xuan)
 *	Fast query speed is important.
 
-Lexicon (Sitong)
+### Lexicon (Sitong)
 
-PageRank (Yang)
+### PageRank (Yang)
