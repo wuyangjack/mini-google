@@ -10,13 +10,13 @@
 *	MS1 (Apr 7, Monday): 
 
 	Crawler crawls some webpages for testing. 
-	
+
 	Initial design for other modules (Indexer, Lexicon, PageRank).
 
 ## Modules
 #### Crawler (Chenyang)
 * 	Support chunk encoding.
-* 	Database: URL(key), Timestamp, HTML, Links.
+* 	Database: url(key), timestamp, HTML, links.
 
 #### Indexer (Xuan)
 *	Fast query speed is important.
