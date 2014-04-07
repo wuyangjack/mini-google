@@ -13,14 +13,21 @@
 
 	Initial design for other modules (Indexer, Lexicon, PageRank).
 
+* 	MS2 (Apr 10, Thursday):
+
+	Hadoop understood.
+
 ## Modules
 #### Crawler (Chenyang)
 * 	Support chunk encoding.
-* 	Database: url(key), timestamp, HTML, links.
+* 	Database: url(key), timestamp, HTML.
+*	WebCrawler.java /database 50 100(optional)
+	Hardcode starting address in WebCrawler.java : initUrls()
 
-#### Indexer (Xuan)
-*	Fast query speed is important.
+#### Inverted index / Forward index (Chenyang / Sitong)
+*	Inverted index: input word, output docs and positions
 
-#### Lexicon (Sitong)
+#### IDF / IF (Xuan)
+* 	Dependent on inverted index / forward index (discuss with Chenyang)
 
 #### PageRank (Yang)
