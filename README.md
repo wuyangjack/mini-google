@@ -21,8 +21,8 @@
 #### Crawler (Chenyang)
 * 	Support chunk encoding.
 * 	Database: url(key), timestamp, HTML.
-*	WebCrawler.java /database 50 100(optional)
-	Hardcode starting address in WebCrawler.java : initUrls()
+*	WebCrawler.java /database 50 100(optional).
+	Hardcode starting address in WebCrawler.java : initUrls().
 
 #### Inverted index / Forward index (Chenyang / Sitong)
 *	Inverted index: input word, output docs and positions
