@@ -1,0 +1,42 @@
+<project name="PROJECT" default="all" basedir="./">
+  <target name="init">
+    <mkdir dir="class"/>
+  </target>
+
+  <target name="compile" depends="init">
+      <javac srcdir="src" destdir="class" includes="**/*.java" debug="off" deprecation="off" optimize="on" includeAntRuntime="no">
+          <classpath>
+              <fileset dir="lib">
+                  <include name="*.jar"/>
+              </fileset>
+              <fileset dir="/usr/lib/hadoop">
+                  <include name="*.jar"/>
+              </fileset>
+              <fileset dir="/usr/lib/hadoop/client-0.20">
+                  <include name="*.jar"/>
+              </fileset>
+          </classpath>
+      </javac>
+  </target>
+
+  <target name="all" depends="compile" description="Makes the JAR file for pagerank">
+      <delete file="project-pagerank.jar"/>
+      <jar destfile="project-pagerank.jar" update="true">
+          <fileset dir="class">
+            <include name="**/*.class"/>
+          </fileset>
+      </jar>
+  </target>
+
+  <target name="pack" description="Create an archive">
+      <zip destfile="project-pagerank.zip">
+        <zipfileset dir="." excludes="bin/**,class/**,project-pagerank.zip,project-pagerank.jar"/>
+      </zip>
+  </target>
+
+  <target name="clean">
+    <delete dir="class"/>
+    <delete file="project-pagerank.jar"/>
+    <delete file="project-pagerank.zip"/>
+  </target>
+</project>

@@ -1,0 +1,45 @@
+# MapReduce-PageRank tutorial
+http://lintool.github.io/MapReduceAlgorithms/MapReduce-book-final.pdf
+
+# Deploy custom Jar on Amazon EMR
+http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-launch-custom-jar-cli.html
+
+# Deploy Hadoop on Amazon EC2 using Whirr
+http://whirr.apache.org/docs/0.8.2/quick-start-guide.html
+
+# Jobtracker (view jobs)
+http://localhost:50030/jobtracker.jsp
+
+# Spider trap handling
+
+# Dangling nodes
+
+
+
+/*
+			try{
+                Path pt=new Path(reversed + "/part-r-00000");
+                FileSystem fs = FileSystem.get(new Configuration());
+                BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
+                String line;
+                line=br.readLine();
+                while (line != null){
+                        System.out.println(line);
+                        line=br.readLine();
+                }
+			}	catch(Exception e){
+        		e.printStackTrace();
+        	}
+			*/
+
+						/*
+			// Counter
+			for (CounterGroup group : job.getCounters()) {
+				for (Counter counter : group) {
+					System.out.println(group.getName() + " | " + counter.getName() + "|" + counter.getValue());
+				}
+			}
+			
+			long counter = job.getCounters().findCounter("org.apache.hadoop.mapreduce.TaskCounter", "REDUCE_OUTPUT_RECORDS").getValue();
+			System.out.println("XXX: " + counter);
+			*/
