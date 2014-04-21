@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT="/home/cloudera/MiniGoogle/pagerank"
+ROOT="/home/cloudera/MiniGoogle/PageRank"
 CLASS=$ROOT"/class"
 LOCALINPUT=$ROOT"/input"
 LOCALOUTPUT=$ROOT"/output"
