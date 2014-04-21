@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT="/home/cloudera/workspace/training"
+ROOT="/home/cloudera/MiniGoogle/pagerank"
 CLASS=$ROOT"/class"
 LOCALINPUT=$ROOT"/input"
 LOCALOUTPUT=$ROOT"/output"
