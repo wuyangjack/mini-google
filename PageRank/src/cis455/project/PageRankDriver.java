@@ -89,7 +89,8 @@ public class PageRankDriver extends Configured implements Tool {
 			// Read loss
 			try{
                 Path pt = new Path(output + "/part-r-00000");
-                FileSystem fs = FileSystem.get(new Configuration());
+                FileSystem fs = pt.getFileSystem(new Configuration());
+                //FileSystem fs = FileSystem.get(new Configuration());
                 if (fs.exists(pt) && fs.isFile(pt)) {
                 	// Read total loss from the first line
                 	BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));

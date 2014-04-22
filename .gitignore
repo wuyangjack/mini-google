@@ -10,7 +10,6 @@ credentials.json
 */hadoop.log.*
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
