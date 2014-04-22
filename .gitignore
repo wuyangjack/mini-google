@@ -7,6 +7,7 @@ credentials.json
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 */*.out
+*/hadoop.log.*
 
 # Package Files #
 *.war

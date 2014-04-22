@@ -67,12 +67,12 @@ public class IndexReducer extends Reducer<IndexKey, IndexValue, Text, IndexOutpu
 				// write the old to file
 				index_output = new IndexOutput(wordId, position, tf * idf);
 				context.write(key, index_output);
-				if(IndexDriver.db.addTFIDF(docId, wordId, tf * idf, position)){
-					System.out.println("Succedd storing: " + docId + ";" + wordId +";" + tf * idf);
-				}
-				else{
-					System.out.println("Fail to store: "+ wordId + ";" + docId);
-				}
+//				if(IndexDriver.db.addTFIDF(docId, wordId, tf * idf, position)){
+//					System.out.println("Succedd storing: " + docId + ";" + wordId +";" + tf * idf);
+//				}
+//				else{
+//					System.out.println("Fail to store: "+ wordId + ";" + docId);
+//				}
 				// save the old to map
 				wordMap.put(wordId, position);
 				wordId = value.getwordId();
@@ -84,12 +84,12 @@ public class IndexReducer extends Reducer<IndexKey, IndexValue, Text, IndexOutpu
 		if(! position.isEmpty()) {
 			index_output = new IndexOutput(wordId, position, tf * idf);
 			context.write(key, index_output);
-			if(IndexDriver.db.addTFIDF(docId, wordId, tf * idf, position)){
-				System.out.println("Succedd storing: " + docId + ";" + wordId +";" + tf * idf);
-			}
-			else{
-				System.out.println("Fail to store: "+ wordId + ";" + docId);
-			}
+//			if(IndexDriver.db.addTFIDF(docId, wordId, tf * idf, position)){
+//				System.out.println("Succedd storing: " + docId + ";" + wordId +";" + tf * idf);
+//			}
+//			else{
+//				System.out.println("Fail to store: "+ wordId + ";" + docId);
+//			}
 			wordMap.put(wordId, position);
 		}
 		System.out.println("end");

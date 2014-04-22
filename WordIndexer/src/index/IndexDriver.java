@@ -17,9 +17,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-import storage.BerkeleyDB;
-import storage.WordDocTFEntry;
-
 /**
  * The job driver to run a map reduce job
  *
@@ -33,7 +30,7 @@ public class IndexDriver extends Configured implements Tool {
 //	public static final ArrayList<String> workers = new ArrayList<String>();
 	public static final String[] workers = {""};
 //	public static StopWords stopWords = new StopWords();
-	public static BerkeleyDB db = null;
+//	public static BerkeleyDB db = null;
 	
 	@Override
 	public int run(String[] args) throws Exception {
@@ -61,7 +58,7 @@ public class IndexDriver extends Configured implements Tool {
 		// 2.3 set secondary comparator, grouping comparator, partitioner
 		job.setSortComparatorClass(IndexKeyComparator.class);
         job.setGroupingComparatorClass(IndexKeyGroupingComparator.class);
-        job.setPartitionerClass(IndexPartitioner.class);
+//        job.setPartitionerClass(IndexPartitioner.class);
         // 2.4 set job mapper
 //		job.setMapperClass(IndexMapper.class);
 		job.setMapperClass(ReverseIndexMapper.class);
@@ -82,21 +79,21 @@ public class IndexDriver extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		BerkeleyDB.setEnvPath("Database");
-		db = BerkeleyDB.getInstance();
-		db.openDB();
+//		BerkeleyDB.setEnvPath("Database");
+//		db = BerkeleyDB.getInstance();
+//		db.openDB();
 		
 		IndexDriver driver = new IndexDriver();
 		int exitCode = ToolRunner.run(driver, args);
 		
 		
 		
-		for(WordDocTFEntry entry: db.getTFIDF(WordPreprocessor.preprocess("History"))){
-			System.out.println("XXXXXXXXXXXXXXXxxxxx: " + entry);
-		}
+//		for(WordDocTFEntry entry: db.getTFIDF(WordPreprocessor.preprocess("History"))){
+//			System.out.println("XXXXXXXXXXXXXXXxxxxx: " + entry);
+//		}
 		
 		//close Databse
-		db.close();
+//		db.close();
 		System.exit(exitCode);
 	}
 }
