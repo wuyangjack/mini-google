@@ -1,0 +1,28 @@
+21 17:54:57 0    [main] INFO  general.LogClass  - Request Header: GET http://ar.wikipedia.org/wiki/%D8%A8%D9%88%D8%A7%D8%A8%D8%A9:%D9%85%D8%AD%D8%AA%D9%88%D9%8A%D8%A7%D8%AA HTTP/1.1
+Host: ar.wikipedia.org
+User-Agent: cis455crawler
+
+
+21 17:54:57 19   [main] INFO  general.LogClass  - Header Response(download): http/1.1 200 ok
+21 17:54:57 20   [main] INFO  general.LogClass  - Header Response(download): server: apache
+21 17:54:57 20   [main] INFO  general.LogClass  - Header Response(download): x-powered-by: php/5.3.10-1ubuntu3.10+wmf1
+21 17:54:57 20   [main] INFO  general.LogClass  - Header Response(download): x-content-type-options: nosniff
+21 17:54:57 21   [main] INFO  general.LogClass  - Header Response(download): content-language: ar
+21 17:54:57 21   [main] INFO  general.LogClass  - Header Response(download): vary: accept-encoding,cookie
+21 17:54:57 23   [main] INFO  general.LogClass  - Header Response(download): x-vary-options: accept-encoding;list-contains=gzip,cookie;string-contains=arwikitoken;string-contains=arwikiloggedout;string-contains=forcehttps;string-contains=arwikisession;string-contains=centralauth_token;string-contains=centralauth_session;string-contains=centralauth_loggedout;string-contains=mf_useformat;string-contains=stopmobileredirect
+21 17:54:57 24   [main] INFO  general.LogClass  - Header Response(download): last-modified: fri, 04 apr 2014 15:53:31 gmt
+21 17:54:57 24   [main] INFO  general.LogClass  - Header Response(download): content-type: text/html; charset=utf-8
+21 17:54:57 24   [main] INFO  general.LogClass  - Header Response(download): x-varnish: 889832459 866763885, 3741933808 3737023975
+21 17:54:57 25   [main] INFO  general.LogClass  - Header Response(download): via: 1.1 varnish, 1.1 varnish
+21 17:54:57 25   [main] INFO  general.LogClass  - Header Response(download): transfer-encoding: chunked
+21 17:54:57 25   [main] INFO  general.LogClass  - Header Response(download): date: tue, 22 apr 2014 02:51:59 gmt
+21 17:54:57 25   [main] INFO  general.LogClass  - Header Response(download): age: 25649
+21 17:54:57 26   [main] INFO  general.LogClass  - Header Response(download): connection: keep-alive
+21 17:54:57 26   [main] INFO  general.LogClass  - Header Response(download): x-cache: cp1052 hit (3), cp1053 frontend hit (1)
+21 17:54:57 27   [main] INFO  general.LogClass  - Header Response(download): cache-control: private, s-maxage=0, max-age=0, must-revalidate
+21 17:54:57 27   [main] INFO  general.LogClass  - Header Response(download): set-cookie: geoip=us:philadelphia:39.9597:-75.1968:v4; path=/
+21 17:54:57 27   [main] INFO  general.LogClass  - Header Response(download): 
+21 17:54:57 27   [main] INFO  general.LogClass  - Chunk Size: 008000
+21 17:54:57 204  [main] INFO  general.LogClass  - Chunk Size: 00769f
+21 17:54:57 331  [main] INFO  general.LogClass  - Chunk Size: 0
+21 17:54:57 331  [main] INFO  general.LogClass  - Message Return
