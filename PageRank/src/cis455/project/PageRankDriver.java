@@ -86,6 +86,26 @@ public class PageRankDriver extends Configured implements Tool {
 				System.exit(1);
 			}
 			
+			// Read loss
+			try{
+                Path pt = new Path(output + "/part-r-00000");
+                FileSystem fs = FileSystem.get(new Configuration());
+                if (fs.exists(pt) && fs.isFile(pt)) {
+                	// Read total loss from the first line
+                	BufferedReader br=new BufferedReader(new InputStreamReader(fs.open(pt)));
+	                String line = br.readLine();
+	                if (line != null){
+	                	System.out.println("###: " + line);
+	                }
+                } else {
+                	System.err.println("not a file!");
+                }
+			}	catch(Exception e){
+				System.err.println("Read test failure." );
+        		e.printStackTrace();
+				System.exit(1);
+        	}
+			
 			if (mode.equals(PageGlobal.modeEMR)) {
 				System.exit(0);
 			}
