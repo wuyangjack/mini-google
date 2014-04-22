@@ -19,7 +19,7 @@ case "$1" in
 	JobPageRank)
 		cd $CLI
 		JAR=project-pagerank.jar
-		CLASS="PageRankDriver"
+		CLASS="cis455.project.PageRankDriver"
 		INPUT=$BUCKET"/input"
 		OUTPUT=$BUCKET"/output"
 		ITERATION=3
@@ -31,6 +31,12 @@ case "$1" in
 		--arg $INPUT \
 		--arg $OUTPUT \
 		--arg $ITERATION
+		;;
+	DeleteFile)
+		aws s3 rm $BUCKET/$2
+		;;
+	DeleteFolder)
+		aws s3 rm $BUCKET/$2 --recursive
 		;;
 	ListBuckets)
 		aws s3 ls
