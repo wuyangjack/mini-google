@@ -32,6 +32,22 @@ case "$1" in
 		--arg $OUTPUT \
 		--arg $ITERATION
 		;;
+	JobCrawler)
+		cd $CLI
+		JAR=HadoopCrawler.jar
+		CLASS="hadoopcrawler.CrawlerDriver"
+		INPUT=$BUCKET"/data/level/urlfile"
+		OUTPUT=$BUCKET"/data/level"
+		DATABASE="berkeleydb"
+		SIZE=10
+		./elastic-mapreduce --create --name "Test Crawler JAR" \
+		--jar $BUCKET"/"$JAR \
+		--arg $CLASS \
+		--arg $INPUT \
+		--arg $OUTPUT \
+		--arg $DATABASE \
+		--arg $SIZE
+		;;
 	DeleteFile)
 		aws s3 rm $BUCKET/$2
 		;;
