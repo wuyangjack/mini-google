@@ -2,7 +2,7 @@
 
 # Secrets
 *.pem
-credential.json
+credentials.json
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
