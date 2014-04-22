@@ -546,7 +546,7 @@ public class BerkeleyDB {
 	
 	
 	/********************************************** TF-IDF DB Wrapper ************************/
-	public boolean addTFIDF(String word, String doc, double tf_idf, ArrayList<Byte> positions){
+	public boolean addTFIDF(String word, String doc, double tf_idf, ArrayList<Integer> positions){
 		try{
 //			JSONObject key = new JSONObject();
 //			key.put("word", word);
