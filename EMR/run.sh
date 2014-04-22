@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT="/home/cis455/MiniGoogle/EMR"
+ROOT="/home/cloudera/MiniGoogle/EMR"
 CLI=$ROOT"/bin"
 BUCKET="s3://cis555-project-test"
 USER="wuyangjack1991@gmail.com"

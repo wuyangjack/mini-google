@@ -9,7 +9,6 @@ credentials.json
 */*.out
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
