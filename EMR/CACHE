@@ -1,9 +1,12 @@
+# Install S3 CLI
+https://aws.amazon.com/cli/
+pip install awscli
+aws configure
 
 # Install EMR CLI
 http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-cli-install.html
-
-sudo apt-get install ruby1.8
-sudo apt-get install rubygems
+sudo apt-get/yum install ruby1.8
+sudo apt-get/yum install rubygems
 
 # Billing Link
 https://console.aws.amazon.com/billing/home?region=us-east-1

@@ -16,6 +16,7 @@ case "$1" in
 		INPUT=$DIR/input
 		OUTPUT=$DIR/output
 		ITERATION=3
+		MODE="emr"
 		echo "Prepare hadoop fs:"
 		hadoop fs -rm -r $DIR
 		hadoop fs -mkdir $DIR $INPUT
@@ -26,7 +27,7 @@ case "$1" in
 		hadoop fs -put $LOCALINPUT/$APP/* $INPUT
 		hadoop fs -ls $INPUT
 		echo "Run job:"
-		hadoop jar $JAR cis455.project.$APP"Driver" $INPUT $OUTPUT $ITERATION
+		hadoop jar $JAR cis455.project.$APP"Driver" $MODE $INPUT $OUTPUT $ITERATION
 		echo "Fetch output:"
 		hadoop fs -ls $OUTPUT
 		hadoop fs -cat $OUTPUT/part-r-00000 &> $LOCALOUTPUT/$APP.out

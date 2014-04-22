@@ -65,18 +65,20 @@ public class PageRankDriver extends Configured implements Tool {
 		public static void main(String[] args) throws Exception {
 			// Check arguments
 			int ret = 1;
-			if (args.length != 3) {
+			if (args.length != 4) {
 				System.err.println("Incorrect number of arguments.  Expected: input output iterations");
 				System.exit(1);
 			}
-			final String input = args[0];
-			final String output = args[1];
-			final int iterations = Integer.parseInt(args[2]);
+			final String mode = args[0];
+			final String input = args[1];
+			final String output = args[2];
+			final int iterations = Integer.parseInt(args[3]);
 			
 			/* Raw crawler output */
 			
 			// Parse
-			final String prepared = args[0] + "_parsed";
+			// final String prepared = input + "_parsed";
+			final String prepared = output;
 			PageParseDriver driverParse = new PageParseDriver();
 			ret = ToolRunner.run(driverParse, new String[]{input, prepared});
 			if (1 == ret) {
@@ -84,8 +86,12 @@ public class PageRankDriver extends Configured implements Tool {
 				System.exit(1);
 			}
 			
+			if (mode.equals(PageGlobal.modeEMR)) {
+				System.exit(0);
+			}
+			
 			// Reverse
-			final String reversed = args[0] + "_reversed";
+			final String reversed = input + "_reversed";
 			PageReverseDriver driverReverse = new PageReverseDriver();
 			ret = ToolRunner.run(driverReverse, new String[]{prepared, reversed});
 			if (1 == ret) {
@@ -100,7 +106,7 @@ public class PageRankDriver extends Configured implements Tool {
 			/* Dangling links removed & Initial page rank assigned */
 			
 			// Iterate
-			final String iterated = args[0] + "_iterated";
+			final String iterated = input + "_iterated";
 			String _input = null;
 			String _output = null;
 			String _sum = null;
@@ -124,14 +130,6 @@ public class PageRankDriver extends Configured implements Tool {
 					System.err.println("Job terminated at sum phase");
 					System.exit(1);
 				}
-				/*
-				PageLossDriver driverLoss = new PageLossDriver();
-				ret = ToolRunner.run(driverLoss, new String[]{_input, _loss});
-				if (1 == ret) {
-					System.err.println("Job terminated at loss iteration: " + i);
-					System.exit(1);
-				}
-				*/
 				
 				// Read loss
 				try{
@@ -167,7 +165,7 @@ public class PageRankDriver extends Configured implements Tool {
 			}
 			
 			/* Page rank converged */
-						
+					
 			// Postprocess
 			final String postprocessed = output;
 			PagePostprocessDriver driverPostprocess = new PagePostprocessDriver();
@@ -187,20 +185,9 @@ public class PageRankDriver extends Configured implements Tool {
 				System.err.println("Job terminated at sum phase");
 				System.exit(1);
 			}
-			// Should ignore final offset
 			
-			// Confirm
-			/*
-			final String sum = output + "_sum";
-			PageSumDriver driverSum = new PageSumDriver();
-			ret = ToolRunner.run(driverSum, new String[]{postprocessed, sum});
-			if (1 == ret) {
-				System.err.println("Job terminated at sum phase");
-				System.exit(1);
-			}
-			*/
 			
-			// Success
+			/* Success */
 			System.exit(0);
 		}
 		
