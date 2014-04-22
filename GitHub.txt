@@ -1,0 +1,13 @@
+1. Create public key (optional if already existed)
+ssh-keygen -t rsa -C "@seas.upenn.edu"
+
+2. Add public key to OpenSSH server
+sudo /etc/init.d/ssh restart
+eval $(ssh-agent)
+ssh-add
+ssh-add -l
+
+3. Add public key to GitHub
+
+4. Clone
+git clone git@github.com:wuyangjack/MiniGoogle.git
