@@ -1,6 +1,7 @@
 0. Setup git locally
 git config --global user.name "Your Name Here"
 git config --global user.email "your_email@example.com"
+git config --global core.editor "vim"
 
 1. Create public key (optional if already existed)
 ssh-keygen -t rsa -C "your_email@example.com"
