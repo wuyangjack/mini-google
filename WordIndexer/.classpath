@@ -124,7 +124,6 @@
 	<classpathentry kind="lib" path="/usr/lib/hadoop/client/xz-1.0.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/client/zookeeper.jar"/>
 	<classpathentry kind="lib" path="/usr/lib/hadoop/client/zookeeper-3.4.5-cdh4.4.0.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/DistributedStorage"/>
 	<classpathentry kind="lib" path="conf/je-5.0.34.jar"/>
 	<classpathentry kind="lib" path="conf/org.json.jar"/>
 	<classpathentry kind="output" path="bin"/>
