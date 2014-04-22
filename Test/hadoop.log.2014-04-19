@@ -1,0 +1,402 @@
+2014-04-19 12:10:20,115 WARN org.apache.hadoop.util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2014-04-19 12:10:20,765 WARN org.apache.hadoop.conf.Configuration: session.id is deprecated. Instead, use dfs.metrics.session-id
+2014-04-19 12:10:20,769 INFO org.apache.hadoop.metrics.jvm.JvmMetrics: Initializing JVM Metrics with processName=JobTracker, sessionId=
+2014-04-19 12:10:20,826 WARN org.apache.hadoop.mapreduce.JobSubmitter: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+2014-04-19 12:10:20,831 WARN org.apache.hadoop.mapreduce.JobSubmitter: No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2014-04-19 12:10:20,839 INFO org.apache.hadoop.mapreduce.lib.input.FileInputFormat: Total input paths to process : 1
+2014-04-19 12:10:20,936 INFO org.apache.hadoop.mapreduce.JobSubmitter: number of splits:1
+2014-04-19 12:10:20,964 WARN org.apache.hadoop.conf.Configuration: mapreduce.partitioner.class is deprecated. Instead, use mapreduce.job.partitioner.class
+2014-04-19 12:10:20,964 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+2014-04-19 12:10:20,966 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.comparator.class is deprecated. Instead, use mapreduce.job.output.key.comparator.class
+2014-04-19 12:10:20,966 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.value.class is deprecated. Instead, use mapreduce.map.output.value.class
+2014-04-19 12:10:20,966 WARN org.apache.hadoop.conf.Configuration: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+2014-04-19 12:10:20,967 WARN org.apache.hadoop.conf.Configuration: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+2014-04-19 12:10:20,967 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.groupfn.class is deprecated. Instead, use mapreduce.job.output.group.comparator.class
+2014-04-19 12:10:20,971 WARN org.apache.hadoop.conf.Configuration: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+2014-04-19 12:10:20,971 WARN org.apache.hadoop.conf.Configuration: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+2014-04-19 12:10:20,971 WARN org.apache.hadoop.conf.Configuration: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+2014-04-19 12:10:20,971 WARN org.apache.hadoop.conf.Configuration: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2014-04-19 12:10:20,972 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+2014-04-19 12:10:20,972 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.key.class is deprecated. Instead, use mapreduce.map.output.key.class
+2014-04-19 12:10:20,976 WARN org.apache.hadoop.conf.Configuration: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+2014-04-19 12:10:21,221 INFO org.apache.hadoop.mapreduce.JobSubmitter: Submitting tokens for job: job_local343390854_0001
+2014-04-19 12:10:21,877 INFO org.apache.hadoop.mapreduce.Job: The url to track the job: http://localhost:8080/
+2014-04-19 12:10:21,878 INFO org.apache.hadoop.mapreduce.Job: Running job: job_local343390854_0001
+2014-04-19 12:10:21,881 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter set in config null
+2014-04-19 12:10:21,894 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2014-04-19 12:10:21,924 INFO org.apache.hadoop.mapred.LocalJobRunner: Waiting for map tasks
+2014-04-19 12:10:21,924 INFO org.apache.hadoop.mapred.LocalJobRunner: Starting task: attempt_local343390854_0001_m_000000_0
+2014-04-19 12:10:22,014 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 12:10:22,017 INFO org.apache.hadoop.mapred.MapTask: Processing split: file:/home/cloudera/MiniGoogle/WordIndexer/title.txt:0+63141
+2014-04-19 12:10:22,039 INFO org.apache.hadoop.mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2014-04-19 12:10:22,881 INFO org.apache.hadoop.mapreduce.Job: Job job_local343390854_0001 running in uber mode : false
+2014-04-19 12:10:22,897 INFO org.apache.hadoop.mapreduce.Job:  map 0% reduce 0%
+2014-04-19 12:10:26,872 INFO org.apache.hadoop.mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2014-04-19 12:10:26,873 INFO org.apache.hadoop.mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2014-04-19 12:10:26,873 INFO org.apache.hadoop.mapred.MapTask: soft limit at 83886080
+2014-04-19 12:10:26,873 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2014-04-19 12:10:26,873 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396; length = 6553600
+2014-04-19 12:10:28,359 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 12:10:28,361 INFO org.apache.hadoop.mapred.MapTask: Starting flush of map output
+2014-04-19 12:10:28,361 INFO org.apache.hadoop.mapred.MapTask: Spilling map output
+2014-04-19 12:10:28,361 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufend = 576346; bufvoid = 104857600
+2014-04-19 12:10:28,361 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396(104857584); kvend = 26200232(104800928); length = 14165/6553600
+2014-04-19 12:10:28,596 INFO org.apache.hadoop.mapred.MapTask: Finished spill 0
+2014-04-19 12:10:28,599 INFO org.apache.hadoop.mapred.Task: Task:attempt_local343390854_0001_m_000000_0 is done. And is in the process of committing
+2014-04-19 12:10:28,607 INFO org.apache.hadoop.mapred.LocalJobRunner: map
+2014-04-19 12:10:28,610 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local343390854_0001_m_000000_0' done.
+2014-04-19 12:10:28,610 INFO org.apache.hadoop.mapred.LocalJobRunner: Finishing task: attempt_local343390854_0001_m_000000_0
+2014-04-19 12:10:28,611 INFO org.apache.hadoop.mapred.LocalJobRunner: Map task executor complete.
+2014-04-19 12:10:28,633 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 12:10:28,639 INFO org.apache.hadoop.mapred.Merger: Merging 1 sorted segments
+2014-04-19 12:10:28,659 INFO org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 584079 bytes
+2014-04-19 12:10:28,663 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 12:10:28,868 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 0%
+2014-04-19 12:10:28,882 WARN org.apache.hadoop.conf.Configuration: mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2014-04-19 12:10:34,642 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:10:34,909 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 77%
+2014-04-19 12:10:37,643 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:10:37,911 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 84%
+2014-04-19 12:10:40,519 INFO org.apache.hadoop.mapred.Task: Task:attempt_local343390854_0001_r_000000_0 is done. And is in the process of committing
+2014-04-19 12:10:40,522 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:10:40,522 INFO org.apache.hadoop.mapred.Task: Task attempt_local343390854_0001_r_000000_0 is allowed to commit now
+2014-04-19 12:10:40,523 INFO org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter: Saved output of task 'attempt_local343390854_0001_r_000000_0' to file:/home/cloudera/MiniGoogle/WordIndexer/tt_out_re/_temporary/0/task_local343390854_0001_r_000000
+2014-04-19 12:10:40,523 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:10:40,523 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local343390854_0001_r_000000_0' done.
+2014-04-19 12:10:40,913 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 100%
+2014-04-19 12:10:40,914 INFO org.apache.hadoop.mapreduce.Job: Job job_local343390854_0001 completed successfully
+2014-04-19 12:10:40,931 INFO org.apache.hadoop.mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=710765
+		FILE: Number of bytes written=1872716
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=600
+		Map output records=3542
+		Map output bytes=576346
+		Map output materialized bytes=584137
+		Input split bytes=117
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1275
+		Reduce shuffle bytes=0
+		Reduce input records=3542
+		Reduce output records=3473
+		Spilled Records=7084
+		Shuffled Maps =0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=152
+		CPU time spent (ms)=0
+		Physical memory (bytes) snapshot=0
+		Virtual memory (bytes) snapshot=0
+		Total committed heap usage (bytes)=331227136
+	File Input Format Counters 
+		Bytes Read=63141
+	File Output Format Counters 
+		Bytes Written=360964
+2014-04-19 12:18:03,872 WARN org.apache.hadoop.util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2014-04-19 12:18:04,343 WARN org.apache.hadoop.conf.Configuration: session.id is deprecated. Instead, use dfs.metrics.session-id
+2014-04-19 12:18:04,344 INFO org.apache.hadoop.metrics.jvm.JvmMetrics: Initializing JVM Metrics with processName=JobTracker, sessionId=
+2014-04-19 12:18:04,462 WARN org.apache.hadoop.mapreduce.JobSubmitter: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+2014-04-19 12:18:04,471 WARN org.apache.hadoop.mapreduce.JobSubmitter: No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2014-04-19 12:18:04,481 INFO org.apache.hadoop.mapreduce.lib.input.FileInputFormat: Total input paths to process : 1
+2014-04-19 12:18:04,564 INFO org.apache.hadoop.mapreduce.JobSubmitter: number of splits:1
+2014-04-19 12:18:04,593 WARN org.apache.hadoop.conf.Configuration: mapreduce.partitioner.class is deprecated. Instead, use mapreduce.job.partitioner.class
+2014-04-19 12:18:04,594 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+2014-04-19 12:18:04,594 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.comparator.class is deprecated. Instead, use mapreduce.job.output.key.comparator.class
+2014-04-19 12:18:04,594 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.value.class is deprecated. Instead, use mapreduce.map.output.value.class
+2014-04-19 12:18:04,596 WARN org.apache.hadoop.conf.Configuration: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+2014-04-19 12:18:04,596 WARN org.apache.hadoop.conf.Configuration: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+2014-04-19 12:18:04,597 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.groupfn.class is deprecated. Instead, use mapreduce.job.output.group.comparator.class
+2014-04-19 12:18:04,600 WARN org.apache.hadoop.conf.Configuration: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+2014-04-19 12:18:04,601 WARN org.apache.hadoop.conf.Configuration: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+2014-04-19 12:18:04,601 WARN org.apache.hadoop.conf.Configuration: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+2014-04-19 12:18:04,601 WARN org.apache.hadoop.conf.Configuration: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2014-04-19 12:18:04,601 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+2014-04-19 12:18:04,602 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.key.class is deprecated. Instead, use mapreduce.map.output.key.class
+2014-04-19 12:18:04,603 WARN org.apache.hadoop.conf.Configuration: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+2014-04-19 12:18:04,819 INFO org.apache.hadoop.mapreduce.JobSubmitter: Submitting tokens for job: job_local528872268_0001
+2014-04-19 12:18:05,565 INFO org.apache.hadoop.mapreduce.Job: The url to track the job: http://localhost:8080/
+2014-04-19 12:18:05,566 INFO org.apache.hadoop.mapreduce.Job: Running job: job_local528872268_0001
+2014-04-19 12:18:05,568 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter set in config null
+2014-04-19 12:18:05,577 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2014-04-19 12:18:05,609 INFO org.apache.hadoop.mapred.LocalJobRunner: Waiting for map tasks
+2014-04-19 12:18:05,609 INFO org.apache.hadoop.mapred.LocalJobRunner: Starting task: attempt_local528872268_0001_m_000000_0
+2014-04-19 12:18:05,682 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 12:18:05,685 INFO org.apache.hadoop.mapred.MapTask: Processing split: file:/home/cloudera/MiniGoogle/WordIndexer/title.txt:0+63141
+2014-04-19 12:18:05,697 INFO org.apache.hadoop.mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2014-04-19 12:18:05,848 INFO org.apache.hadoop.mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2014-04-19 12:18:05,848 INFO org.apache.hadoop.mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2014-04-19 12:18:05,848 INFO org.apache.hadoop.mapred.MapTask: soft limit at 83886080
+2014-04-19 12:18:05,848 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2014-04-19 12:18:05,849 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396; length = 6553600
+2014-04-19 12:18:06,574 INFO org.apache.hadoop.mapreduce.Job: Job job_local528872268_0001 running in uber mode : false
+2014-04-19 12:18:06,583 INFO org.apache.hadoop.mapreduce.Job:  map 0% reduce 0%
+2014-04-19 12:18:07,325 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 12:18:07,325 INFO org.apache.hadoop.mapred.MapTask: Starting flush of map output
+2014-04-19 12:18:07,325 INFO org.apache.hadoop.mapred.MapTask: Spilling map output
+2014-04-19 12:18:07,326 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufend = 576346; bufvoid = 104857600
+2014-04-19 12:18:07,326 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396(104857584); kvend = 26200232(104800928); length = 14165/6553600
+2014-04-19 12:18:07,691 INFO org.apache.hadoop.mapred.MapTask: Finished spill 0
+2014-04-19 12:18:07,695 INFO org.apache.hadoop.mapred.Task: Task:attempt_local528872268_0001_m_000000_0 is done. And is in the process of committing
+2014-04-19 12:18:07,711 INFO org.apache.hadoop.mapred.LocalJobRunner: map
+2014-04-19 12:18:07,714 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local528872268_0001_m_000000_0' done.
+2014-04-19 12:18:07,714 INFO org.apache.hadoop.mapred.LocalJobRunner: Finishing task: attempt_local528872268_0001_m_000000_0
+2014-04-19 12:18:07,714 INFO org.apache.hadoop.mapred.LocalJobRunner: Map task executor complete.
+2014-04-19 12:18:07,732 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 12:18:07,743 INFO org.apache.hadoop.mapred.Merger: Merging 1 sorted segments
+2014-04-19 12:18:07,760 INFO org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 584079 bytes
+2014-04-19 12:18:07,764 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 12:18:07,785 WARN org.apache.hadoop.conf.Configuration: mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2014-04-19 12:18:08,586 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 0%
+2014-04-19 12:18:13,737 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:18:14,591 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 78%
+2014-04-19 12:18:16,737 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:18:17,593 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 84%
+2014-04-19 12:18:19,738 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:18:20,629 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 96%
+2014-04-19 12:18:21,400 INFO org.apache.hadoop.mapred.Task: Task:attempt_local528872268_0001_r_000000_0 is done. And is in the process of committing
+2014-04-19 12:18:21,400 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:18:21,401 INFO org.apache.hadoop.mapred.Task: Task attempt_local528872268_0001_r_000000_0 is allowed to commit now
+2014-04-19 12:18:21,401 INFO org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter: Saved output of task 'attempt_local528872268_0001_r_000000_0' to file:/home/cloudera/MiniGoogle/WordIndexer/tt_out_re/_temporary/0/task_local528872268_0001_r_000000
+2014-04-19 12:18:21,401 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 12:18:21,402 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local528872268_0001_r_000000_0' done.
+2014-04-19 12:18:21,630 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 100%
+2014-04-19 12:18:21,630 INFO org.apache.hadoop.mapreduce.Job: Job job_local528872268_0001 completed successfully
+2014-04-19 12:18:21,640 INFO org.apache.hadoop.mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=710765
+		FILE: Number of bytes written=1872716
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=600
+		Map output records=3542
+		Map output bytes=576346
+		Map output materialized bytes=584137
+		Input split bytes=117
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1275
+		Reduce shuffle bytes=0
+		Reduce input records=3542
+		Reduce output records=3473
+		Spilled Records=7084
+		Shuffled Maps =0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=79
+		CPU time spent (ms)=0
+		Physical memory (bytes) snapshot=0
+		Virtual memory (bytes) snapshot=0
+		Total committed heap usage (bytes)=331227136
+	File Input Format Counters 
+		Bytes Read=63141
+	File Output Format Counters 
+		Bytes Written=360964
+2014-04-19 13:42:47,760 WARN org.apache.hadoop.util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2014-04-19 13:42:48,227 WARN org.apache.hadoop.conf.Configuration: session.id is deprecated. Instead, use dfs.metrics.session-id
+2014-04-19 13:42:48,231 INFO org.apache.hadoop.metrics.jvm.JvmMetrics: Initializing JVM Metrics with processName=JobTracker, sessionId=
+2014-04-19 13:42:48,284 WARN org.apache.hadoop.mapreduce.JobSubmitter: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+2014-04-19 13:42:48,291 WARN org.apache.hadoop.mapreduce.JobSubmitter: No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2014-04-19 13:42:48,301 INFO org.apache.hadoop.mapreduce.lib.input.FileInputFormat: Total input paths to process : 1
+2014-04-19 13:42:48,376 INFO org.apache.hadoop.mapreduce.JobSubmitter: number of splits:1
+2014-04-19 13:42:48,406 WARN org.apache.hadoop.conf.Configuration: mapreduce.partitioner.class is deprecated. Instead, use mapreduce.job.partitioner.class
+2014-04-19 13:42:48,407 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+2014-04-19 13:42:48,407 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.comparator.class is deprecated. Instead, use mapreduce.job.output.key.comparator.class
+2014-04-19 13:42:48,407 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.value.class is deprecated. Instead, use mapreduce.map.output.value.class
+2014-04-19 13:42:48,410 WARN org.apache.hadoop.conf.Configuration: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+2014-04-19 13:42:48,410 WARN org.apache.hadoop.conf.Configuration: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+2014-04-19 13:42:48,411 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.groupfn.class is deprecated. Instead, use mapreduce.job.output.group.comparator.class
+2014-04-19 13:42:48,411 WARN org.apache.hadoop.conf.Configuration: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+2014-04-19 13:42:48,411 WARN org.apache.hadoop.conf.Configuration: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+2014-04-19 13:42:48,411 WARN org.apache.hadoop.conf.Configuration: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+2014-04-19 13:42:48,413 WARN org.apache.hadoop.conf.Configuration: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2014-04-19 13:42:48,413 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+2014-04-19 13:42:48,416 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.key.class is deprecated. Instead, use mapreduce.map.output.key.class
+2014-04-19 13:42:48,416 WARN org.apache.hadoop.conf.Configuration: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+2014-04-19 13:42:48,719 INFO org.apache.hadoop.mapreduce.JobSubmitter: Submitting tokens for job: job_local1116857789_0001
+2014-04-19 13:42:50,106 INFO org.apache.hadoop.mapreduce.Job: The url to track the job: http://localhost:8080/
+2014-04-19 13:42:50,106 INFO org.apache.hadoop.mapreduce.Job: Running job: job_local1116857789_0001
+2014-04-19 13:42:50,109 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter set in config null
+2014-04-19 13:42:50,123 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2014-04-19 13:42:50,151 INFO org.apache.hadoop.mapred.LocalJobRunner: Waiting for map tasks
+2014-04-19 13:42:50,152 INFO org.apache.hadoop.mapred.LocalJobRunner: Starting task: attempt_local1116857789_0001_m_000000_0
+2014-04-19 13:42:50,271 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 13:42:50,275 INFO org.apache.hadoop.mapred.MapTask: Processing split: file:/home/cloudera/MiniGoogle/WordIndexer/title.txt:0+63141
+2014-04-19 13:42:50,303 INFO org.apache.hadoop.mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2014-04-19 13:42:50,804 INFO org.apache.hadoop.mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2014-04-19 13:42:50,805 INFO org.apache.hadoop.mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2014-04-19 13:42:50,805 INFO org.apache.hadoop.mapred.MapTask: soft limit at 83886080
+2014-04-19 13:42:50,805 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2014-04-19 13:42:50,805 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396; length = 6553600
+2014-04-19 13:42:51,115 INFO org.apache.hadoop.mapreduce.Job: Job job_local1116857789_0001 running in uber mode : false
+2014-04-19 13:42:51,121 INFO org.apache.hadoop.mapreduce.Job:  map 0% reduce 0%
+2014-04-19 13:42:51,967 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 13:42:51,968 INFO org.apache.hadoop.mapred.MapTask: Starting flush of map output
+2014-04-19 13:42:51,968 INFO org.apache.hadoop.mapred.MapTask: Spilling map output
+2014-04-19 13:42:51,968 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufend = 576346; bufvoid = 104857600
+2014-04-19 13:42:51,968 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396(104857584); kvend = 26200232(104800928); length = 14165/6553600
+2014-04-19 13:42:52,192 INFO org.apache.hadoop.mapred.MapTask: Finished spill 0
+2014-04-19 13:42:52,198 INFO org.apache.hadoop.mapred.Task: Task:attempt_local1116857789_0001_m_000000_0 is done. And is in the process of committing
+2014-04-19 13:42:52,205 INFO org.apache.hadoop.mapred.LocalJobRunner: map
+2014-04-19 13:42:52,205 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local1116857789_0001_m_000000_0' done.
+2014-04-19 13:42:52,205 INFO org.apache.hadoop.mapred.LocalJobRunner: Finishing task: attempt_local1116857789_0001_m_000000_0
+2014-04-19 13:42:52,205 INFO org.apache.hadoop.mapred.LocalJobRunner: Map task executor complete.
+2014-04-19 13:42:52,227 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 13:42:52,235 INFO org.apache.hadoop.mapred.Merger: Merging 1 sorted segments
+2014-04-19 13:42:52,240 INFO org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 584079 bytes
+2014-04-19 13:42:52,240 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 13:42:52,247 WARN org.apache.hadoop.conf.Configuration: mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2014-04-19 13:42:53,135 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 0%
+2014-04-19 13:42:58,232 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 13:42:59,138 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 80%
+2014-04-19 13:43:01,233 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 13:43:02,139 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 87%
+2014-04-19 13:43:04,234 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 13:43:05,141 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 95%
+2014-04-19 13:43:05,249 INFO org.apache.hadoop.mapred.Task: Task:attempt_local1116857789_0001_r_000000_0 is done. And is in the process of committing
+2014-04-19 13:43:05,250 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 13:43:05,250 INFO org.apache.hadoop.mapred.Task: Task attempt_local1116857789_0001_r_000000_0 is allowed to commit now
+2014-04-19 13:43:05,251 INFO org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter: Saved output of task 'attempt_local1116857789_0001_r_000000_0' to file:/home/cloudera/MiniGoogle/WordIndexer/tt_out_re/_temporary/0/task_local1116857789_0001_r_000000
+2014-04-19 13:43:05,251 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 13:43:05,251 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local1116857789_0001_r_000000_0' done.
+2014-04-19 13:43:06,142 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 100%
+2014-04-19 13:43:06,144 INFO org.apache.hadoop.mapreduce.Job: Job job_local1116857789_0001 completed successfully
+2014-04-19 13:43:06,170 INFO org.apache.hadoop.mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=710765
+		FILE: Number of bytes written=1874528
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=600
+		Map output records=3542
+		Map output bytes=576346
+		Map output materialized bytes=584137
+		Input split bytes=117
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1275
+		Reduce shuffle bytes=0
+		Reduce input records=3542
+		Reduce output records=3473
+		Spilled Records=7084
+		Shuffled Maps =0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=87
+		CPU time spent (ms)=0
+		Physical memory (bytes) snapshot=0
+		Virtual memory (bytes) snapshot=0
+		Total committed heap usage (bytes)=331227136
+	File Input Format Counters 
+		Bytes Read=63141
+	File Output Format Counters 
+		Bytes Written=360964
+2014-04-19 21:18:20,841 WARN org.apache.hadoop.util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2014-04-19 21:18:21,368 WARN org.apache.hadoop.conf.Configuration: session.id is deprecated. Instead, use dfs.metrics.session-id
+2014-04-19 21:18:21,369 INFO org.apache.hadoop.metrics.jvm.JvmMetrics: Initializing JVM Metrics with processName=JobTracker, sessionId=
+2014-04-19 21:18:21,422 WARN org.apache.hadoop.mapreduce.JobSubmitter: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+2014-04-19 21:18:21,429 WARN org.apache.hadoop.mapreduce.JobSubmitter: No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2014-04-19 21:18:21,439 INFO org.apache.hadoop.mapreduce.lib.input.FileInputFormat: Total input paths to process : 1
+2014-04-19 21:18:21,566 INFO org.apache.hadoop.mapreduce.JobSubmitter: number of splits:1
+2014-04-19 21:18:21,598 WARN org.apache.hadoop.conf.Configuration: mapreduce.partitioner.class is deprecated. Instead, use mapreduce.job.partitioner.class
+2014-04-19 21:18:21,598 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.class is deprecated. Instead, use mapreduce.job.output.value.class
+2014-04-19 21:18:21,598 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.comparator.class is deprecated. Instead, use mapreduce.job.output.key.comparator.class
+2014-04-19 21:18:21,598 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.value.class is deprecated. Instead, use mapreduce.map.output.value.class
+2014-04-19 21:18:21,601 WARN org.apache.hadoop.conf.Configuration: mapreduce.map.class is deprecated. Instead, use mapreduce.job.map.class
+2014-04-19 21:18:21,601 WARN org.apache.hadoop.conf.Configuration: mapred.job.name is deprecated. Instead, use mapreduce.job.name
+2014-04-19 21:18:21,601 WARN org.apache.hadoop.conf.Configuration: mapred.output.value.groupfn.class is deprecated. Instead, use mapreduce.job.output.group.comparator.class
+2014-04-19 21:18:21,604 WARN org.apache.hadoop.conf.Configuration: mapreduce.reduce.class is deprecated. Instead, use mapreduce.job.reduce.class
+2014-04-19 21:18:21,604 WARN org.apache.hadoop.conf.Configuration: mapred.input.dir is deprecated. Instead, use mapreduce.input.fileinputformat.inputdir
+2014-04-19 21:18:21,604 WARN org.apache.hadoop.conf.Configuration: mapred.output.dir is deprecated. Instead, use mapreduce.output.fileoutputformat.outputdir
+2014-04-19 21:18:21,604 WARN org.apache.hadoop.conf.Configuration: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+2014-04-19 21:18:21,605 WARN org.apache.hadoop.conf.Configuration: mapred.output.key.class is deprecated. Instead, use mapreduce.job.output.key.class
+2014-04-19 21:18:21,605 WARN org.apache.hadoop.conf.Configuration: mapred.mapoutput.key.class is deprecated. Instead, use mapreduce.map.output.key.class
+2014-04-19 21:18:21,605 WARN org.apache.hadoop.conf.Configuration: mapred.working.dir is deprecated. Instead, use mapreduce.job.working.dir
+2014-04-19 21:18:21,920 INFO org.apache.hadoop.mapreduce.JobSubmitter: Submitting tokens for job: job_local1010682026_0001
+2014-04-19 21:18:22,981 INFO org.apache.hadoop.mapreduce.Job: The url to track the job: http://localhost:8080/
+2014-04-19 21:18:22,981 INFO org.apache.hadoop.mapreduce.Job: Running job: job_local1010682026_0001
+2014-04-19 21:18:22,987 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter set in config null
+2014-04-19 21:18:22,995 INFO org.apache.hadoop.mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2014-04-19 21:18:23,025 INFO org.apache.hadoop.mapred.LocalJobRunner: Waiting for map tasks
+2014-04-19 21:18:23,028 INFO org.apache.hadoop.mapred.LocalJobRunner: Starting task: attempt_local1010682026_0001_m_000000_0
+2014-04-19 21:18:23,126 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 21:18:23,131 INFO org.apache.hadoop.mapred.MapTask: Processing split: file:/home/cloudera/MiniGoogle/WordIndexer/title.txt:0+63141
+2014-04-19 21:18:23,151 INFO org.apache.hadoop.mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2014-04-19 21:18:23,908 INFO org.apache.hadoop.mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2014-04-19 21:18:23,909 INFO org.apache.hadoop.mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2014-04-19 21:18:23,909 INFO org.apache.hadoop.mapred.MapTask: soft limit at 83886080
+2014-04-19 21:18:23,909 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2014-04-19 21:18:23,909 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396; length = 6553600
+2014-04-19 21:18:24,007 INFO org.apache.hadoop.mapreduce.Job: Job job_local1010682026_0001 running in uber mode : false
+2014-04-19 21:18:24,064 INFO org.apache.hadoop.mapreduce.Job:  map 0% reduce 0%
+2014-04-19 21:18:25,654 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 21:18:25,654 INFO org.apache.hadoop.mapred.MapTask: Starting flush of map output
+2014-04-19 21:18:25,654 INFO org.apache.hadoop.mapred.MapTask: Spilling map output
+2014-04-19 21:18:25,654 INFO org.apache.hadoop.mapred.MapTask: bufstart = 0; bufend = 574752; bufvoid = 104857600
+2014-04-19 21:18:25,654 INFO org.apache.hadoop.mapred.MapTask: kvstart = 26214396(104857584); kvend = 26200232(104800928); length = 14165/6553600
+2014-04-19 21:18:26,158 INFO org.apache.hadoop.mapred.MapTask: Finished spill 0
+2014-04-19 21:18:26,180 INFO org.apache.hadoop.mapred.Task: Task:attempt_local1010682026_0001_m_000000_0 is done. And is in the process of committing
+2014-04-19 21:18:26,190 INFO org.apache.hadoop.mapred.LocalJobRunner: map
+2014-04-19 21:18:26,190 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local1010682026_0001_m_000000_0' done.
+2014-04-19 21:18:26,191 INFO org.apache.hadoop.mapred.LocalJobRunner: Finishing task: attempt_local1010682026_0001_m_000000_0
+2014-04-19 21:18:26,191 INFO org.apache.hadoop.mapred.LocalJobRunner: Map task executor complete.
+2014-04-19 21:18:26,198 INFO org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2014-04-19 21:18:26,207 INFO org.apache.hadoop.mapred.Merger: Merging 1 sorted segments
+2014-04-19 21:18:26,222 INFO org.apache.hadoop.mapred.Merger: Down to the last merge-pass, with 1 segments left of total size: 582477 bytes
+2014-04-19 21:18:26,222 INFO org.apache.hadoop.mapred.LocalJobRunner: 
+2014-04-19 21:18:26,313 WARN org.apache.hadoop.conf.Configuration: mapred.skip.on is deprecated. Instead, use mapreduce.job.skiprecords
+2014-04-19 21:18:27,172 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 0%
+2014-04-19 21:18:32,202 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 21:18:33,188 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 77%
+2014-04-19 21:18:35,204 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 21:18:36,190 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 84%
+2014-04-19 21:18:38,207 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 21:18:39,193 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 91%
+2014-04-19 21:18:40,939 INFO org.apache.hadoop.mapred.Task: Task:attempt_local1010682026_0001_r_000000_0 is done. And is in the process of committing
+2014-04-19 21:18:40,940 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 21:18:40,940 INFO org.apache.hadoop.mapred.Task: Task attempt_local1010682026_0001_r_000000_0 is allowed to commit now
+2014-04-19 21:18:40,941 INFO org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter: Saved output of task 'attempt_local1010682026_0001_r_000000_0' to file:/home/cloudera/MiniGoogle/WordIndexer/tt_out_re/_temporary/0/task_local1010682026_0001_r_000000
+2014-04-19 21:18:40,941 INFO org.apache.hadoop.mapred.LocalJobRunner: reduce > reduce
+2014-04-19 21:18:40,941 INFO org.apache.hadoop.mapred.Task: Task 'attempt_local1010682026_0001_r_000000_0' done.
+2014-04-19 21:18:41,212 INFO org.apache.hadoop.mapreduce.Job:  map 100% reduce 100%
+2014-04-19 21:18:41,212 INFO org.apache.hadoop.mapreduce.Job: Job job_local1010682026_0001 completed successfully
+2014-04-19 21:18:41,235 INFO org.apache.hadoop.mapreduce.Job: Counters: 27
+	File System Counters
+		FILE: Number of bytes read=709163
+		FILE: Number of bytes written=1868747
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+	Map-Reduce Framework
+		Map input records=600
+		Map output records=3542
+		Map output bytes=574752
+		Map output materialized bytes=582535
+		Input split bytes=117
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1198
+		Reduce shuffle bytes=0
+		Reduce input records=3542
+		Reduce output records=3465
+		Spilled Records=7084
+		Shuffled Maps =0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=681
+		CPU time spent (ms)=0
+		Physical memory (bytes) snapshot=0
+		Virtual memory (bytes) snapshot=0
+		Total committed heap usage (bytes)=331227136
+	File Input Format Counters 
+		Bytes Read=63141
+	File Output Format Counters 
+		Bytes Written=358387
