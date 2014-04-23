@@ -6,9 +6,9 @@ import general.IndexValue;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +47,11 @@ public class IndexReducer extends Reducer<IndexKey, IndexValue, Text, IndexOutpu
 		double idf = Math.log(((double)IndexDriver.total_doc_num / count)); 
 		
 		
-		System.out.println("begin");
+//		System.out.println("begin");
 		
 		// Go through all values to get the docId and it corresponding word
 		for (IndexValue value : copy) {
-			System.out.println(index_key.getDocId() + "; " + value.toString());
+//			System.out.println(index_key.getDocId() + "; " + value.toString());
 			// the first time get wordId
 			if(wordId == null) {
 				wordId = value.getwordId();
@@ -92,7 +92,7 @@ public class IndexReducer extends Reducer<IndexKey, IndexValue, Text, IndexOutpu
 //			}
 			wordMap.put(wordId, position);
 		}
-		System.out.println("end");
+//		System.out.println("end");
 
 	}
 }

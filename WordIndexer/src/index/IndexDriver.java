@@ -1,12 +1,12 @@
 package index;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import general.IndexKey;
 import general.IndexOutput;
 import general.IndexValue;
-import general.StopWords;
-import general.WordPreprocessor;
+//import general.StopWords;
+//import general.WordPreprocessor;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -29,17 +29,21 @@ public class IndexDriver extends Configured implements Tool {
 	public static final long total_doc_num = 10000;
 //	public static final ArrayList<String> workers = new ArrayList<String>();
 	public static final String[] workers = {""};
+	
+	public static String input = null;
+	public static String output = null;
+	public static String stopWords = null;
 //	public static StopWords stopWords = new StopWords();
 //	public static BerkeleyDB db = null;
 	
 	@Override
 	public int run(String[] args) throws Exception {
 		// 1. get the input file and output folder
-		String input, output;
-		if (args.length == 2) {
+//		String input, output;
+		if (args.length == 3) {
 			input = args[0];
 			output = args[1];
-			
+			stopWords = args[2];
 		} else {
 			System.err.println("Incorrect number of arguments.  Expected: input output");
 			return -1;
@@ -61,7 +65,7 @@ public class IndexDriver extends Configured implements Tool {
 //        job.setPartitionerClass(IndexPartitioner.class);
         // 2.4 set job mapper
 //		job.setMapperClass(IndexMapper.class);
-		job.setMapperClass(ReverseIndexMapper.class);
+		job.setMapperClass(IndexMapper.class);
         //job.setMapperClass(ReverseIndexMapper.class);
 		job.setReducerClass(IndexReducer.class);
 		// 2.5 set the map output and reduce output key and value class

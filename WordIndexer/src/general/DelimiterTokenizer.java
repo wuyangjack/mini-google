@@ -52,16 +52,4 @@ public class DelimiterTokenizer {
     	return (st.ttype != StreamTokenizer.TT_EOF && st.ttype != StreamTokenizer.TT_EOL);
     }	
 	
-	public static void main(String[] args) throws IOException {
-		String[] test = new String[] { "What are ascii characters?", "Hadoop: RecordReader and FileInputFormat | Hadoopi",
-				"Hadoop Tutorial - YDN", "FileInputFormat (Apache Hadoop Main 2.3.0 API)" , "Blog – Stack Exchange"};
-		DelimiterTokenizer dt = new DelimiterTokenizer();
-		for(String s : test) {
-			dt.setTokenizer(s);
-			while(dt.hasNext()) {
-				System.out.print(dt.nextToken() + "; ");
-			}
-			System.out.println();
-		}
-	}
 }
