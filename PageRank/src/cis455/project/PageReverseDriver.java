@@ -2,6 +2,7 @@ package cis455.project;
 
 import java.io.IOException;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
@@ -33,7 +34,9 @@ public class PageReverseDriver extends Configured implements Tool {
 			}
 			
 			// Job
-			job = new Job();
+			Configuration conf = new Configuration();
+			job = new Job(conf);
+			//job = new Job();
 			job.setJarByClass(PageReverseDriver.class);
 			job.setJobName(this.getClass().getName());
 			
@@ -52,6 +55,10 @@ public class PageReverseDriver extends Configured implements Tool {
 			job.setOutputValueClass(Text.class);
 			
 			boolean success = job.waitForCompletion(true);
+			
+			long pageCount = this.counterReduceOutput();
+			System.out.println("Webpage count: " + String.valueOf(pageCount));
+			
 			return success ? 0 : 1;
 		}
 		

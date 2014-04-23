@@ -124,11 +124,11 @@ public class PageRankDriver extends Configured implements Tool {
 			}
 			
 			// Count
-			long pageCount = driverReverse.counterReduceOutput();
-			System.out.println("Webpage count: " + String.valueOf(pageCount));
+			// long pageCount = driverReverse.counterReduceOutput();
+			// System.out.println("Webpage count: " + String.valueOf(pageCount));
 			
 			/* Dangling links removed & Initial page rank assigned */
-			
+			/*
 			// Iterate
 			final String iterated = input + "_iterated";
 			String _input = null;
@@ -189,7 +189,7 @@ public class PageRankDriver extends Configured implements Tool {
 			}
 			
 			/* Page rank converged */
-					
+			/*
 			// Postprocess
 			final String postprocessed = output;
 			PagePostprocessDriver driverPostprocess = new PagePostprocessDriver();
@@ -200,7 +200,7 @@ public class PageRankDriver extends Configured implements Tool {
 			}
 			
 			/* Index from url to page rank */
-			
+			/*
 			// Confirm
 			String sum = output + "_sum";
 			PageSumDriver driverSum = new PageSumDriver();
