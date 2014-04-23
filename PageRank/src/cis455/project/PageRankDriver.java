@@ -73,12 +73,13 @@ public class PageRankDriver extends Configured implements Tool {
 			final String input = args[1];
 			final String output = args[2];
 			final int iterations = Integer.parseInt(args[3]);
+			System.out.println("Mode: " + mode);
 			
 			/* Raw crawler output */
 			
 			// Parse
-			// final String prepared = input + "_parsed";
-			final String prepared = output;
+			final String prepared = input + "_parsed";
+			//final String prepared = output;
 			PageParseDriver driverParse = new PageParseDriver();
 			ret = ToolRunner.run(driverParse, new String[]{input, prepared});
 			if (1 == ret) {
@@ -86,6 +87,7 @@ public class PageRankDriver extends Configured implements Tool {
 				System.exit(1);
 			}
 			
+			/*
 			// Read loss
 			try{
                 Path pt = new Path(output + "/part-r-00000");
@@ -110,6 +112,7 @@ public class PageRankDriver extends Configured implements Tool {
 			if (mode.equals(PageGlobal.modeEMR)) {
 				System.exit(0);
 			}
+			*/
 			
 			// Reverse
 			final String reversed = input + "_reversed";
@@ -206,7 +209,6 @@ public class PageRankDriver extends Configured implements Tool {
 				System.err.println("Job terminated at sum phase");
 				System.exit(1);
 			}
-			
 			
 			/* Success */
 			System.exit(0);
