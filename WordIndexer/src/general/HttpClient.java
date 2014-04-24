@@ -1,22 +1,11 @@
 package general;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+
 import java.io.PrintStream;
-import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.util.Hashtable;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * A client used to connect to the url and get the document
