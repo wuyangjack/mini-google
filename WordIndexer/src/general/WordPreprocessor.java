@@ -1,7 +1,5 @@
 package general;
 
-import index.IndexDriver;
-
 public class WordPreprocessor {
 	
 	private static StopWords stopWords = new StopWords();

@@ -32,7 +32,6 @@ public class IndexDriver extends Configured implements Tool {
 	
 	public static String input = null;
 	public static String output = null;
-	public static String stopWords = null;
 //	public static StopWords stopWords = new StopWords();
 //	public static BerkeleyDB db = null;
 	
@@ -40,10 +39,9 @@ public class IndexDriver extends Configured implements Tool {
 	public int run(String[] args) throws Exception {
 		// 1. get the input file and output folder
 //		String input, output;
-		if (args.length == 3) {
+		if (args.length == 2) {
 			input = args[0];
 			output = args[1];
-			stopWords = args[2];
 		} else {
 			System.err.println("Incorrect number of arguments.  Expected: input output");
 			return -1;
