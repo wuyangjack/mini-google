@@ -6,6 +6,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counter;
+import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -54,16 +56,14 @@ public class PageReverseDriver extends Configured implements Tool {
 			job.setOutputKeyClass(Text.class);
 			job.setOutputValueClass(Text.class);
 			
-			boolean success = job.waitForCompletion(true);
-			
-			long pageCount = this.counterReduceOutput();
-			System.out.println("Webpage count: " + String.valueOf(pageCount));
-			
+			boolean success = job.waitForCompletion(true);			
 			return success ? 0 : 1;
 		}
 		
 		public long counterReduceOutput() throws IOException {
-			return job.getCounters().findCounter("org.apache.hadoop.mapreduce.TaskCounter", "REDUCE_OUTPUT_RECORDS").getValue();
+			Counters counters = job.getCounters();
+			Counter counter = counters.findCounter(PageGlobal.Counters.PAGECOUNT);
+			return counter.getValue();
 		}
 		
 		public static void main(String[] args) throws Exception {

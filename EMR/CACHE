@@ -19,3 +19,18 @@ https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:
 
 # EMR Link
 https://console.aws.amazon.com/elasticmapreduce/vnext/home?region=us-east-1
+
+# Use Amazon 2.2.0 for Hadoop version
+Cloudera VM uses Hadoop 2.0.0
+https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
+
+# PageRank Step Configuration
+JAR:
+s3://cis555-project-test/pagerank/project-pagerank.jar
+ARG:
+cis455.project.PageRankDriver
+emr
+s3://cis555-project-test/pagerank/input
+s3://cis555-project-test/pagerank/middle
+s3://cis555-project-test/pagerank/output
+3

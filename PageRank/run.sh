@@ -14,12 +14,13 @@ case "$1" in
 		APP="PageRank"
 		DIR=$BASEDIR/$APP
 		INPUT=$DIR/input
+		MIDDLE=$DIR/middle
 		OUTPUT=$DIR/output
 		ITERATION=3
 		MODE="emr"
 		echo "Prepare hadoop fs:"
 		hadoop fs -rm -r $DIR
-		hadoop fs -mkdir $DIR $INPUT
+		hadoop fs -mkdir $DIR $INPUT $MIDDLE
 		echo "Compile classes:"
 		ant clean
 		ant
@@ -27,7 +28,7 @@ case "$1" in
 		hadoop fs -put $LOCALINPUT/$APP/* $INPUT
 		hadoop fs -ls $INPUT
 		echo "Run job:"
-		hadoop jar $JAR cis455.project.$APP"Driver" $MODE $INPUT $OUTPUT $ITERATION
+		hadoop jar $JAR cis455.project.$APP"Driver" $MODE $INPUT $MIDDLE $OUTPUT $ITERATION
 		echo "Fetch output:"
 		hadoop fs -ls $OUTPUT
 		hadoop fs -cat $OUTPUT/part-r-00000 &> $LOCALOUTPUT/$APP.out

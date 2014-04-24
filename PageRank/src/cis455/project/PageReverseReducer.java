@@ -22,6 +22,7 @@ public class PageReverseReducer extends Reducer<Text, Text, Text, Text> {
     	    	// Emit empty page
     			ValuePage page = new ValuePage(1, new String[0]);
     	    	context.write(key, new Text(page.serialize()));
+    	    	context.getCounter(PageGlobal.Counters.PAGECOUNT).increment(1);
     			return;
     		} else {
     	    	// Collect outlinks for non-empty page
@@ -35,5 +36,6 @@ public class PageReverseReducer extends Reducer<Text, Text, Text, Text> {
     	// All outlinks start in downloaded page and end in downloaded page
     	ValuePage page = new ValuePage(1, outlinks);
     	context.write(key, new Text(page.serialize()));
+    	context.getCounter(PageGlobal.Counters.PAGECOUNT).increment(1);
 	}
 }

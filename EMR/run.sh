@@ -60,6 +60,9 @@ case "$1" in
 	ListBucket)
 		aws s3 ls $BUCKET
 		;;
+	SyncTime)
+		sudo /usr/sbin/ntpdate pool.ntp.org
+		;;
 	Upload)
 		aws s3 cp $2 $BUCKET"/"$3"/" --grants full=emailaddress=$USER
 		;;
