@@ -24,7 +24,7 @@ public class IndexMapper extends Mapper<LongWritable, Text, IndexKey, IndexValue
 	
 	@Override
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-		byte position = 0;
+		int position = 0;
 		String[] pair = value.toString().split("\t", 2);
 		// if there is information
 		if(pair.length == 2) {

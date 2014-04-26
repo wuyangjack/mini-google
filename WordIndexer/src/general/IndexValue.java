@@ -32,14 +32,14 @@ public class IndexValue implements WritableComparable<IndexValue>{
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		wordId = in.readUTF();
-		position = in.readByte();
+		position = in.readInt();
 		tf = in.readDouble();
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeUTF(wordId);
-		out.writeByte(position);
+		out.writeInt(position);
 		out.writeDouble(tf);
 	}
 	
@@ -65,7 +65,7 @@ public class IndexValue implements WritableComparable<IndexValue>{
 	
 	public String getwordId() { return wordId; }
 	
-	public void setposition(byte position) { this.position = position; }
+	public void setposition(int position) { this.position = position; }
 	
 	public int getposition() { return position; }
 	

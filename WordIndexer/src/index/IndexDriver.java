@@ -26,7 +26,7 @@ public class IndexDriver extends Configured implements Tool {
 	//for later tuning use
 	public static final double tf_factor = 0.5;
 	//directly get from the crawler later
-	public static final long total_doc_num = 10000;
+	public static final long total_doc_num = 574;
 //	public static final ArrayList<String> workers = new ArrayList<String>();
 	public static final String[] workers = {""};
 	

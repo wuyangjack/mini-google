@@ -10,19 +10,19 @@ public class IndexKey implements WritableComparable<IndexKey>{
 
 	private String docId;
 	private String wordId;
-	private byte position;
+	private int position;
 	
 	public IndexKey() {
 		
 	}
 	
-	public IndexKey(String docId, String wordId, byte position) {
+	public IndexKey(String docId, String wordId, int position) {
 		this.docId = docId;
 		this.wordId = wordId;
 		this.position = position;
 	}
 	
-	public void set(String docId, String wordId, byte position) {
+	public void set(String docId, String wordId, int position) {
 		this.docId = docId;
 		this.wordId = wordId;
 		this.position = position;
@@ -32,14 +32,14 @@ public class IndexKey implements WritableComparable<IndexKey>{
 	public void readFields(DataInput in) throws IOException {
 		docId = in.readUTF();
 		wordId = in.readUTF();
-		position = in.readByte();
+		position = in.readInt();
 	}
 
 	@Override
 	public void write(DataOutput out) throws IOException {
 		out.writeUTF(docId);
 		out.writeUTF(wordId);
-		out.writeByte(position);
+		out.writeInt(position);
 	}
 	
 	@Override
@@ -66,9 +66,9 @@ public class IndexKey implements WritableComparable<IndexKey>{
 	
 	public String getWordId() { return wordId; }
 	
-	public void setPosition(byte position) { this.position = position; }
+	public void setPosition(int position) { this.position = position; }
 	
-	public byte getPosition() { return position; }
+	public int getPosition() { return position; }
 
 	
 }
