@@ -203,9 +203,9 @@ public class PageRankDriver extends Configured implements Tool {
 			}
 			
 			/* Index from url to page rank */
-			/*
+			
 			// Confirm
-			String sum = output + "_sum";
+			String sum = middle + "/sum";
 			PageSumDriver driverSum = new PageSumDriver();
 			ret = ToolRunner.run(driverSum, new String[]{iterated, sum});
 			if (1 == ret) {

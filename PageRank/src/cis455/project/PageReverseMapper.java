@@ -25,8 +25,8 @@ public class PageReverseMapper extends Mapper<LongWritable, Text, Text, Text> {
 		
 		// Reverse inlinks to outlinks
 		String url = pair[0];
-		if (pair[1].equals(PageGlobal.valueEmptyWebpage)) {
-			context.write(new Text(url), new Text(PageGlobal.valueEmptyWebpage));
+		if (pair[1].equals(PageGlobal.valueDownloadedWebpage)) {
+			context.write(new Text(url), new Text(PageGlobal.valueDownloadedWebpage));
 		} else {
 			String[] inlinks = StringDelimeter.split(pair[1], PageGlobal.delimeterRawWebpage);
 			for (String inlink : inlinks) {

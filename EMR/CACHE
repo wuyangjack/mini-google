@@ -24,13 +24,22 @@ https://console.aws.amazon.com/elasticmapreduce/vnext/home?region=us-east-1
 Cloudera VM uses Hadoop 2.0.0
 https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
 
-# PageRank Step Configuration
+# PageRank Step Configurations
 JAR:
 s3://cis555-project-test/pagerank/project-pagerank.jar
-ARG:
+
+ARG1:
 cis455.project.PageRankDriver
 emr
 s3://cis555-project-test/pagerank/input
+s3://cis555-project-test/pagerank/middle
+s3://cis555-project-test/pagerank/output
+3
+
+ARG2:
+cis455.project.PageRankDriver
+emr
+s3://cis555-project-test/data/small/crawler/pagelink.txt
 s3://cis555-project-test/pagerank/middle
 s3://cis555-project-test/pagerank/output
 3

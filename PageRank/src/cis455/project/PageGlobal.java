@@ -9,7 +9,6 @@ public class PageGlobal {
 	public static final String modeEMR = "emr";
 	public static final String propertyLossCompensate = "lossCompensate";
 	public static final String valueDownloadedWebpage = "dwd";
-	public static final String valueEmptyWebpage = "ept";
 	
 	enum Counters { PAGECOUNT }
 

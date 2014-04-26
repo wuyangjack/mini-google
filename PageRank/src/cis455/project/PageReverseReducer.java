@@ -18,12 +18,8 @@ public class PageReverseReducer extends Reducer<Text, Text, Text, Text> {
     	
     	ArrayList<String> list = new ArrayList<String>();
     	for (Text value : values) {
-    		if (value.toString().equals(PageGlobal.valueEmptyWebpage)) {
-    	    	// Emit empty page
-    			ValuePage page = new ValuePage(1, new String[0]);
-    	    	context.write(key, new Text(page.serialize()));
-    	    	context.getCounter(PageGlobal.Counters.PAGECOUNT).increment(1);
-    			return;
+    		if (value.toString().equals(PageGlobal.valueDownloadedWebpage)) {
+    	    	// Skip
     		} else {
     	    	// Collect outlinks for non-empty page
         		list.add(value.toString());

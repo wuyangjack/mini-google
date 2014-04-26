@@ -27,11 +27,6 @@ public class PageParseMapper extends Mapper<LongWritable, Text, Text, Text> {
 		String url = pair[0];
 		ValuePage page = new ValuePage(1, StringDelimeter.split(pair[1], PageGlobal.delimeterRawWebpage));
 		context.write(new Text(url), new Text(PageGlobal.valueDownloadedWebpage));
-
-		// Emit empty webpages
-		if (page.outlinks.length == 0) {
-			context.write(new Text(url), new Text(PageGlobal.valueEmptyWebpage));
-		}
 		
 		// Emit outlinks
 		for (String outlink : page.outlinks) {

@@ -20,10 +20,8 @@ public class PageParseReducer extends Reducer<Text, Text, Text, Text> {
     		String token = value.toString();
     		if (token.equals(PageGlobal.valueDownloadedWebpage)) {
     	    	// Check if page downloaded
-    			downloaded = true;
-    		} else if (token.equals(PageGlobal.valueEmptyWebpage)) {
-    			// Emit empty page
         		context.write(key, value);
+    			downloaded = true;
     		} else {
     	    	// Collect inlinks
     			sb.append(" " + token);
@@ -36,5 +34,7 @@ public class PageParseReducer extends Reducer<Text, Text, Text, Text> {
     		// Guranteed that inlinks starts and ends in downloaded pages
     		context.write(key, new Text(inlinks.substring(1)));
     	}
+    	
+    	
 	}
 }
