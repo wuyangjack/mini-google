@@ -1,0 +1,15 @@
+1. FreePastry not good. Only support small messages. Slow to insert 200k webpages.
+
+2. BerkeleyDB use String - String. Serialize / Desrialize.
+
+3. 40k / 6 hours
+
+4. Use powerful machine for master node.
+
+5. Seed urls.
+
+6. Url that includes (#) remove. mailto: 
+
+7. Index (frequent) string divide into multiple keys.
+
+8. 5 nodes (Ask Xiaoyi)
