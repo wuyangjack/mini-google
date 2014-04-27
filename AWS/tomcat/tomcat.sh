@@ -6,7 +6,7 @@ TOMCAT=$ROOT/tomcat
 echo "Delete old"
 sh $TOMCAT/bin/shutdown.sh
 sudo rm -rf $TOMCAT
-wget http://archive.apache.org/dist/jakarta/tomcat-5/v5.5.9/bin/jakarta-tomcat-5.5.9.tar.gz
+wget http://archive.apache.org/dist/jakarta/tomcat-5/v5.5.9/bin/jakarta-tomcat-5.5.9.tar.gz -P $ROOT
 
 echo "Install new"
 tar xvfz $ROOT/jakarta-tomcat-5.5.9.tar.gz &> tmp
