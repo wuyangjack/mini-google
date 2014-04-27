@@ -26,6 +26,11 @@ git clone https://github.com/wuyangjack/MiniGoogle.git
 chmod 400 ../login.pem
 ssh-add ../login.pem
 
+# Storage nodes
+ec2-54-82-113-106.compute-1.amazonaws.com 	(index 0)
+ec2-54-80-76-16.compute-1.amazonaws.com 	(index 1)
+ec2-184-73-124-143.compute-1.amazonaws.com 	(index 2)
+
 # PageRank Step Configurations
 JAR:
 s3://cis555-project-test/pagerank/project-pagerank.jar
