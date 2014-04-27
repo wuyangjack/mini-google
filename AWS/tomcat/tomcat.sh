@@ -9,6 +9,7 @@ sh $TOMCAT/bin/shutdown.sh
 sudo rm -rf $TOMCAT
 
 echo "Install new"
+cd $ROOT
 tar xvfz $SOURCE/jakarta-tomcat-5.5.9.tar.gz &> tmp
 rm -rf tmp
 mv $ROOT/jakarta-tomcat-5.5.9 $TOMCAT
