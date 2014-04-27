@@ -8,21 +8,23 @@ http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-cli-instal
 sudo apt-get/yum install ruby1.8
 sudo apt-get/yum install rubygems
 
-# Billing Link
+# AWS Links
 https://console.aws.amazon.com/billing/home?region=us-east-1
-
-# S3 Link
 https://console.aws.amazon.com/s3/home?region=us-east-1
-
-# EC2 Link
 https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:
-
-# EMR Link
 https://console.aws.amazon.com/elasticmapreduce/vnext/home?region=us-east-1
 
 # Use Amazon 2.2.0 for Hadoop version
 Cloudera VM uses Hadoop 2.0.0
 https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
+
+# AMI Initialization Commands
+sudo yum install git
+git clone https://github.com/wuyangjack/MiniGoogle.git
+
+# Connect to EC2
+chmod 400 ../login.pem
+ssh-add ../login.pem
 
 # PageRank Step Configurations
 JAR:

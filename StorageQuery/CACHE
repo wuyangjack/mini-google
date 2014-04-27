@@ -4,10 +4,3 @@ http://192.168.135.184:8080/storage/worker?table=haha&key=hfwfe
 # Master link
 http://192.168.135.184:8080/storage/master?table=haha&key=yihufe
 
-# Login commands
-chmod 400 ../login.pem
-ssh-add ../login.pem
-
-# Storage nodes
-ec2-54-82-113-106.compute-1.amazonaws.com
-

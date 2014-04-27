@@ -1,12 +1,13 @@
 # !/bin/sh
 
-ROOT=/home/cis455
+ROOT=/home/ec2-user
 TOMCAT=$ROOT/tomcat
 
 echo "Delete old"
 sh $TOMCAT/bin/shutdown.sh
 sudo rm -rf $TOMCAT
-#wget http://archive.apache.org/dist/jakarta/tomcat-5/v5.5.9/bin/jakarta-tomcat-5.5.9.tar.gz
+wget http://archive.apache.org/dist/jakarta/tomcat-5/v5.5.9/bin/jakarta-tomcat-5.5.9.tar.gz
+
 echo "Install new"
 tar xvfz $ROOT/jakarta-tomcat-5.5.9.tar.gz &> tmp
 rm -rf tmp
