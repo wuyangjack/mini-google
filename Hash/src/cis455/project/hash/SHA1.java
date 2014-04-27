@@ -1,4 +1,4 @@
-package hash;
+package cis455.project.hash;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

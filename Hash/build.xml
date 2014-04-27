@@ -1,0 +1,25 @@
+<project name="StorageQuery" default="all" basedir="./">
+  <target name="init">
+    <mkdir dir="classes"/>
+  </target>
+  
+  <target name="compile-hash" depends="init" description="Compiles hash module">
+    <javac srcdir="src/cis455/project/hash" destdir="classes" debug="on" deprecation="off" optimize="on" includeAntRuntime="no"/>
+  </target>
+
+  <target name="hash-jar" depends="compile-hash" description="Makes JAR for hash module">
+    <delete file="hash.jar"/>
+    <jar destfile="hash.jar" update="true">
+        <fileset dir="classes">
+            <include name="**/*.class"/>
+        </fileset>
+    </jar>
+  </target>
+
+  <target name="all" depends="hash-jar"/>
+
+  <target name="clean">
+    <delete dir="classes"/>
+    <delete file="hash.jar"/>
+  </target>
+</project>

@@ -1,4 +1,5 @@
 *.class
+StorageQuery/target
 
 # Secrets
 *.pem
