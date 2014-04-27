@@ -110,9 +110,6 @@ public class Storage {
 	public ArrayList<String> get(String dbName, String key){
 		ArrayList<String> list = new ArrayList<String>();
 		Database database = null;
-		
-		System.out.println("This db name: " + dbName);
-		
 		if(dbName.equals("title")){
 			database = this.tf_idf_title;
 		}
@@ -132,27 +129,20 @@ public class Storage {
 			cursor = database.openCursor(null, null);
 			OperationStatus retVal = cursor.getSearchKey(theKey, theData, LockMode.DEFAULT);			
 			while (retVal == OperationStatus.SUCCESS) {
-//				System.out.println("put!!!!!!!!1");
-//				System.out.println("This db name: " + dbName);
 				list.add(new String(theData.getData(), "UTF-8"));
 				retVal = cursor.getNextDup(theKey, theData, LockMode.DEFAULT);
 			}
 			return list;
 		}catch(Exception e){
 			e.printStackTrace();
+			Log.error(e.getStackTrace().toString());
 			return null;
 		}
 	}
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	/********************************************** TF-IDF DB Wrapper (Not used)************************/	
 	public boolean addTFIDF(String dbName, String word, String doc, double tf_idf, ArrayList<Integer> positions){
 		try{
 			Database database = null;
@@ -243,7 +233,7 @@ public class Storage {
 			return null;
 		}
 	}
-	
+	/********************************************** TF-IDF DB Wrapper (Not used)************************/	
 	
 	/**
 	 * Convert a string to a database entry
@@ -261,7 +251,7 @@ public class Storage {
 		}
 		return new DatabaseEntry();
 	}
-	/********************************************** TF-IDF DB Wrapper ************************/
+
 	
 	
 }

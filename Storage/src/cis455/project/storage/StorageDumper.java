@@ -8,8 +8,7 @@ public class StorageDumper {
 		String dbDir = args[1];
 		NODE_NUMBER = Integer.parseInt(args[2]);
 		NODE_INDEX = Integer.parseInt(args[3]);
-		String dataPath = args[0];
-		
+		String dataPath = args[0];	
 		Storage.setEnvPath(dbDir);
 		dump(dataPath);
 		
@@ -23,19 +22,16 @@ public class StorageDumper {
 		if(path.contains("title")) dbName = "title";
 		else if (path.contains("meta")) dbName = "meta";
 		else if (path.contains("body")) dbName = "body";
-		
-		System.out.println(dbName);
 
 		File dir = new File(path);
 		File[] fileList = dir.listFiles();
 		Thread[] threads = new Thread[fileList.length];
 		
-		System.out.println(fileList.length);
+		Log.info("Start dumping into DB - " + dbName + " , thread number is " + fileList.length);
 		
 		for(int i = 0; i < fileList.length; i++){
 			threads[i] = new FileReaderThread(fileList[i]);
 			threads[i].start();
 		}
 	}
-
 }

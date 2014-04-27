@@ -15,6 +15,15 @@ public class LogClass {
 	static File fileName;
 	static final String CRLF = "\r\n";
 	public static void init() {
+		File log = new File("/tmp/cis555/storage.log");
+		if(!log.exists()){
+			try {
+				log.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		PropertyConfigurator.configure("log4j.properties");
 		logger = Logger.getLogger(LogClass.class);
 		fileName = new File("log.log");

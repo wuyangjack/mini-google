@@ -9,8 +9,8 @@ public class test {
 		String dir = "/home/cloudera/Database";
 		Storage.setEnvPath(dir);
 		Storage storage = Storage.getInstance();
-		System.out.println(storage.get("title", "zentai").size());
-		System.out.println(storage.get("title", "zentai"));
+		System.out.println(storage.get("title", "width").size());
+		System.out.println(storage.get("title", "width"));
 	}
 
 }
