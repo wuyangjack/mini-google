@@ -2,7 +2,6 @@
   <target name="init">
     <mkdir dir="target/storage/WEB-INF/classes"/>
     <mkdir dir="target/storage/WEB-INF/lib"/>
-    <mkdir dir="classes"/>
   </target>
   
   <target name="compile-storage" depends="init">
@@ -22,8 +21,6 @@
     </javac>
   </target>
 
-  <target name="all" depends="war-storage"/>
-  
   <target name="war-storage" depends="compile-storage">
     <copy file="conf/web.xml" tofile="target/storage/WEB-INF/web.xml"/>
     <jar destfile="storage.war">
@@ -32,6 +29,17 @@
       <fileset dir="target/storage/" includes="WEB-INF/*.xml"/>
     </jar>
   </target>
+
+  <target name="storage-jar" depends="compile-storage" description="Makes JAR for storage module">
+    <delete file="storage.jar"/>
+    <jar destfile="storage.jar" update="true">
+        <fileset dir="target/storage/WEB-INF/classes">
+            <include name="**/*.class"/>
+        </fileset>
+    </jar>
+  </target>
+
+  <target name="all" depends="war-storage,storage-jar"/>
 
   <target name="clean">
     <delete dir="target/storage/WEB-INF/classes"/>
