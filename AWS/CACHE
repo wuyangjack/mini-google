@@ -21,11 +21,12 @@ https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.
 # AMI Initialization Commands
 sudo yum install git
 git clone https://github.com/wuyangjack/MiniGoogle.git
+export CIS455_USER="ec2-user" (add to ~/.bashrc)
 
 # Connect to EC2
 chmod 400 ../login.pem
 ssh-add ../login.pem
-
+export CIS455_USER="ec2-user"
 # Storage nodes
 ec2-54-82-113-106.compute-1.amazonaws.com 	(index 0)
 ec2-54-80-76-16.compute-1.amazonaws.com 	(index 1)

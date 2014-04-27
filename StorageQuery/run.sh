@@ -1,8 +1,13 @@
 #!/bin/sh
 
-ROOT="/home/cis455/MiniGoogle/StorageQuery"
-DATABASE="/home/cis455/database"
-TOMCAT="/home/cis455/tomcat"
+# Define CIS455_USER first
+# export CIS455_USER="cis455/ec2-user"
+echo "User: "$CIS455_USER
+
+BASE=/home/$CIS455_USER
+ROOT=$BASE"/MiniGoogle/StorageQuery"
+DATABASE=$BASE"/database"
+TOMCAT=$BASE"/tomcat"
 
 # Data sources
 SOURCE_PAGERANK="$ROOT/sample/pagerank"
@@ -10,6 +15,7 @@ SOURCE_META="$ROOT/sample/indexer/meta"
 SOURCE_BODY="$ROOT/sample/indexer/body"
 SOURCE_TITLE="$ROOT/sample/indexer/title"
 SPLIT="_split"
+
 # Tables
 # Should be consistent with cis455.project.StorageGlobal
 TABLE_PAGERANK="pagerank"
@@ -61,13 +67,13 @@ case "$1" in
 		ant
 		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
 		APP="cis455.project.storage.StorageDumper"
-		NODES=2
-		INDEX=1
+		NODES=$2
+		INDEX=$3
 		# Dump
 		java -cp $CLASSPATH $APP $SOURCE_PAGERANK $DATABASE $NODES $INDEX $TABLE_PAGERANK
-		#java -cp $CLASSPATH $APP $SOURCE_META $DATABASE $NODES $INDEX $TABLE_META
-		#java -cp $CLASSPATH $APP $SOURCE_TITLE $DATABASE $NODES $INDEX $TABLE_TITLE
-		#java -cp $CLASSPATH $APP $SOURCE_BODY $DATABASE $NODES $INDEX $TABLE_BODY
+		java -cp $CLASSPATH $APP $SOURCE_META $DATABASE $NODES $INDEX $TABLE_META
+		java -cp $CLASSPATH $APP $SOURCE_TITLE $DATABASE $NODES $INDEX $TABLE_TITLE
+		java -cp $CLASSPATH $APP $SOURCE_BODY $DATABASE $NODES $INDEX $TABLE_BODY
 		;;
 	*)
 		echo "Unknown mode"

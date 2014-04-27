@@ -1,6 +1,10 @@
 # !/bin/sh
 
-ROOT=/home/ec2-user
+# Define CIS455_USER first
+# export CIS455_USER="cis455/ec2-user"
+echo "User: "$CIS455_USER
+
+ROOT=/home/$CIS455_USER
 SOURCE=$ROOT/MiniGoogle/AWS/tomcat
 TOMCAT=$ROOT/tomcat
 
