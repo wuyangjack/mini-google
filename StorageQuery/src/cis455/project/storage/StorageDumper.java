@@ -10,7 +10,7 @@ public class StorageDumper {
 		NODE_NUMBER = Integer.parseInt(args[2]);
 		NODE_INDEX = Integer.parseInt(args[3]);
 		dbName = args[4];
-		Storage.setEnvPath(dbDir);
+		Storage.setEnvPath(dbDir, false);
 		dump();
 	}
 	

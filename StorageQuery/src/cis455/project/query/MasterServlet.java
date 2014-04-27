@@ -8,7 +8,7 @@ public class MasterServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		String[] servers = new String[]{"127.0.0.1:8080", "www.google.com"};
+		String[] servers = new String[]{"127.0.0.1:8080", "127.0.0.1:8080"};
 		QueryMaster.initialize(servers);
 	}
 

@@ -2,9 +2,9 @@ package cis455.project.storage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
-import org.json.JSONObject;
 import com.sleepycat.je.Cursor;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.DatabaseConfig;
@@ -18,14 +18,15 @@ public class Storage {
 	// Singleton class
 	private static Storage database = null;
 	
-	private static String env_path;
+	private static String envPath;
+	private static boolean readOnly = false;
 	private Environment dbEnv;
 	private Hashtable<String, Database> tables = new Hashtable<String, Database>();
 	private Hashtable<String, String> locks = new Hashtable<String, String>();
 
 	
 	private Storage() {
-		File dir = new File(env_path);
+		File dir = new File(envPath);
 		if (!dir.exists()) {
 			dir.mkdir(); 
 		}
@@ -38,8 +39,9 @@ public class Storage {
 		return database;
 	}
 	
-	public static void setEnvPath(String env_path) {
-		Storage.env_path = env_path;
+	public static void setEnvPath(String env_path, boolean readOnly) {
+		Storage.envPath = env_path;
+		Storage.readOnly = readOnly;
 	}
 	
 	public void initEnv() {
@@ -47,24 +49,25 @@ public class Storage {
 		EnvironmentConfig envConf = new EnvironmentConfig();
 		// environment will be created if not exists
 		envConf.setAllowCreate(true);
-		envConf.setReadOnly(false);  
+		envConf.setReadOnly(readOnly);  
 		envConf.setTransactional(true); 
 
 		// open/create the DB environment using config
 		dbEnv = new Environment(
-				new File(env_path), envConf);
+				new File(envPath), envConf);
 		
 		//open TF-IDF DB
-		this.initDatabase(StorageGlobal.tableIdfBody);
-		this.initDatabase(StorageGlobal.tableIdfMeta);
-		this.initDatabase(StorageGlobal.tableIdfTitle);
-		this.initDatabase(StorageGlobal.tablePageRank);
+		this.initDatabase(StorageGlobal.tableFreqBody, readOnly);
+		this.initDatabase(StorageGlobal.tableFreqMeta, readOnly);
+		this.initDatabase(StorageGlobal.tableFreqTitle, readOnly);
+		this.initDatabase(StorageGlobal.tablePageRank, readOnly);
 	}
 	
-	private void initDatabase(String dbname) {
+	private void initDatabase(String dbname, boolean readOnly) {
 		// Config
 		DatabaseConfig config = new DatabaseConfig(); 
 		config.setTransactional(true);
+		config.setReadOnly(readOnly);
 		config.setSortedDuplicates(true);
 		config.setAllowCreate(true);
 		// Create
@@ -98,7 +101,7 @@ public class Storage {
 		}
 	}
 	
-	public ArrayList<String> get(String dbName, String key){
+	public String[] get(String dbName, String key){
 		try{
 			if (false == this.tables.containsKey(dbName)) {
 				throw new Exception("table not existed");
@@ -114,12 +117,24 @@ public class Storage {
 				list.add(new String(theData.getData(), "UTF-8"));
 				retVal = cursor.getNextDup(theKey, theData, LockMode.DEFAULT);
 			}
-			return list;
+			String[] ret = new String[list.size()];
+			ret = list.toArray(ret);
+			return ret;
 		} catch(Exception e){
 			e.printStackTrace();
 			Log.error(e.getStackTrace().toString());
-			return null;
+			// Return empty list if not found
+			return new String[0];
 		}
+	}
+	
+	public void close() {
+		Enumeration<Database> elements = tables.elements();
+		while (elements.hasMoreElements()) {
+			Database table = elements.nextElement();
+			table.close();
+		}
+		dbEnv.close();
 	}
 
 	/**

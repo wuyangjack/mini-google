@@ -66,6 +66,9 @@ case "$1" in
 	Upload)
 		aws s3 cp $2 $BUCKET"/"$3"/" --grants full=emailaddress=$USER
 		;;
+	Download)
+		aws s3 sync $BUCKET$2 $3
+		;;
 	Verify)
 		elastic-mapreduce --version
 		;;

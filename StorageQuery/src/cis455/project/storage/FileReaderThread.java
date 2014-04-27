@@ -25,14 +25,21 @@ public class FileReaderThread extends Thread{
 			br = new BufferedReader(new FileReader(file));
 			String line = null;
 			while((line = br.readLine()) != null){
-				String[] data = line.split("\t");
+				String[] data = line.split("\t", 2);
+				if (data.length != 2) {
+					System.out.println("Illegal");
+				}
+				System.out.println(file.getPath() + ":");
+				System.out.print("\"" + data[0] + "\": ");
 				if(!data[0].equals("") && (SHA1Partition.getWorkerIndex(data[0]) == StorageDumper.NODE_INDEX)){
-					System.out.println("\"" + data[0] + "\"" );
-					if(!storage.put(StorageDumper.dbName, data[0], line)){
+					System.out.println("Save");
+					if(!storage.put(StorageDumper.dbName, data[0], data[1])){
 						Log.error("bug whern putting into DB + key + value: " + StorageDumper.dbName
 								+ " + " + data[0]+ " + " + line);
 						throw new Exception("DB Exception occured while putting index data!");
 					}
+				} else {
+					System.out.println("Skip");
 				}
 			}
 		} catch (Exception e) {

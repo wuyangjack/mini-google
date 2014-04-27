@@ -8,5 +8,6 @@ public class QueryGlobal {
 	public static final String pathWorker = "worker";
 	public static final String paraTable = "table";
 	public static final String paraKey = "key";
-
+	public static final String initWorkerDatabase = "pathDatabase";
+	public static final String delimiterNetwork = " ? ";
 }
