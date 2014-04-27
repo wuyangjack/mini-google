@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name></display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>WorkerServlet</servlet-name>
+    <servlet-class>edu.upenn.cis455.mapreduce.worker.WorkerServlet</servlet-class>
+    <init-param>
+      <param-name>storagedir</param-name>
+      <param-value>/Users/ChenyangYu/Documents/Upenn/storage/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>master</param-name>
+      <param-value>127.0.0.1:8081</param-value>
+    </init-param>
+    <init-param>
+      <param-name>port</param-name>
+      <param-value>8080</param-value>
+    </init-param>
+    <init-param>
+      <param-name>berkeleydir</param-name>
+      <param-value>/Users/ChenyangYu/Documents/Upenn/storage/berkeleydb</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>WorkerServlet</servlet-name>
+    <url-pattern>/runmap/*</url-pattern>
+    <url-pattern>/runreduce/*</url-pattern>
+    <url-pattern>/runpush/*</url-pattern>
+    <url-pattern>/pushdata/*</url-pattern>
+    <url-pattern>/terminate/*</url-pattern>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
