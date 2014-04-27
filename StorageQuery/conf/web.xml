@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
  <web-app>
-     <display-name>CIS55 Project Storage</display-name>
+    <display-name>CIS55 Project Storage</display-name>
      
-     <servlet>
-         <servlet-name>Demo</servlet-name>
-         <servlet-class>DemoServlet</servlet-class>
-     </servlet>
+    <servlet>
+        <servlet-name>Master</servlet-name>
+        <servlet-class>cis455.project.query.MasterServlet</servlet-class>
+        <load-on-startup/>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Worker</servlet-name>
+        <servlet-class>cis455.project.query.WorkerServlet</servlet-class>
+        <load-on-startup/>
+    </servlet>
 
      <servlet-mapping>
-         <servlet-name>Demo</servlet-name>
-         <url-pattern>/demo</url-pattern>
+         <servlet-name>Master</servlet-name>
+         <url-pattern>/master</url-pattern>
+     </servlet-mapping>
+
+     <servlet-mapping>
+         <servlet-name>Worker</servlet-name>
+         <url-pattern>/worker</url-pattern>
      </servlet-mapping>
 </web-app>
