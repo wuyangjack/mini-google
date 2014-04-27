@@ -1,0 +1,41 @@
+<project name="StorageQuery" default="all" basedir="./">
+  <target name="init">
+    <mkdir dir="target/storage/WEB-INF/classes"/>
+    <mkdir dir="target/storage/WEB-INF/lib"/>
+    <mkdir dir="classes"/>
+  </target>
+  
+  <target name="compile-storage" depends="init">
+    <copy todir="target/storage/WEB-INF/lib" overwrite="true">
+      <fileset dir="lib">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+    <javac srcdir="src" destdir="target/storage/WEB-INF/classes" includes="**/*.java" nowarn="on" debug="on" deprecation="off" optimize="on" includeantruntime="false" classpath="lib/servlet-api.jar">
+      <compilerarg value="-Xlint"/>
+      <classpath>
+          <pathelement path="classes" />
+          <fileset dir="lib">
+            <include name="*.jar"/>
+          </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="all" depends="war-storage"/>
+  
+  <target name="war-storage" depends="compile-storage">
+    <copy file="conf/web.xml" tofile="target/storage/WEB-INF/web.xml"/>
+    <jar destfile="storage.war">
+      <fileset dir="target/storage/" includes="WEB-INF/classes/**/*.class"/>
+      <fileset dir="target/storage/" includes="WEB-INF/lib/*.jar"/>
+      <fileset dir="target/storage/" includes="WEB-INF/*.xml"/>
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="target/storage/WEB-INF/classes"/>
+    <delete dir="classes"/>
+    <delete file="storage.war"/>
+  </target>
+</project>
