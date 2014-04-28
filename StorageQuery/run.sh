@@ -23,6 +23,8 @@ TABLE_META="freqmeta"
 TABLE_BODY="freqbody"
 TABLE_TITLE="freqtitle"
 
+WAR="storage.war"
+
 # Split function
 fileSplit() { 
 	echo "split folder: "$1
@@ -51,7 +53,6 @@ case "$1" in
 		rm -rf /tmp/Query*.log
 		sh $TOMCAT/bin/shutdown.sh
 		sh $TOMCAT/bin/startup.sh
-		WAR="storage.war"
 		rm -rf $TOMCAT/webapps/$WAR
 		cp $ROOT/$WAR $TOMCAT/webapps/
 		;;
