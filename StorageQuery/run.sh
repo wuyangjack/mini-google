@@ -41,10 +41,14 @@ fileSplit() {
 }
 
 case "$1" in
+	Unload)
+		rm -rf $TOMCAT/webapps/$WAR
+		;;
 	Upload)
 		cd $ROOT
 		ant clean
 		ant
+		rm -rf /tmp/Query*.log
 		sh $TOMCAT/bin/shutdown.sh
 		sh $TOMCAT/bin/startup.sh
 		WAR="storage.war"
