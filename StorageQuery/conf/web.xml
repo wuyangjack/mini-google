@@ -14,7 +14,7 @@
         <servlet-class>cis455.project.query.WorkerServlet</servlet-class>
         <init-param>
            <param-name>pathDatabase</param-name>
-           <param-value>/home/cis455/database</param-value>
+           <param-value>/home/ec2-user/database</param-value>
          </init-param>
         <load-on-startup/>
     </servlet>
