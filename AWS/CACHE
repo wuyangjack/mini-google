@@ -27,10 +27,15 @@ export CIS455_USER="ec2-user" (add to ~/.bashrc)
 chmod 400 ../login.pem
 ssh-add ../login.pem
 export CIS455_USER="ec2-user"
+
 # Storage nodes
 ec2-54-82-113-106.compute-1.amazonaws.com 	(index 0)
 ec2-54-80-76-16.compute-1.amazonaws.com 	(index 1)
 ec2-184-73-124-143.compute-1.amazonaws.com 	(index 2)
+
+# Storage test links
+http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=pagerank&key=http://stackoverflow.com/tags
+http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=freqtitle&key=tag
 
 # PageRank Step Configurations
 JAR:
