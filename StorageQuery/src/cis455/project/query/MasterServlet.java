@@ -8,7 +8,11 @@ public class MasterServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		String[] servers = new String[]{"127.0.0.1:8080", "127.0.0.1:8080"};
+		String[] servers = new String[]{
+				"ec2-54-82-113-106.compute-1.amazonaws.com:8080", 
+				"ec2-54-80-76-16.compute-1.amazonaws.com:8080",
+				"ec2-184-73-124-143.compute-1.amazonaws.com:8080"
+		};
 		QueryMaster.initialize(servers);
 	}
 
