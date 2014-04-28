@@ -20,8 +20,12 @@ public class WorkerServlet extends HttpServlet {
 		out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
 		String table = request.getParameter(QueryGlobal.paraTable);
 		String key = request.getParameter(QueryGlobal.paraKey);
-		String result = QueryWorker.get(table, key);
-		out.println("<P>Size is " + result + "</P>");
+		if (table == null || key == null) {
+			out.println("<P>Use table/key for argument.</P>");
+		} else {
+			String result = QueryWorker.get(table, key);
+			out.println("<P>" + result + "</P>");
+		}
 		out.println("</BODY></HTML>");
 	}
 
