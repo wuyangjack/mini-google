@@ -21,13 +21,24 @@ public class TFIDFEntry {
 		}
 	}
 	
-	public static TFIDFEntry deserialize(String rawData){
+	public static TFIDFEntry deserialize(String key, String rawData){
 		String[] data = rawData.trim().split("\t");
-		String word = data[0];
-		String doc = data[1];
-		double tfidf = Double.parseDouble(data[2]);
-		String positions = data[3];
-		return new TFIDFEntry(word, doc, tfidf, positions);
+		String doc = data[0];
+		String positions = data[1];
+		String tf_idf = data[2];
+		try{
+			if(!(doc.equals("") || positions.equals("") || tf_idf.equals(""))){
+				double tfidf = Double.parseDouble(data[2]);
+				return new TFIDFEntry(key, doc, tfidf, positions);
+			}
+			else{
+				return null;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	

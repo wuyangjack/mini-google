@@ -1,6 +1,10 @@
 package cis455.project.query;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.FileAppender;
@@ -9,8 +13,9 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import cis455.project.storage.Storage;
+import cis455.project.storage.TFIDFEntry;
 
-public class QueryWorker {
+public class QueryWorker{
 	private static final Logger logger = Logger.getLogger(QueryWorker.class);
 	private static String loggerPath = QueryGlobal.logWorker;
 	private static Storage storage = null;
@@ -50,6 +55,33 @@ public class QueryWorker {
 	public static void close() {
 		logger.info("close database");
 		storage.close();
+	}
+
+	public static List<TFIDFEntry> getWordweight(String tableName, List<String> words) {
+		ArrayList<TFIDFEntry> entryList = new ArrayList<TFIDFEntry>();
+		for(String word: words){
+			String[] re = storage.get(tableName, word);
+			if(re.length == 0){
+				logger.info("No entry found");
+			}
+			else{
+				for(int i = 0; i < re.length; i++){
+					TFIDFEntry entry = TFIDFEntry.deserialize(word, re[i]);
+					entryList.add(entry);
+				}
+			}
+		}
+		return entryList;
+	}
+	
+	public static Map<String, Double> getPagerank(Set<String> urls) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Map<String, Double> getDocmodule(Set<String> urls) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
