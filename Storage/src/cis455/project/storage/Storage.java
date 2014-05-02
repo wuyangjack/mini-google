@@ -26,10 +26,16 @@ public class Storage {
 	private Database tf_idf_title;
 	private Database tf_idf_meta;
 	private Database tf_idf_body;
+	private Database title_content;
+	private Database meta_content;
+	private Database body_content;
 	
 	private String title_lock = "title";
 	private String meta_lock = "meta";
 	private String body_lock = "body";
+	private String title_lock = "title_content";
+	private String meta_lock = "meta_content";
+	private String body_lock = "body_content";
 	
 	private Storage() {
 		File dir = new File(env_path);
@@ -70,6 +76,9 @@ public class Storage {
 		this.tf_idf_title = this.dbEnv.openDatabase(null, "tf_idf_title", config);
 		this.tf_idf_meta = this.dbEnv.openDatabase(null, "tf_idf_meta", config);
 		this.tf_idf_body = this.dbEnv.openDatabase(null, "tf_idf_body", config);
+		this.title_content = this.dbEnv.openDatabase(null, "title", config);
+		this.meta_content = this.dbEnv.openDatabase(null, "meta", config);
+		this.body_content = this.dbEnv.openDatabase(null, "body", config);
 	}
 	
 	

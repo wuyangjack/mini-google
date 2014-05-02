@@ -61,6 +61,9 @@ public class Storage {
 		this.initDatabase(StorageGlobal.tableFreqMeta, readOnly);
 		this.initDatabase(StorageGlobal.tableFreqTitle, readOnly);
 		this.initDatabase(StorageGlobal.tablePageRank, readOnly);
+		this.initDatabase(StorageGlobal.tableTitle, readOnly);
+		this.initDatabase(StorageGlobal.tableMeta, readOnly);
+		this.initDatabase(StorageGlobal.tableBody, readOnly);
 	}
 	
 	private void initDatabase(String dbname, boolean readOnly) {
