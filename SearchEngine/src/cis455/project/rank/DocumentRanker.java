@@ -12,8 +12,7 @@ public class DocumentRanker {
 
 	private Storage database;
 	
-	public DocumentRanker(String envPath) {
-		Storage.setEnvPath(envPath, false);
+	public DocumentRanker() {
 		database = Storage.getInstance();
 	}
 	
