@@ -58,29 +58,33 @@ echoConfig
 
 case "$1" in
 	UnloadMaster)
-		WAR="master.war"
+		WAR="master"
 		rm -rf $TOMCAT/webapps/$WAR
+		rm -rf $TOMCAT/webapps/$WAR.war
 		;;
 	UnloadWorker)
-		WAR="worker.war"
+		WAR="worker"
 		rm -rf $TOMCAT/webapps/$WAR
+		rm -rf $TOMCAT/webapps/$WAR.war
 		;;
 	UploadMaster)
-		WAR="master.war"
+		WAR="master"
 		cd $ROOT
 		rm -rf /tmp/QueryMaster.log
 		sh $TOMCAT/bin/shutdown.sh
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
+		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR $TOMCAT/webapps/
 		;;
 	UploadWorker)
-		WAR="worker.war"
+		WAR="worker"
 		cd $ROOT
 		rm -rf /tmp/QueryWorker.log
 		sh $TOMCAT/bin/shutdown.sh
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
+		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR $TOMCAT/webapps/
 		;;
 	DBInit)
