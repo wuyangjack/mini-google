@@ -22,6 +22,7 @@
   </target>
 
   <target name="war-master" depends="compile-storage">
+    <delete file="target/storage/WEB-INF/web.xml"/>
     <copy file="conf/web-master.xml" tofile="target/storage/WEB-INF/web.xml"/>
     <jar destfile="master.war">
       <fileset dir="target/storage/" includes="WEB-INF/classes/**/*.class"/>
@@ -31,6 +32,7 @@
   </target>
 
   <target name="war-worker" depends="compile-storage">
+    <delete file="target/storage/WEB-INF/web.xml"/>
     <copy file="conf/web-worker.xml" tofile="target/storage/WEB-INF/web.xml"/>
     <jar destfile="worker.war">
       <fileset dir="target/storage/" includes="WEB-INF/classes/**/*.class"/>
