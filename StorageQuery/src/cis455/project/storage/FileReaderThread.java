@@ -24,16 +24,33 @@ public class FileReaderThread extends Thread{
 			SHA1Partition.setRange(StorageDumper.NODE_NUMBER);
 			br = new BufferedReader(new FileReader(file));
 			String line = null;
+			String key = "";
+			String value = "";
+			String SHAkey = "";
+			
 			while((line = br.readLine()) != null){
-				String[] data = line.split("\t", 2);
+				
+				String[] data = line.trim().split("\t", 2);
+				key = data[0];
+				value = data[1];
 				if (data.length != 2) {
 					System.out.println("Illegal");
 				}
+				if(StorageDumper.dbName.equals("tablePageRank")){
+					SHAkey = key;
+				}
+				else{
+					//SHA key = docId
+					SHAkey = value.split("\t")[0];
+				}
+
+
 				System.out.println(file.getPath() + ":");
 				System.out.print("\"" + data[0] + "\": ");
-				if(!data[0].equals("") && (SHA1Partition.getWorkerIndex(data[0]) == StorageDumper.NODE_INDEX)){
-					System.out.println("Save");
-					if(!storage.put(StorageDumper.dbName, data[0], data[1])){
+				if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.NODE_INDEX)){
+					
+					System.out.println("Save to " + StorageDumper.dbName);
+					if(!storage.put(StorageDumper.dbName, key, value)){
 						Log.error("bug whern putting into DB + key + value: " + StorageDumper.dbName
 								+ " + " + data[0]+ " + " + line);
 						throw new Exception("DB Exception occured while putting index data!");
