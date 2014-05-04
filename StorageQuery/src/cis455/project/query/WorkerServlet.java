@@ -1,8 +1,13 @@
 package cis455.project.query;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import StopAndStemmer.WordPreprocessor;
+
 import java.io.*;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkerServlet extends HttpServlet {
 	
@@ -21,6 +26,12 @@ public class WorkerServlet extends HttpServlet {
 		out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
 		String query = request.getParameter(QueryGlobal.paraSearch);
 		query = URLDecoder.decode(query, "UTF-8");
+		List<String> words = new ArrayList<String>();
+		for(String word : query.split("\\s")) {
+			String w = WordPreprocessor.preprocess(word);
+			if(w != null)
+				words.add(w);
+		}
 		out.println("<P>" + query + "</P>");
 		/*
 		String table = request.getParameter(QueryGlobal.paraTable);
