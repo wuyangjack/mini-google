@@ -23,7 +23,7 @@ import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 
 public class QueryMaster {
-	private static final Logger logger = Logger.getLogger(QueryMaster.class);
+	public static final Logger logger = Logger.getLogger(QueryMaster.class);
 	private static String loggerPath = QueryGlobal.logMaster;
 	private static String[] servers = null;
 	private static Storage storage = null;

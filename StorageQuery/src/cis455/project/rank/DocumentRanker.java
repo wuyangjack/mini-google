@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cis455.project.query.QueryMaster;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 
@@ -26,7 +27,10 @@ public class DocumentRanker {
 		List<DocumentInfo> result = new ArrayList<DocumentInfo>();
 		for(String input : inputs) {
 			String[] args = input.split("\t", 2);
+			QueryMaster.logger.info("Input: " + input);
+			QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 			String[] title = database.get(StorageGlobal.tableTitle, args[0]);
+			QueryMaster.logger.info("Title length: " + title.length);
 			DocumentInfo doc_info = new DocumentInfo(args[0], title.length > 0 ? title[0] : "", Double.parseDouble(args[1]));
 			result.add(doc_info);
 		}
