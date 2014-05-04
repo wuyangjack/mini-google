@@ -22,17 +22,34 @@ public class MasterServlet extends HttpServlet {
 		String pathDatabase = config.getInitParameter(QueryGlobal.initPathDatabase);
 		QueryMaster.initialize(servers, pathDatabase);
 	}
+	
+	private static final String header = "<HTML><HEAD><TITLE>Master Servlet</TITLE></HEAD><BODY>";
+	private static final String footer = "</BODY></HTML>";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<HTML><HEAD><TITLE>Master Servlet</TITLE></HEAD><BODY>");
-		String key = request.getParameter("query");
-		List<DocumentInfo> results = QueryMaster.search(key);
-		out.println("<P>" + results.size() + "</P>");
-		for(DocumentInfo di : results) {
-			out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() + "; " + di.getScore() + "</p>");
+		out.println(header);
+		// Read mode
+		String mode = null;
+		if(false == request.getParameterMap().containsKey(QueryGlobal.paraMode)) {
+			out.println("<P>Unknown mode!</P>");
+		} else {
+			mode = request.getParameter(QueryGlobal.paraMode);
 		}
-		out.println("</BODY></HTML>");
+		if (mode.equals(QueryGlobal.modeSearch)) {
+			String query = request.getParameter(QueryGlobal.paraQuery);
+			List<DocumentInfo> results = QueryMaster.search(query);
+			out.println("<P>Results: " + results.size() + "</P>");
+			for(DocumentInfo di : results) {
+				out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() + "; " + di.getScore() + "</p>");
+			}
+		} else if (mode.equals(QueryGlobal.modeGet)) {
+			
+		} else {
+			QueryMaster.logger.error("unknown mode");
+		}
+		
+		out.println(footer);
 	}
 }

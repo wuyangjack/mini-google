@@ -44,7 +44,9 @@ class QueryWorkerThread extends Thread {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String url = null;
 		try {
-			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
+			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" 
+					+ QueryGlobal.paraMode + "=" + QueryGlobal.modeSearch
+					+ QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			QueryMaster.logger.error("error encoding query");
 			e.printStackTrace();

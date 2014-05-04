@@ -17,27 +17,44 @@ public class WorkerServlet extends HttpServlet {
 		QueryWorker.initialize(pathDatabase);
 	}
 	
+	private static final String header = "<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>";
+	private static final String footer = "</BODY></HTML>";
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		//out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
-		if(request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
-			String query = request.getParameter(QueryGlobal.paraSearch);
-			query = URLDecoder.decode(query, "UTF-8");
-			String result = QueryWorker.search(query);
-			out.println(result);
-		} else if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
-				&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
-			String table = request.getParameter(QueryGlobal.paraTable);
-			String key = request.getParameter(QueryGlobal.paraKey);
-			if (table == null || key == null) {
-				out.println("<P>Use table/key for argument.</P>");
+		// Read mode
+		String mode = null;
+		if(false == request.getParameterMap().containsKey(QueryGlobal.paraMode)) {
+			out.println(header);
+			out.println("<P>Unknown mode!</P>");
+			out.println(footer);
+		} else {
+			mode = request.getParameter(QueryGlobal.paraMode);
+		}
+		
+		if (mode.equals(QueryGlobal.modeSearch)) {
+			if (false == request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
+				QueryWorker.logger.error("no query string");
 			} else {
+				String query = request.getParameter(QueryGlobal.paraSearch);
+				query = URLDecoder.decode(query, "UTF-8");
+				String result = QueryWorker.search(query);
+				out.println(result);
+			}
+		} else if (mode.equals(QueryGlobal.modeGet)) {
+			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
+					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
+				String table = request.getParameter(QueryGlobal.paraTable);
+				String key = request.getParameter(QueryGlobal.paraKey);
 				String result = QueryWorker.get(table, key);
 				out.println("<P>" + result + "</P>");
+			} else {
+				QueryWorker.logger.error("no table / no key");
 			}
+		} else {
+			QueryWorker.logger.error("unknown mode");
 		}
-		//out.println("</BODY></HTML>");
 	}
 
 	@Override
