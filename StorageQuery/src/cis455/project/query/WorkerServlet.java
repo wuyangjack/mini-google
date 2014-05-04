@@ -20,12 +20,12 @@ public class WorkerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
+		//out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
 		if(request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
 			String query = request.getParameter(QueryGlobal.paraSearch);
 			query = URLDecoder.decode(query, "UTF-8");
 			String result = QueryWorker.search(query);
-			out.println("<P>" + result + "</P>");
+			out.println(result);
 		} else if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
 				&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
 			String table = request.getParameter(QueryGlobal.paraTable);
@@ -37,7 +37,7 @@ public class WorkerServlet extends HttpServlet {
 				out.println("<P>" + result + "</P>");
 			}
 		}
-		out.println("</BODY></HTML>");
+		//out.println("</BODY></HTML>");
 	}
 
 	@Override
