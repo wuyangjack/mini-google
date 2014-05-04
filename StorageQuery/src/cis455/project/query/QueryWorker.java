@@ -2,6 +2,7 @@ package cis455.project.query;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,12 +13,15 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
+import StopAndStemmer.WordPreprocessor;
+
+import cis455.project.search.SearchWorker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 import cis455.project.storage.TFIDFEntry;
 
 public class QueryWorker{
-	private static final Logger logger = Logger.getLogger(QueryWorker.class);
+	public static final Logger logger = Logger.getLogger(QueryWorker.class);
 	private static String loggerPath = QueryGlobal.logWorker;
 	private static Storage storage = null;
 	
@@ -76,14 +80,37 @@ public class QueryWorker{
 		return entryList;
 	}
 	
+	public static String search(String query) {
+		List<String> words = new ArrayList<String>();
+		for(String word : query.split("\\s")) {
+			String w = WordPreprocessor.preprocess(word);
+			if(w != null)
+				words.add(w);
+		}
+		String result = SearchWorker.search(words);
+		return result;
+	}
+	
 	public static Map<String, Double> getPagerank(Set<String> urls) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Double> re = new HashMap<String, Double>();
+		for(String url : urls){
+			String[] arr = storage.get(StorageGlobal.tablePageRank, url);
+			if(arr.length > 0){
+				re.put(url, Double.parseDouble(arr[0].trim()));
+			}
+		}
+		return re;
 	}
 
-	public static Map<String, Double> getDocmodule(Set<String> urls) {
-		// TODO Auto-generated method stub
-		return null;
+	public static Map<String, Double> getDocmodule(String tableName, Set<String> urls) {
+		HashMap<String, Double> re = new HashMap<String, Double>();
+		for(String url : urls){
+			String[] arr = storage.get(StorageGlobal.tableModTitle, url);
+			if(arr.length > 0){
+				re.put(url, Double.parseDouble(arr[0].trim()));
+			}
+		}
+		return re;
 	}
 	
 }

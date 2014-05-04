@@ -2,6 +2,7 @@ package cis455.project.query;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
@@ -16,13 +17,18 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import cis455.project.hash.SHA1Partition;
+import cis455.project.rank.DocumentInfo;
+import cis455.project.rank.DocumentRanker;
+import cis455.project.storage.Storage;
+import cis455.project.storage.StorageGlobal;
 
 public class QueryMaster {
 	private static final Logger logger = Logger.getLogger(QueryMaster.class);
 	private static String loggerPath = QueryGlobal.logMaster;
 	private static String[] servers = null;
-	
-	public static void initialize(String[] nodes) {
+	private static Storage storage = null;
+
+	public static void initialize(String[] nodes, String pathDatabase) {
 		// Logging
 		logger.addAppender(new ConsoleAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN)));
 		logger.setAdditivity(false);
@@ -33,16 +39,27 @@ public class QueryMaster {
 			logger.error("cannot open log file");
 		}
 		
-		// Storage
+		// Servers
 		servers = nodes;
 		logger.info("initialize query client, server count: " + servers.length);
 		for (String server : servers) {
 			logger.info("register server: " + server);
 		}
+		
+		// Hash
 		SHA1Partition.setRange(servers.length);
+		
+		// Storage
+		logger.info("connect to database: " + pathDatabase);
+		try {
+			Storage.setEnvPath(pathDatabase, true);
+			storage = Storage.getInstance(StorageGlobal.tableTitle);
+		} catch (Exception e) {
+			logger.error("failure open database", e);
+		}
 	}
 	
-	public static String[] search(String query) throws IOException {
+	public static List<DocumentInfo> search(String query) throws IOException {
 		logger.info("search query: " + query);
 		String[] ret = new String[servers.length];
 		for (int i = 0; i < servers.length; i ++) {
@@ -61,7 +78,8 @@ public class QueryMaster {
 			ret[i] = body;
 		}
 		// Process
-		return ret;
+		List<DocumentInfo> results = DocumentRanker.rankDocument(storage, ret);
+		return results;
 	}
 	
 	public static String get(String table, String key) throws IOException {

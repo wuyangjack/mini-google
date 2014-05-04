@@ -1,6 +1,7 @@
 package cis455.project.storage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TFIDFEntry {
 
@@ -40,7 +41,14 @@ public class TFIDFEntry {
 		}
 		
 	}
+	
+	public String getWord() { return word; }
 
+	public String getUrl() { return doc; }
+
+	public double getWeight() { return tfidf; }
+
+	public List<Integer> getPositions() { return positions; }
 	
 	public String toString(){
 		return this.word + ";;;" + this.doc + ";;;" + tfidf + ";;;" + positions;
