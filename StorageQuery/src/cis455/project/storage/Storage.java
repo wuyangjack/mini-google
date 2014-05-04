@@ -116,7 +116,7 @@ public class Storage {
 		this.locks.put(dbname, dbname);
 	}
 	
-	public boolean put(String dbName, String key, String value){
+	public synchronized boolean put(String dbName, String key, String value){
 		try{
 			if (false == this.envs.containsKey(dbName)) {
 				throw new Exception("env not existed");
@@ -144,7 +144,7 @@ public class Storage {
 		}
 	}
 	
-	public String[] get(String dbName, String key){
+	public synchronized String[] get(String dbName, String key){
 		try{
 			if (false == this.tables.containsKey(dbName)) {
 				throw new Exception("table not existed");
