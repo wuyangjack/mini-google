@@ -9,9 +9,10 @@ public class MasterServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		String[] servers = new String[]{
-				"ec2-54-82-113-106.compute-1.amazonaws.com:8080", 
-				"ec2-54-80-76-16.compute-1.amazonaws.com:8080",
-				"ec2-184-73-124-143.compute-1.amazonaws.com:8080"
+				"ec2-50-16-82-61.compute-1.amazonaws.com:8080", 
+				"ec2-54-221-151-217.compute-1.amazonaws.com:8080",
+				"ec2-54-237-211-134.compute-1.amazonaws.com:8080",
+				"ec2-54-82-187-46.compute-1.amazonaws.com:8080"
 		};
 		QueryMaster.initialize(servers);
 	}
@@ -20,10 +21,9 @@ public class MasterServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<HTML><HEAD><TITLE>Master Servlet</TITLE></HEAD><BODY>");
-		String table = request.getParameter("table");
-		String key = request.getParameter("key");
-		String result = QueryMaster.get(table, key);
-		out.println("<P>" + result + "</P>");
+		String key = request.getParameter("query");
+		String[] result = QueryMaster.search(key);
+		out.println("<P>" + result.length + "</P>");
 		out.println("</BODY></HTML>");
 	}
 }
