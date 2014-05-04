@@ -57,6 +57,18 @@ echoConfig() {
 echoConfig
 
 case "$1" in
+	Commit)
+		cd $ROOT
+		ant clean
+		ant
+		git add master.war
+		git add worker.war
+		git add storage.jar
+		git add *.java
+		git add run.sh
+		git commit -m "Compile & deploy."
+		git push
+		;;
 	UnloadMaster)
 		WAR="master"
 		rm -rf $TOMCAT/webapps/$WAR
@@ -72,6 +84,7 @@ case "$1" in
 		cd $ROOT
 		rm -rf /tmp/QueryMaster.log
 		sh $TOMCAT/bin/shutdown.sh
+		fuser -k 8080/tcp
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
@@ -82,6 +95,7 @@ case "$1" in
 		cd $ROOT
 		rm -rf /tmp/QueryWorker.log
 		sh $TOMCAT/bin/shutdown.sh
+		fuser -k 8080/tcp
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war

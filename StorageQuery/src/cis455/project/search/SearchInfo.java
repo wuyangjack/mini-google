@@ -1,7 +1,5 @@
 package cis455.project.search;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +26,7 @@ public class SearchInfo {
 		if(wordPositions == null) {
 			wordPositions = new HashMap<String, List<Integer>>();
 		}
-		List<Integer> list = new ArrayList<Integer>(positions.size());
-		Collections.copy(list, positions);
-		wordPositions.put(word, list);
+		wordPositions.put(word, positions);
 	}
 	
 	public Map<String, Double> getWordweights() {

@@ -82,7 +82,9 @@ public class SearchWorker {
 			else {
 				info = urlMap.get(entry.getUrl());
 			}
+			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getWeight());
 			info.addWordweight(entry.getWord(), entry.getWeight());
+			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getPositions().size());
 			info.addWordPosition(entry.getWord(), entry.getPositions());
 			// last step, update this url
 			urlMap.put(entry.getUrl(), info);
@@ -98,12 +100,13 @@ public class SearchWorker {
 			// 4.1 for each word in the query
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
 			double final_score = 0, vector_mul = 0;
-			System.out.print("Doc: " + entry.getKey() + "; ");
+			QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
-				System.out.println("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
+				QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
 			}
 			final_score = (vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()))) * pageRankMap.get(entry.getKey());
+			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			weightMap.put(entry.getKey(), final_score);
 		}
 		return weightMap;
