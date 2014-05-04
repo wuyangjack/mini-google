@@ -40,6 +40,14 @@ public class Storage {
 		this.initDatabase(StorageGlobal.tableBody, readOnly);
 	}
 	
+	private Storage(String[] databaseNames) {
+		initPath(envPath);
+		// Add table
+		for (String databaseName : databaseNames) {
+			this.initDatabase(databaseName, readOnly);
+		}
+	}
+	
 	private Storage(String databaseName) {
 		initPath(envPath);
 		// Add table
@@ -54,6 +62,11 @@ public class Storage {
 	
 	public static Storage getInstance(String databaseName) {
 		if(database == null) database = new Storage(databaseName);
+		return database;
+	}
+	
+	public static Storage getInstance(String[] databaseNames) {
+		if(database == null) database = new Storage(databaseNames);
 		return database;
 	}
 	

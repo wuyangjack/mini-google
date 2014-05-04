@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import cis455.project.storage.Storage;
+import cis455.project.storage.StorageGlobal;
 import cis455.project.storage.TFIDFEntry;
 
 public class QueryWorker{
@@ -35,7 +36,8 @@ public class QueryWorker{
 		logger.info("connect to database: " + pathDatabase);
 		try {
 			Storage.setEnvPath(pathDatabase, true);
-			storage = Storage.getInstance();
+			String[] databaseNames = new String[]{StorageGlobal.tablePageRank, StorageGlobal.tableFreqTitle, StorageGlobal.tableModTitle, StorageGlobal.tableTitle};
+			storage = Storage.getInstance(databaseNames);
 		} catch (Exception e) {
 			logger.error("failure open database", e);
 		}

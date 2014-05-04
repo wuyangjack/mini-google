@@ -1,6 +1,7 @@
 package cis455.project.query;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
@@ -39,6 +40,28 @@ public class QueryMaster {
 			logger.info("register server: " + server);
 		}
 		SHA1Partition.setRange(servers.length);
+	}
+	
+	public static String[] search(String query) throws IOException {
+		logger.info("search query: " + query);
+		String[] ret = new String[servers.length];
+		for (int i = 0; i < servers.length; i ++) {
+			String server = servers[i];
+			logger.info("fetch from worker server: " + server);
+			// Get
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			String url = "http://" + server + "/" + QueryGlobal.pathContext + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
+			logger.info(url);
+			HttpGet httpGet = new HttpGet(url);
+			HttpResponse response = httpclient.execute(httpGet);
+			ResponseHandler<String> handler = new BasicResponseHandler();
+			String body = handler.handleResponse(response);
+			int code = response.getStatusLine().getStatusCode();
+			logger.info("server response code: " + code);
+			ret[i] = body;
+		}
+		// Process
+		return ret;
 	}
 	
 	public static String get(String table, String key) throws IOException {

@@ -2,6 +2,7 @@ package cis455.project.query;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
+import java.net.URLDecoder;
 
 public class WorkerServlet extends HttpServlet {
 	
@@ -18,6 +19,10 @@ public class WorkerServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
+		String query = request.getParameter(QueryGlobal.paraSearch);
+		query = URLDecoder.decode(query, "UTF-8");
+		out.println("<P>" + query + "</P>");
+		/*
 		String table = request.getParameter(QueryGlobal.paraTable);
 		String key = request.getParameter(QueryGlobal.paraKey);
 		if (table == null || key == null) {
@@ -26,6 +31,7 @@ public class WorkerServlet extends HttpServlet {
 			String result = QueryWorker.get(table, key);
 			out.println("<P>" + result + "</P>");
 		}
+		*/
 		out.println("</BODY></HTML>");
 	}
 

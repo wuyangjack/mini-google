@@ -50,12 +50,15 @@ find ~/data/pagerank -name 'part*' | xargs wc -l
 
 # Node dump commands
 StorageQuery/run.sh DumpPageRank &
+(http://zurb.com/studios)
 StorageQuery/run.sh DumpTitle &
 StorageQuery/run.sh DumpMeta &
 StorageQuery/run.sh DumpBody &
 StorageQuery/run.sh DumpModTitle &
 StorageQuery/run.sh DumpModMeta &
+( http://youngadults.about.com/od/quarterlife/g/Whats-A-Co-Signer.htm)
 StorageQuery/run.sh DumpModBody &
+( http://youngadults.about.com/od/quarterlife/g/Whats-A-Co-Signer.htm)
 
 # Storage test links
 http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=pagerank&key=http://stackoverflow.com/tags
