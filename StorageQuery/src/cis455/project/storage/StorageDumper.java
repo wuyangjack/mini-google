@@ -7,25 +7,32 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class StorageDumper {
 	
 	public static void main(String[] args) {
-		dataPath = args[0];
-		String dbDir = args[1];
-		NODE_NUMBER = Integer.parseInt(args[2]);
-		NODE_INDEX = Integer.parseInt(args[3]);
-		dbName = args[4];
-		dumpThreadNum = Integer.parseInt(args[5]);
-		Storage.setEnvPath(dbDir, false);
+		System.out.println("dumper arguments: ");
+		for (String arg : args) {
+			System.out.print(" " + arg);
+		}
+		System.out.println();
+		sourceFile = args[0];
+		String databaseDirectory = args[1];
+		nodeCount = Integer.parseInt(args[2]);
+		nodeIndex = Integer.parseInt(args[3]);
+		databaseName = args[4];
+		threadCount = Integer.parseInt(args[5]);
+		keyIndex = Integer.parseInt(args[6]);
+		Storage.setEnvPath(databaseDirectory, false);
 		dump();
 	}
 	
-	public static int NODE_INDEX = 1;
-	public static int NODE_NUMBER = 5;
-	public static String dbName = null;
-	public static String  dataPath = null;
-	public static int dumpThreadNum = 1;
+	public static int nodeIndex = -1;
+	public static int nodeCount = -1;
+	public static int keyIndex = -1;
+	public static String databaseName = null;
+	public static String  sourceFile = null;
+	public static int threadCount = -1;
 	public static File poison = new File("poison");
 
 	public static void dump(){
-		File dir = new File(dataPath);
+		File dir = new File(sourceFile);
 		File[] fileList = dir.listFiles();
 		
 		BlockingQueue<File> entryQ = new LinkedBlockingQueue<File>();
@@ -34,17 +41,16 @@ public class StorageDumper {
 			for(int i = 0; i < fileList.length; i++){
 				entryQ.put(fileList[i]);
 			}
-			for(int i = 0; i < StorageDumper.dumpThreadNum; i++){
+			for(int i = 0; i < StorageDumper.threadCount; i++){
 				entryQ.put(StorageDumper.poison);
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Thread[] threads = new Thread[StorageDumper.dumpThreadNum];
+		Thread[] threads = new Thread[StorageDumper.threadCount];
 		
-		Log.info("Start dumping into DB - " + dbName + " , thread number is " + fileList.length);
+		Log.info("Start dumping into DB - " + databaseName + " , thread number is " + threads.length);
 		
 		for(int i = 0; i < threads.length; i++){
 			threads[i] = new FileReaderThread(entryQ);

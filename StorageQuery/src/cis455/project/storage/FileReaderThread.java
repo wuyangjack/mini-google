@@ -21,7 +21,7 @@ public class FileReaderThread extends Thread{
 	@Override
 	public void run(){
 		BufferedReader br = null;
-		SHA1Partition.setRange(StorageDumper.NODE_NUMBER);
+		SHA1Partition.setRange(StorageDumper.nodeCount);
 		try {
 			while(true){
 				File file = this.queue.take();
@@ -30,36 +30,22 @@ public class FileReaderThread extends Thread{
 				}
 				br = new BufferedReader(new FileReader(file));
 				String line = null;
-				String key = "";
-				String value = "";
-				String SHAkey = "";
+				String key = null;
+				String value = null;
+				String SHAkey = null;
 
 				while((line = br.readLine()) != null){
-
 					String[] data = line.trim().split("\t", 2);
 					key = data[0];
 					value = data[1];
-					if (data.length != 2) {
-						System.out.println("Illegal");
-					}
-					if(StorageDumper.dbName.equals("tablePageRank")){
-						SHAkey = key;
-					}
-					else{
-						//SHA key = docId
-						SHAkey = value.split("\t")[0];
-					}
-
-
+					SHAkey = line.trim().split("\t", StorageDumper.keyIndex + 2)[StorageDumper.keyIndex];
 					System.out.println(file.getPath() + ":");
-					System.out.print("\"" + data[0] + "\": ");
-					if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.NODE_INDEX)){
-
-						System.out.println("Save to " + StorageDumper.dbName);
-						if(!storage.put(StorageDumper.dbName, key, value)){
-							Log.error("bug whern putting into DB + key + value: " + StorageDumper.dbName
-									+ " + " + data[0]+ " + " + line);
-							throw new Exception("DB Exception occured while putting index data!");
+					System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
+					if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.nodeIndex)){
+						System.out.println("Save to " + StorageDumper.databaseName);
+						if(!storage.put(StorageDumper.databaseName, key, value)){
+							Log.error("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
+							throw new Exception("error writing index");
 						}
 					} else {
 						System.out.println("Skip");
