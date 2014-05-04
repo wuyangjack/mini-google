@@ -115,6 +115,9 @@ public class SearchWorker {
 		// 2. get all the words and their corresponds doc
 		Map<String, SearchInfo> urlMap = getSearchInfo(words);
 		QueryWorker.logger.info("Url Map: " + urlMap.size());
+		// the node don't have the matching doc
+		if(urlMap.size() == 0)
+			return "";
 		// 3. calculate the weight
 		Map<String, Double> weightMap = getWeightMap(queryInfo, urlMap);
 		QueryWorker.logger.info("WeightMap size: " + weightMap.size());

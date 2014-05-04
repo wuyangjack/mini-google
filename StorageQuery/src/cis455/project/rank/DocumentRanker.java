@@ -13,9 +13,10 @@ public class DocumentRanker {
 	private static List<String> parseResult(String[] results) {
 		List<String> inputs = new ArrayList<String>();
 		for(String result : results) {
-			for(String s : result.split("\r\n")) {
-				inputs.add(s);
-			}
+			if(result.length() > 0)
+				for(String s : result.split("\r\n")) {
+					inputs.add(s);
+				}
 		}
 		return inputs;
 	}
