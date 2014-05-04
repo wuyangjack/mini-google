@@ -45,6 +45,17 @@ ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec
 Worker (3):
 ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-54-82-187-46.compute-1.amazonaws.com
 
+# Line count
+find ~/data/pagerank -name 'part*' | xargs wc -l
+
+# Node dump commands
+StorageQuery/run.sh DumpPageRank &
+StorageQuery/run.sh DumpTitle &
+StorageQuery/run.sh DumpMeta &
+StorageQuery/run.sh DumpBody &
+StorageQuery/run.sh DumpModTitle &
+StorageQuery/run.sh DumpModMeta &
+StorageQuery/run.sh DumpModBody &
 
 # Storage test links
 http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=pagerank&key=http://stackoverflow.com/tags

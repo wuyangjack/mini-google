@@ -36,25 +36,30 @@ public class FileReaderThread extends Thread{
 				int count = 1;
 				
 				while((line = br.readLine()) != null){
-					count ++;
-					if (count % StorageDumper.linesUpdateIncrement == 0) {
-						StorageDumper.updateStatus();
-						count = 1;
-					}
-					String[] data = line.trim().split("\t", 2);
-					key = data[0];
-					value = data[1];
-					SHAkey = line.trim().split("\t", StorageDumper.keyIndex + 2)[StorageDumper.keyIndex];
-					System.out.println(file.getPath() + ":");
-					System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
-					if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.nodeIndex)){
-						System.out.println("Save to " + StorageDumper.databaseName);
-						if(!storage.put(StorageDumper.databaseName, key, value)){
-							System.err.println("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
-							throw new Exception("error writing index");
+					try {
+						count ++;
+						if (count % StorageDumper.linesUpdateIncrement == 0) {
+							StorageDumper.updateStatus();
+							count = 1;
 						}
-					} else {
-						System.out.println("Skip");
+						String[] data = line.trim().split("\t", 2);
+						key = data[0];
+						value = data[1];
+						SHAkey = line.trim().split("\t", StorageDumper.keyIndex + 2)[StorageDumper.keyIndex];
+						System.out.println(file.getPath() + ":");
+						System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
+						if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.nodeIndex)){
+							System.out.println("Save to " + StorageDumper.databaseName);
+							if(!storage.put(StorageDumper.databaseName, key, value)){
+								System.err.println("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
+								throw new Exception("error writing index");
+							}
+						} else {
+							System.out.println("Skip");
+						}
+					} catch (Exception e) {
+						System.err.println("error dumping line: " + line);
+						e.printStackTrace();
 					}
 				}
 			}
