@@ -14,7 +14,12 @@ SOURCE_PAGERANK="$SOURCE/pagerank"
 SOURCE_META="$SOURCE/indexer/meta"
 SOURCE_BODY="$SOURCE/indexer/body"
 SOURCE_TITLE="$SOURCE/indexer/title"
+SOURCE_MODMETA="$SOURCE/indexer/mod-meta"
+SOURCE_MODBODY="$SOURCE/indexer/mod-body"
+SOURCE_MODTITLE="$SOURCE/indexer/mod-title"
 SPLIT="_split"
+CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
+DUMPER="cis455.project.storage.StorageDumper"
 
 # Tables
 # Should be consistent with cis455.project.StorageGlobal
@@ -22,6 +27,9 @@ TABLE_PAGERANK="pagerank"
 TABLE_META="freqmeta"
 TABLE_BODY="freqbody"
 TABLE_TITLE="freqtitle"
+TABLE_MODMETA="modmeta"
+TABLE_MODBODY="modbody"
+TABLE_MODTITLE="modtitle"
 
 WAR="storage.war"
 
@@ -81,27 +89,45 @@ case "$1" in
 		;;
 	DumpPageRank)
 		cd $ROOT
-		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
-		APP="cis455.project.storage.StorageDumper"
 		THREADS=5
 		KEY=0
-		java -cp $CLASSPATH $APP $SOURCE_PAGERANK $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_PAGERANK $THREADS $KEY
+		java -cp $CLASSPATH $DUMPER $SOURCE_PAGERANK $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_PAGERANK $THREADS $KEY
 		;;
 	DumpTitle)
 		cd $ROOT
-		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
-		APP="cis455.project.storage.StorageDumper"
 		THREADS=5
 		KEY=1
-		java -cp $CLASSPATH $APP $SOURCE_TITLE $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_TITLE $THREADS $KEY
+		java -cp $CLASSPATH $DUMPER $SOURCE_TITLE $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_TITLE $THREADS $KEY
 		;;
 	DumpMeta)
 		cd $ROOT
-		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
-		APP="cis455.project.storage.StorageDumper"
 		THREADS=5
 		KEY=1
-		java -cp $CLASSPATH $APP $SOURCE_META $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_META $THREADS $KEY
+		java -cp $CLASSPATH $DUMPER $SOURCE_META $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_META $THREADS $KEY
+		;;
+	DumpBody)
+		cd $ROOT
+		THREADS=5
+		KEY=1
+		java -cp $CLASSPATH $DUMPER $SOURCE_BODY $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_META $THREADS $KEY
+		;;
+	DumpModTitle)
+		cd $ROOT
+		THREADS=5
+		KEY=1
+		java -cp $CLASSPATH $DUMPER $SOURCE_MODTITLE $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_MODTITLE $THREADS $KEY
+		;;
+	DumpModMeta)
+		cd $ROOT
+		THREADS=5
+		KEY=1
+		java -cp $CLASSPATH $DUMPER $SOURCE_MODMETA $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_MODMETA $THREADS $KEY
+		;;
+	DumpModBody)
+		cd $ROOT
+		THREADS=5
+		KEY=1
+		java -cp $CLASSPATH $APP $SOURCE_MODBODY $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_MODMETA $THREADS $KEY
 		;;
 	*)
 		echo "Unknown mode"

@@ -31,6 +31,9 @@ public class Storage {
 		this.initDatabase(StorageGlobal.tableFreqBody, readOnly);
 		this.initDatabase(StorageGlobal.tableFreqMeta, readOnly);
 		this.initDatabase(StorageGlobal.tableFreqTitle, readOnly);
+		this.initDatabase(StorageGlobal.tableModBody, readOnly);
+		this.initDatabase(StorageGlobal.tableModMeta, readOnly);
+		this.initDatabase(StorageGlobal.tableModTitle, readOnly);
 		this.initDatabase(StorageGlobal.tablePageRank, readOnly);
 		this.initDatabase(StorageGlobal.tableTitle, readOnly);
 		this.initDatabase(StorageGlobal.tableMeta, readOnly);
