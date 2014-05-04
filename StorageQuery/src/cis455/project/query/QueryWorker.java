@@ -55,7 +55,7 @@ public class QueryWorker{
 			sb.append(QueryGlobal.delimiterNetwork);
 			sb.append(result);
 		}
-		return sb.toString().substring(QueryGlobal.delimiterNetwork.length());
+		return sb.toString();
 	}
 	
 	public static void close() {
