@@ -7,7 +7,7 @@ BASE=/home/$CIS455_USER
 ROOT=$BASE"/MiniGoogle/StorageQuery"
 SOURCE=$BASE"/data"
 DATABASE=$BASE"/database"
-TOMCAT=$BASE"/apache-tomcat"
+TOMCAT=$BASE"/tomcat"
 
 # Data sources
 SOURCE_PAGERANK="$SOURCE/pagerank"
