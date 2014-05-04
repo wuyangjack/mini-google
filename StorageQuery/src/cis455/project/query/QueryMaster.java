@@ -50,7 +50,7 @@ public class QueryMaster {
 			logger.info("fetch from worker server: " + server);
 			// Get
 			CloseableHttpClient httpclient = HttpClients.createDefault();
-			String url = "http://" + server + "/" + QueryGlobal.pathContext + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
+			String url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
 			logger.info(url);
 			HttpGet httpGet = new HttpGet(url);
 			HttpResponse response = httpclient.execute(httpGet);
@@ -73,7 +73,7 @@ public class QueryMaster {
 		
 		// Get
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		String url = "http://" + server + "/" + QueryGlobal.pathContext + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraTable + "=" + table + "&" + QueryGlobal.paraKey + "=" + key;
+		String url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraTable + "=" + table + "&" + QueryGlobal.paraKey + "=" + key;
 		logger.info(url);
 		HttpGet httpGet = new HttpGet(url);
 		HttpResponse response = httpclient.execute(httpGet);

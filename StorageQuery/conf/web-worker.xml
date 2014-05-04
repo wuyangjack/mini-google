@@ -15,6 +15,7 @@
 
      <servlet-mapping>
          <servlet-name>Worker</servlet-name>
-         <url-pattern>/worker</url-pattern>
+         <url-pattern>/query</url-pattern>
+         <url-pattern>/*</url-pattern>
      </servlet-mapping>
 </web-app>
