@@ -33,8 +33,14 @@ public class FileReaderThread extends Thread{
 				String key = null;
 				String value = null;
 				String SHAkey = null;
-
+				int count = 1;
+				
 				while((line = br.readLine()) != null){
+					count ++;
+					if (count % StorageDumper.linesUpdateIncrement == 0) {
+						StorageDumper.updateStatus();
+						count = 1;
+					}
 					String[] data = line.trim().split("\t", 2);
 					key = data[0];
 					value = data[1];

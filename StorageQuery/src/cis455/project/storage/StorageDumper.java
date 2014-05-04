@@ -30,7 +30,14 @@ public class StorageDumper {
 	public static String  sourceFile = null;
 	public static int threadCount = -1;
 	public static File poison = new File("poison");
-
+	private static int linesWritten = 0;
+	public static final int linesUpdateIncrement = 100;
+	
+	public static synchronized void updateStatus() {
+		linesWritten += linesUpdateIncrement;
+		System.out.println("line written: " + linesWritten);
+	}
+	
 	public static void dump(){
 		File dir = new File(sourceFile);
 		File[] fileList = dir.listFiles();
