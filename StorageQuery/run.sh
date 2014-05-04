@@ -75,7 +75,7 @@ case "$1" in
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
-		cp $ROOT/$WAR $TOMCAT/webapps/
+		cp $ROOT/$WAR.war $TOMCAT/webapps/
 		;;
 	UploadWorker)
 		WAR="worker"
@@ -85,7 +85,7 @@ case "$1" in
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
-		cp $ROOT/$WAR $TOMCAT/webapps/
+		cp $ROOT/$WAR.war $TOMCAT/webapps/
 		;;
 	DBInit)
 		rm -rf $DATABASE
