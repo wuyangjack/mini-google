@@ -45,7 +45,7 @@ class QueryWorkerThread extends Thread {
 		String url = null;
 		try {
 			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" 
-					+ QueryGlobal.paraMode + "=" + QueryGlobal.modeSearch
+					+ QueryGlobal.paraMode + "=" + QueryGlobal.modeSearch + "&"
 					+ QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			QueryMaster.logger.error("error encoding query");
