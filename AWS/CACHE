@@ -19,40 +19,44 @@ Cloudera VM uses Hadoop 2.0.0
 https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
 
 # AMI Initialization Commands
-sudo yum install git
+sudo yum install git htop
 git clone https://github.com/wuyangjack/MiniGoogle.git
 export CIS455_USER="ec2-user" (add to ~/.bashrc)
+source ~/.bashrc
+cd ~;mkdir data;mkdir data/pagerank;mkdir data/indexer;mkdir data/indexer/title;mkdir data/indexer/meta;mkdir data/indexer/body;mkdir data/indexer/mod-body;mkdir data/indexer/mod-meta;mkdir data/indexer/mod-title;
 
 # Connect to EC2
 chmod 400 ../login.pem
 ssh-add ../login.pem
-export CIS455_USER="ec2-user"
 
-# Storage nodes
-ec2-54-82-113-106.compute-1.amazonaws.com 	(index 0)
-ec2-54-80-76-16.compute-1.amazonaws.com 	(index 1)
-ec2-184-73-124-143.compute-1.amazonaws.com 	(index 2)
+# Node data structure
+
+# Node addresses
+Master:
+ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-54-221-87-56.compute-1.amazonaws.com
+Worker (0):
+ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-50-16-82-61.compute-1.amazonaws.com
+Worker (1):
+ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-54-221-151-217.compute-1.amazonaws.com
+Worker (2):
+ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-54-237-211-134.compute-1.amazonaws.com
+Worker (3):
+ssh -i /Users/jackwu/Google\ Drive/Project/2014@CIS_455/Credentials/login.pem ec2-user@ec2-54-82-187-46.compute-1.amazonaws.com
+
 
 # Storage test links
 http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=pagerank&key=http://stackoverflow.com/tags
 http://ec2-184-73-124-143.compute-1.amazonaws.com:8080/storage/master?table=freqtitle&key=tag
 
+
 # PageRank Step Configurations
 JAR:
 s3://cis555-project-test/pagerank/project-pagerank.jar
 
-ARG1:
+ARG:
 cis455.project.PageRankDriver
 emr
 s3://cis555-project-test/pagerank/input
-s3://cis555-project-test/pagerank/middle
-s3://cis555-project-test/pagerank/output
-3
-
-ARG2:
-cis455.project.PageRankDriver
-emr
-s3://cis555-project-test/data/small/crawler/pagelink.txt
 s3://cis555-project-test/pagerank/middle
 s3://cis555-project-test/pagerank/output
 3
