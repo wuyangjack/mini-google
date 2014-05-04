@@ -22,6 +22,8 @@ https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.
 sudo yum install git htop
 git clone https://github.com/wuyangjack/MiniGoogle.git
 export CIS455_USER="ec2-user" (add to ~/.bashrc)
+export CIS455_NODES=4 (add to ~/.bashrc)
+export CIS455_INDEX=i (add to ~/.bashrc)
 source ~/.bashrc
 cd ~;mkdir data;mkdir data/pagerank;mkdir data/indexer;mkdir data/indexer/title;mkdir data/indexer/meta;mkdir data/indexer/body;mkdir data/indexer/mod-body;mkdir data/indexer/mod-meta;mkdir data/indexer/mod-title;
 

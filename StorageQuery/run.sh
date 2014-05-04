@@ -1,19 +1,19 @@
 #!/bin/sh
 
-# Define CIS455_USER first
-# export CIS455_USER="cis455/ec2-user"
-echo "User: "$CIS455_USER
+# Define CIS455_USER, CIS455_NODES, CIS455_INDEX first
+# e.g. export CIS455_USER="cis455/ec2-user"
 
 BASE=/home/$CIS455_USER
 ROOT=$BASE"/MiniGoogle/StorageQuery"
+SOURCE=$BASE"/data"
 DATABASE=$BASE"/database"
 TOMCAT=$BASE"/tomcat"
 
 # Data sources
-SOURCE_PAGERANK="$ROOT/sample/pagerank"
-SOURCE_META="$ROOT/sample/indexer/meta"
-SOURCE_BODY="$ROOT/sample/indexer/body"
-SOURCE_TITLE="$ROOT/sample/indexer/title"
+SOURCE_PAGERANK="$SOURCE/pagerank"
+SOURCE_META="$SOURCE/indexer/meta"
+SOURCE_BODY="$SOURCE/indexer/body"
+SOURCE_TITLE="$SOURCE/indexer/title"
 SPLIT="_split"
 
 # Tables
@@ -42,6 +42,14 @@ fileSplit() {
 	done
 }
 
+echoConfig() {
+	echo "User: "$CIS455_USER
+	echo "Node count: "$CIS455_NODES
+	echo "Node index: "$CIS455_INDEX
+}
+
+echoConfig
+
 case "$1" in
 	Unload)
 		rm -rf $TOMCAT/webapps/$WAR
@@ -66,22 +74,34 @@ case "$1" in
 		fileSplit $SOURCE_BODY 50000
 		fileSplit $SOURCE_TITLE 50000
 		;;
-	DBDump)
+	Build)
 		cd $ROOT
 		ant clean
 		ant
+		;;
+	DumpPageRank)
+		cd $ROOT
 		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
 		APP="cis455.project.storage.StorageDumper"
-		NODES=$2
-		INDEX=$3
 		THREADS=5
-		# Dump
 		KEY=0
-		java -cp $CLASSPATH $APP $SOURCE_PAGERANK $DATABASE $NODES $INDEX $TABLE_PAGERANK $THREADS $KEY
+		java -cp $CLASSPATH $APP $SOURCE_PAGERANK $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_PAGERANK $THREADS $KEY
+		;;
+	DumpTitle)
+		cd $ROOT
+		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
+		APP="cis455.project.storage.StorageDumper"
+		THREADS=5
 		KEY=1
-		java -cp $CLASSPATH $APP $SOURCE_META $DATABASE $NODES $INDEX $TABLE_META $THREADS $KEY
-		java -cp $CLASSPATH $APP $SOURCE_TITLE $DATABASE $NODES $INDEX $TABLE_TITLE $THREADS $KEY
-		#java -cp $CLASSPATH $APP $SOURCE_BODY $DATABASE $NODES $INDEX $TABLE_BODY $THREADS
+		java -cp $CLASSPATH $APP $SOURCE_TITLE $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_TITLE $THREADS $KEY
+		;;
+	DumpMeta)
+		cd $ROOT
+		CLASSPATH="$ROOT/storage.jar:$ROOT/lib/*"
+		APP="cis455.project.storage.StorageDumper"
+		THREADS=5
+		KEY=1
+		java -cp $CLASSPATH $APP $SOURCE_META $DATABASE $CIS455_NODES $CIS455_INDEX $TABLE_META $THREADS $KEY
 		;;
 	*)
 		echo "Unknown mode"

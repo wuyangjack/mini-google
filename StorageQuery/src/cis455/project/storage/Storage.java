@@ -20,22 +20,37 @@ public class Storage {
 	
 	private static String envPath;
 	private static boolean readOnly = false;
-	private Environment dbEnv;
+	//private Environment dbEnv;
+	private Hashtable<String, Environment> envs = new Hashtable<String, Environment>();
 	private Hashtable<String, Database> tables = new Hashtable<String, Database>();
 	private Hashtable<String, String> locks = new Hashtable<String, String>();
-
 	
 	private Storage() {
-		File dir = new File(envPath);
-		if (!dir.exists()) {
-			dir.mkdir(); 
-		}
-		initEnv();
+		initPath(envPath);
+		// Add tables
+		this.initDatabase(StorageGlobal.tableFreqBody, readOnly);
+		this.initDatabase(StorageGlobal.tableFreqMeta, readOnly);
+		this.initDatabase(StorageGlobal.tableFreqTitle, readOnly);
+		this.initDatabase(StorageGlobal.tablePageRank, readOnly);
+		this.initDatabase(StorageGlobal.tableTitle, readOnly);
+		this.initDatabase(StorageGlobal.tableMeta, readOnly);
+		this.initDatabase(StorageGlobal.tableBody, readOnly);
 	}
 	
+	private Storage(String databaseName) {
+		initPath(envPath);
+		// Add table
+		this.initDatabase(databaseName, readOnly);
+	}
+	
+	
 	public static Storage getInstance() {
-		if(database == null)
-			database = new Storage();
+		if(database == null) database = new Storage();
+		return database;
+	}
+	
+	public static Storage getInstance(String databaseName) {
+		if(database == null) database = new Storage(databaseName);
 		return database;
 	}
 	
@@ -44,7 +59,17 @@ public class Storage {
 		Storage.readOnly = readOnly;
 	}
 	
-	public void initEnv() {
+	private void initPath(String path) {
+		File dir = new File(path);
+		if (!dir.exists()) {
+			System.out.println("create directory: " + path);
+			dir.mkdir(); 
+		} else {
+			System.out.println("existing directory: " + path);
+		}
+	}
+	/*
+	private void initEnv() {
 		// create a configuration for DB environment
 		EnvironmentConfig envConf = new EnvironmentConfig();
 		// environment will be created if not exists
@@ -57,24 +82,32 @@ public class Storage {
 				new File(envPath), envConf);
 		
 		//open TF-IDF DB
-		this.initDatabase(StorageGlobal.tableFreqBody, readOnly);
-		this.initDatabase(StorageGlobal.tableFreqMeta, readOnly);
-		this.initDatabase(StorageGlobal.tableFreqTitle, readOnly);
-		this.initDatabase(StorageGlobal.tablePageRank, readOnly);
-		this.initDatabase(StorageGlobal.tableTitle, readOnly);
-		this.initDatabase(StorageGlobal.tableMeta, readOnly);
-		this.initDatabase(StorageGlobal.tableBody, readOnly);
+		
 	}
-	
+	*/
 	private void initDatabase(String dbname, boolean readOnly) {
+		// Path
+		String path = envPath + "/" + dbname;
+		initPath(path);
+		
+		// Env
+		EnvironmentConfig envConf = new EnvironmentConfig();
+		envConf.setAllowCreate(true);
+		envConf.setReadOnly(readOnly);  
+		envConf.setTransactional(true); 
+		Environment dbEnv = new Environment(new File(path), envConf);
+		this.envs.put(dbname, dbEnv);
+		
 		// Config
 		DatabaseConfig config = new DatabaseConfig(); 
 		config.setTransactional(true);
 		config.setReadOnly(readOnly);
 		config.setSortedDuplicates(true);
 		config.setAllowCreate(true);
+		
 		// Create
-		Database dat = this.dbEnv.openDatabase(null, dbname, config);
+		Database dat = dbEnv.openDatabase(null, dbname, config);
+		
 		// Add
 		this.tables.put(dbname, dat);
 		this.locks.put(dbname, dbname);
@@ -82,12 +115,16 @@ public class Storage {
 	
 	public boolean put(String dbName, String key, String value){
 		try{
+			if (false == this.envs.containsKey(dbName)) {
+				throw new Exception("env not existed");
+			}
 			if (false == this.tables.containsKey(dbName)) {
 				throw new Exception("table not existed");
 			}
 			if (false == this.locks.containsKey(dbName)) {
 				throw new Exception("lock not existed");
 			}
+			Environment dbEnv = this.envs.get(dbName);
 			Database database = this.tables.get(dbName);
 			String lock =  this.locks.get(dbName);
 			synchronized(lock){
@@ -132,12 +169,16 @@ public class Storage {
 	}
 	
 	public void close() {
-		Enumeration<Database> elements = tables.elements();
-		while (elements.hasMoreElements()) {
-			Database table = elements.nextElement();
+		Enumeration<Database> databases = tables.elements();
+		while (databases.hasMoreElements()) {
+			Database table = databases.nextElement();
 			table.close();
 		}
-		dbEnv.close();
+		Enumeration<Environment> environments = envs.elements();
+		while (environments.hasMoreElements()) {
+			Environment dbEnv = environments.nextElement();
+			dbEnv.close();
+		}
 	}
 
 	/**

@@ -12,7 +12,7 @@ import cis455.project.hash.SHA1Partition;
 public class FileReaderThread extends Thread{
 	
 	private BlockingQueue<File> queue = null;
-	Storage storage = Storage.getInstance();
+	Storage storage = Storage.getInstance(StorageDumper.databaseName);
 	
 	public FileReaderThread(BlockingQueue<File> queue){
 		this.queue = queue;
@@ -44,7 +44,7 @@ public class FileReaderThread extends Thread{
 					if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.nodeIndex)){
 						System.out.println("Save to " + StorageDumper.databaseName);
 						if(!storage.put(StorageDumper.databaseName, key, value)){
-							Log.error("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
+							System.err.println("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
 							throw new Exception("error writing index");
 						}
 					} else {
@@ -53,13 +53,14 @@ public class FileReaderThread extends Thread{
 				}
 			}
 		} catch (Exception e) {
+			System.err.println("error dumping index");
 			e.printStackTrace();
-			Log.error(e.getStackTrace().toString());
 		} finally {
 			try {
-				br.close();
+				if (br != null) br.close();
 			} catch (IOException e) {
-				Log.error(e.getStackTrace().toString());
+				System.err.println("error closing reader");
+				e.printStackTrace();
 			}
 		}
 	}
