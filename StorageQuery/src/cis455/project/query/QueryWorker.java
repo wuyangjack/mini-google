@@ -40,7 +40,7 @@ public class QueryWorker{
 		logger.info("connect to database: " + pathDatabase);
 		try {
 			Storage.setEnvPath(pathDatabase, true);
-			String[] databaseNames = new String[]{StorageGlobal.tablePageRank, StorageGlobal.tableFreqTitle, StorageGlobal.tableModTitle, StorageGlobal.tableTitle};
+			String[] databaseNames = new String[]{StorageGlobal.tablePageRank, StorageGlobal.tableFreqTitle, StorageGlobal.tableModTitle};
 			storage = Storage.getInstance(databaseNames);
 		} catch (Exception e) {
 			logger.error("failure open database", e);
