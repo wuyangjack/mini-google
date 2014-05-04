@@ -1,6 +1,7 @@
 package cis455.project.query;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -21,6 +22,55 @@ import cis455.project.rank.DocumentInfo;
 import cis455.project.rank.DocumentRanker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
+
+class QueryWorkerThread extends Thread {
+	private String result = null;
+	private String server = null;
+	private String query = null;
+	
+	QueryWorkerThread(String server, String query) {
+		this.server = server;
+		this.query = query;
+	}
+	
+	public String result() {
+		return result;
+	}
+	
+	@Override
+	public void run() {
+		QueryMaster.logger.info("fetch from worker server: " + server);
+		// Get
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		String url = null;
+		try {
+			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			QueryMaster.logger.error("error encoding query");
+			e.printStackTrace();
+		}
+		QueryMaster.logger.info(url);
+		HttpGet httpGet = new HttpGet(url);
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(httpGet);
+		} catch (IOException e) {
+			QueryMaster.logger.error("error executing GET request");
+			e.printStackTrace();
+		}
+		ResponseHandler<String> handler = new BasicResponseHandler();
+		String body = null;
+		try {
+			body = handler.handleResponse(response);
+		} catch (IOException e) {
+			QueryMaster.logger.error("error reading response");
+			e.printStackTrace();
+		}
+		int code = response.getStatusLine().getStatusCode();
+		QueryMaster.logger.info("server response code: " + code);
+		result = body;
+	}
+}
 
 public class QueryMaster {
 	public static final Logger logger = Logger.getLogger(QueryMaster.class);
@@ -61,25 +111,26 @@ public class QueryMaster {
 	
 	public static List<DocumentInfo> search(String query) throws IOException {
 		logger.info("search query: " + query);
-		String[] ret = new String[servers.length];
+		String[] results = new String[servers.length];
+		Thread[] threads = new Thread[servers.length];
 		for (int i = 0; i < servers.length; i ++) {
-			String server = servers[i];
-			logger.info("fetch from worker server: " + server);
-			// Get
-			CloseableHttpClient httpclient = HttpClients.createDefault();
-			String url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
-			logger.info(url);
-			HttpGet httpGet = new HttpGet(url);
-			HttpResponse response = httpclient.execute(httpGet);
-			ResponseHandler<String> handler = new BasicResponseHandler();
-			String body = handler.handleResponse(response);
-			int code = response.getStatusLine().getStatusCode();
-			logger.info("server response code: " + code);
-			ret[i] = body;
+			threads[i] = new QueryWorkerThread(servers[i], query);
+			logger.error("start thread #" + i);
+			threads[i].start();
+		}
+		for (int i = 0; i < servers.length; i ++) {
+			try {
+				logger.error("join with thread #" + i);
+				threads[i].join();
+			} catch (InterruptedException e) {
+				logger.error("join interrupted");
+				e.printStackTrace();
+			}
+			results[i] = ((QueryWorkerThread)threads[i]).result();
 		}
 		// Process
-		List<DocumentInfo> results = DocumentRanker.rankDocument(storage, ret);
-		return results;
+		List<DocumentInfo> ret = DocumentRanker.rankDocument(storage, results);
+		return ret;
 	}
 	
 	public static String get(String table, String key) throws IOException {

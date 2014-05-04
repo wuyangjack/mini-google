@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import cis455.project.query.QueryMaster;
+import cis455.project.search.SearchWorker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 
@@ -15,7 +16,7 @@ public class DocumentRanker {
 		List<String> inputs = new ArrayList<String>();
 		for(String result : results) {
 			if(result.length() > 0)
-				for(String s : result.split("\r\n")) {
+				for(String s : result.split(SearchWorker.CRLF)) {
 					inputs.add(s);
 				}
 		}

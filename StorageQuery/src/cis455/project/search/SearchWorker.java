@@ -16,7 +16,7 @@ import cis455.project.storage.TFIDFEntry;
 
 public class SearchWorker {
 
-	private static final String CRLF = "\r\n";
+	public static final String CRLF = "\r\n";
 	
 	public SearchWorker() {
 	}
