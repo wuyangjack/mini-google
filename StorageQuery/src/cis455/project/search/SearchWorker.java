@@ -105,6 +105,8 @@ public class SearchWorker {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
 			}
+			QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
+			QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
 			final_score = (vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()))) * pageRankMap.get(entry.getKey());
 			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			weightMap.put(entry.getKey(), final_score);
