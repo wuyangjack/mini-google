@@ -7,7 +7,7 @@ BASE=/home/$CIS455_USER
 ROOT=$BASE"/MiniGoogle/StorageQuery"
 SOURCE=$BASE"/data"
 DATABASE=$BASE"/database"
-TOMCAT=$BASE"/tomcat"
+TOMCAT=$BASE"/apache-tomcat"
 
 # Data sources
 SOURCE_PAGERANK="$SOURCE/pagerank"
@@ -30,8 +30,6 @@ TABLE_TITLE="freqtitle"
 TABLE_MODMETA="modmeta"
 TABLE_MODBODY="modbody"
 TABLE_MODTITLE="modtitle"
-
-WAR="storage.war"
 
 # Split function
 fileSplit() { 
@@ -59,14 +57,27 @@ echoConfig() {
 echoConfig
 
 case "$1" in
-	Unload)
+	UnloadMaster)
+		WAR="master.war"
 		rm -rf $TOMCAT/webapps/$WAR
 		;;
-	Upload)
+	UnloadWorker)
+		WAR="worker.war"
+		rm -rf $TOMCAT/webapps/$WAR
+		;;
+	UploadMaster)
+		WAR="master.war"
 		cd $ROOT
-		ant clean
-		ant
-		rm -rf /tmp/Query*.log
+		rm -rf /tmp/QueryMaster.log
+		sh $TOMCAT/bin/shutdown.sh
+		sh $TOMCAT/bin/startup.sh
+		rm -rf $TOMCAT/webapps/$WAR
+		cp $ROOT/$WAR $TOMCAT/webapps/
+		;;
+	UploadWorker)
+		WAR="worker.war"
+		cd $ROOT
+		rm -rf /tmp/QueryWorker.log
 		sh $TOMCAT/bin/shutdown.sh
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR

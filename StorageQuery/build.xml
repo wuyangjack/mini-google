@@ -21,9 +21,18 @@
     </javac>
   </target>
 
-  <target name="war-storage" depends="compile-storage">
-    <copy file="conf/web.xml" tofile="target/storage/WEB-INF/web.xml"/>
-    <jar destfile="storage.war">
+  <target name="war-master" depends="compile-storage">
+    <copy file="conf/web-master.xml" tofile="target/storage/WEB-INF/web.xml"/>
+    <jar destfile="master.war">
+      <fileset dir="target/storage/" includes="WEB-INF/classes/**/*.class"/>
+      <fileset dir="target/storage/" includes="WEB-INF/lib/*.jar"/>
+      <fileset dir="target/storage/" includes="WEB-INF/*.xml"/>
+    </jar>
+  </target>
+
+  <target name="war-worker" depends="compile-storage">
+    <copy file="conf/web-worker.xml" tofile="target/storage/WEB-INF/web.xml"/>
+    <jar destfile="worker.war">
       <fileset dir="target/storage/" includes="WEB-INF/classes/**/*.class"/>
       <fileset dir="target/storage/" includes="WEB-INF/lib/*.jar"/>
       <fileset dir="target/storage/" includes="WEB-INF/*.xml"/>
@@ -39,7 +48,7 @@
     </jar>
   </target>
 
-  <target name="all" depends="war-storage,storage-jar"/>
+  <target name="all" depends="war-master,war-worker,storage-jar"/>
 
   <target name="clean">
     <delete dir="target/storage/WEB-INF/classes"/>

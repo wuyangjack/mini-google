@@ -4,25 +4,14 @@
     <display-name>CIS55 Project Storage</display-name>
      
     <servlet>
-        <servlet-name>Master</servlet-name>
-        <servlet-class>cis455.project.query.MasterServlet</servlet-class>
-        <load-on-startup/>
-    </servlet>
-
-    <servlet>
         <servlet-name>Worker</servlet-name>
         <servlet-class>cis455.project.query.WorkerServlet</servlet-class>
         <init-param>
            <param-name>pathDatabase</param-name>
            <param-value>/home/ec2-user/database</param-value>
-         </init-param>
+        </init-param>
         <load-on-startup/>
     </servlet>
-
-     <servlet-mapping>
-         <servlet-name>Master</servlet-name>
-         <url-pattern>/master</url-pattern>
-     </servlet-mapping>
 
      <servlet-mapping>
          <servlet-name>Worker</servlet-name>
