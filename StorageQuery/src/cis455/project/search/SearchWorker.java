@@ -96,6 +96,7 @@ public class SearchWorker {
 		Map<String, Double> weightMap = new HashMap<String, Double>();
 		Map<String, Double> moduleMap = QueryWorker.getDocmodule(StorageGlobal.tableModTitle, urlMap.keySet());
 		Map<String, Double> pageRankMap = QueryWorker.getPagerank(urlMap.keySet());
+		QueryWorker.logger.info("Module: " + moduleMap.size() + "; PageRank: " + pageRankMap.size());
 		for(Entry<String, SearchInfo> entry: urlMap.entrySet()) {
 			// 4.1 for each word in the query
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();

@@ -21,20 +21,22 @@ public class WorkerServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		out.println("<HTML><HEAD><TITLE>Worker Servlet</TITLE></HEAD><BODY>");
-		String query = request.getParameter(QueryGlobal.paraSearch);
-		query = URLDecoder.decode(query, "UTF-8");
-		String result = QueryWorker.search(query);
-		out.println("<P>" + result + "</P>");
-		/*
-		String table = request.getParameter(QueryGlobal.paraTable);
-		String key = request.getParameter(QueryGlobal.paraKey);
-		if (table == null || key == null) {
-			out.println("<P>Use table/key for argument.</P>");
-		} else {
-			String result = QueryWorker.get(table, key);
+		if(request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
+			String query = request.getParameter(QueryGlobal.paraSearch);
+			query = URLDecoder.decode(query, "UTF-8");
+			String result = QueryWorker.search(query);
 			out.println("<P>" + result + "</P>");
+		} else if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
+				&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
+			String table = request.getParameter(QueryGlobal.paraTable);
+			String key = request.getParameter(QueryGlobal.paraKey);
+			if (table == null || key == null) {
+				out.println("<P>Use table/key for argument.</P>");
+			} else {
+				String result = QueryWorker.get(table, key);
+				out.println("<P>" + result + "</P>");
+			}
 		}
-		*/
 		out.println("</BODY></HTML>");
 	}
 
