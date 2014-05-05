@@ -47,6 +47,7 @@ public class WorkerServlet extends HttpServlet {
 					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
 				String table = request.getParameter(QueryGlobal.paraTable);
 				String key = request.getParameter(QueryGlobal.paraKey);
+				QueryWorker.logger.info("get table | key: " + table + " | " + key);
 				String result = QueryWorker.get(table, key);
 				out.println("<P>" + result + "</P>");
 			} else {
