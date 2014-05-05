@@ -66,7 +66,7 @@ public class FileReaderThread extends Thread{
 						}
 						
 						if(write){
-							System.out.println("Save to " + DumperDistributed.databaseName);
+							//System.out.println("Save to " + DumperDistributed.databaseName);
 							if(!storage.bulk(env, dat, DumperDistributed.databaseName, key, value)){
 								System.err.println("bug when putting into DB | key | value: " + DumperDistributed.databaseName + " | " + SHAkey + " | " + line);
 								throw new Exception("error writing index");
