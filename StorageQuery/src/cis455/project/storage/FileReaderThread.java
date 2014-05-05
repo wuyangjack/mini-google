@@ -62,7 +62,7 @@ public class FileReaderThread extends Thread{
 							if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == DumperDistributed.nodeIndex)) {
 								write = true;
 							}
-							//System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
+							System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
 						}
 						
 						if(write){
