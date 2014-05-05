@@ -53,7 +53,7 @@ public class FileReaderThread extends Thread{
 						String[] data = line.trim().split("\t", 2);
 						key = data[0];
 						value = data[1];
-						System.out.println(file.getPath() + ":");
+						//System.out.println(file.getPath() + ":");
 						boolean write = false;
 						if (DumperDistributed.nodeSingle) {
 							write = true;
@@ -62,7 +62,7 @@ public class FileReaderThread extends Thread{
 							if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == DumperDistributed.nodeIndex)) {
 								write = true;
 							}
-							System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
+							//System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
 						}
 						
 						if(write){
@@ -72,7 +72,7 @@ public class FileReaderThread extends Thread{
 								throw new Exception("error writing index");
 							}
 						} else {
-							System.out.println("Skip");
+							//System.out.println("Skip");
 						}
 					} catch (Exception e) {
 						System.err.println("error dumping line: " + line);
