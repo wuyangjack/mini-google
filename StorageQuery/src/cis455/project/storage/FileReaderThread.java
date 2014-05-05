@@ -12,7 +12,7 @@ import cis455.project.hash.SHA1Partition;
 public class FileReaderThread extends Thread{
 	
 	private BlockingQueue<File> queue = null;
-	Storage storage = Storage.getInstance(StorageDumper.databaseName);
+	Storage storage = Storage.getInstance(DumperDistributed.databaseName);
 	
 	public FileReaderThread(BlockingQueue<File> queue){
 		this.queue = queue;
@@ -21,11 +21,11 @@ public class FileReaderThread extends Thread{
 	@Override
 	public void run(){
 		BufferedReader br = null;
-		SHA1Partition.setRange(StorageDumper.nodeCount);
+		SHA1Partition.setRange(DumperDistributed.nodeCount);
 		try {
 			while(true){
 				File file = this.queue.take();
-				if(file.compareTo(StorageDumper.poison) == 0){
+				if(file.compareTo(DumperDistributed.poison) == 0){
 					break;
 				}
 				br = new BufferedReader(new FileReader(file));
@@ -38,20 +38,20 @@ public class FileReaderThread extends Thread{
 				while((line = br.readLine()) != null){
 					try {
 						count ++;
-						if (count % StorageDumper.linesUpdateIncrement == 0) {
-							StorageDumper.updateStatus();
+						if (count % DumperDistributed.linesUpdateIncrement == 0) {
+							DumperDistributed.updateStatus();
 							count = 1;
 						}
 						String[] data = line.trim().split("\t", 2);
 						key = data[0];
 						value = data[1];
-						SHAkey = line.trim().split("\t", StorageDumper.keyIndex + 2)[StorageDumper.keyIndex];
+						SHAkey = line.trim().split("\t", DumperDistributed.keyIndex + 2)[DumperDistributed.keyIndex];
 						System.out.println(file.getPath() + ":");
 						System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
-						if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == StorageDumper.nodeIndex)){
-							System.out.println("Save to " + StorageDumper.databaseName);
-							if(!storage.put(StorageDumper.databaseName, key, value)){
-								System.err.println("bug when putting into DB | key | value: " + StorageDumper.databaseName + " | " + SHAkey + " | " + line);
+						if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == DumperDistributed.nodeIndex)){
+							System.out.println("Save to " + DumperDistributed.databaseName);
+							if(!storage.put(DumperDistributed.databaseName, key, value)){
+								System.err.println("bug when putting into DB | key | value: " + DumperDistributed.databaseName + " | " + SHAkey + " | " + line);
 								throw new Exception("error writing index");
 							}
 						} else {

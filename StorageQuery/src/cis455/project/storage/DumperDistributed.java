@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class StorageDumper {
+public class DumperDistributed {
 	
 	public static void main(String[] args) {
 		System.out.println("dumper arguments: ");
@@ -48,14 +48,14 @@ public class StorageDumper {
 			for(int i = 0; i < fileList.length; i++){
 				entryQ.put(fileList[i]);
 			}
-			for(int i = 0; i < StorageDumper.threadCount; i++){
-				entryQ.put(StorageDumper.poison);
+			for(int i = 0; i < DumperDistributed.threadCount; i++){
+				entryQ.put(DumperDistributed.poison);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
-		Thread[] threads = new Thread[StorageDumper.threadCount];
+		Thread[] threads = new Thread[DumperDistributed.threadCount];
 		
 		Log.info("Start dumping into DB - " + databaseName + " , thread number is " + threads.length);
 		

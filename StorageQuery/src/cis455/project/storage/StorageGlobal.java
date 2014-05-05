@@ -8,7 +8,7 @@ public class StorageGlobal {
 	public static final String tableModMeta = "modmeta";
 	public static final String tableModBody = "modbody";
 	public static final String tablePageRank = "pagerank";
-	public static final String tableTitle = "titlecontent";
-	public static final String tableMeta = "titlemeta";
-	public static final String tableBody = "titlebody";
+	public static final String tableTitle = "title";
+	public static final String tableMeta = "meta";
+	public static final String tableBody = "body";
 }
