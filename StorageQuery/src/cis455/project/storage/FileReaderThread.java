@@ -59,7 +59,7 @@ public class FileReaderThread extends Thread{
 						
 						if(write){
 							//System.out.println("Save to " + DumperDistributed.databaseName);
-							if(!storage.put(DumperDistributed.databaseName, key, value)){
+							if(!storage.put(DumperDistributed.databaseName, key, value, false)){
 								System.err.println("bug when putting into DB | key | value: " + DumperDistributed.databaseName + " | " + SHAkey + " | " + line);
 								throw new Exception("error writing index");
 							}
@@ -72,6 +72,8 @@ public class FileReaderThread extends Thread{
 					}
 				}
 			}
+			System.out.println("sync database: " + DumperDistributed.databaseName);
+			storage.sync(DumperDistributed.databaseName);
 		} catch (Exception e) {
 			System.err.println("error dumping index");
 			e.printStackTrace();

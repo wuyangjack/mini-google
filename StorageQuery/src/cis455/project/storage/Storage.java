@@ -129,7 +129,7 @@ public class Storage {
 		this.locks.put(dbname, dbname);
 	}
 	
-	public synchronized boolean put(String dbName, String key, String value){
+	public synchronized boolean put(String dbName, String key, String value, boolean sync){
 		try{
 			if (false == this.envs.containsKey(dbName)) {
 				throw new Exception("env not existed");
@@ -146,7 +146,7 @@ public class Storage {
 			synchronized(lock){
 				OperationStatus status = database.put(null, stringToEntry(key), stringToEntry(value));
 				if (status.equals(OperationStatus.SUCCESS)){
-					dbEnv.sync();
+					if(sync) dbEnv.sync();
 					return true;
 				}
 				return false;
@@ -154,6 +154,19 @@ public class Storage {
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public synchronized void sync(String dbName) {
+		try {
+			if (false == this.tables.containsKey(dbName)) {
+				throw new Exception("table not existed");
+			}
+			Environment dbEnv = this.envs.get(dbName);
+			dbEnv.sync();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getStackTrace().toString());
 		}
 	}
 	
