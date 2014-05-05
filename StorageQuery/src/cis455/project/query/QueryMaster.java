@@ -23,12 +23,67 @@ import cis455.project.rank.DocumentRanker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 
-class QueryWorkerThread extends Thread {
+class GetWorkerThread extends Thread {
+	private String result = null;
+	private String server = null;
+	private String table = null;
+	private String key = null;
+	
+	GetWorkerThread(String server, String table, String key) {
+		this.server = server;
+		this.table = table;
+		this.key = key;
+	}
+	
+	public String result() {
+		return result;
+	}
+	
+	@Override
+	public void run() {
+		QueryMaster.logger.info("fetch from worker server: " + server);
+		// Get
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		String url = null;
+		try {
+			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" 
+					+ QueryGlobal.paraMode + "=" + QueryGlobal.modeGet + "&"
+					+ QueryGlobal.paraTable + "=" + URLEncoder.encode(table, "UTF-8") + "&"
+					+ QueryGlobal.paraKey + "=" + URLEncoder.encode(key, "UTF-8");
+			
+		} catch (UnsupportedEncodingException e) {
+			QueryMaster.logger.error("error encoding query");
+			e.printStackTrace();
+		}
+		QueryMaster.logger.info(url);
+		HttpGet httpGet = new HttpGet(url);
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(httpGet);
+		} catch (IOException e) {
+			QueryMaster.logger.error("error executing GET request");
+			e.printStackTrace();
+		}
+		ResponseHandler<String> handler = new BasicResponseHandler();
+		String body = null;
+		try {
+			body = handler.handleResponse(response);
+		} catch (IOException e) {
+			QueryMaster.logger.error("error reading response");
+			e.printStackTrace();
+		}
+		int code = response.getStatusLine().getStatusCode();
+		QueryMaster.logger.info("server response code: " + code);
+		result = body;
+	}
+}
+
+class SearchWorkerThread extends Thread {
 	private String result = null;
 	private String server = null;
 	private String query = null;
 	
-	QueryWorkerThread(String server, String query) {
+	SearchWorkerThread(String server, String query) {
 		this.server = server;
 		this.query = query;
 	}
@@ -116,7 +171,7 @@ public class QueryMaster {
 		String[] results = new String[servers.length];
 		Thread[] threads = new Thread[servers.length];
 		for (int i = 0; i < servers.length; i ++) {
-			threads[i] = new QueryWorkerThread(servers[i], query);
+			threads[i] = new SearchWorkerThread(servers[i], query);
 			logger.error("start thread #" + i);
 			threads[i].start();
 		}
@@ -128,32 +183,32 @@ public class QueryMaster {
 				logger.error("join interrupted");
 				e.printStackTrace();
 			}
-			results[i] = ((QueryWorkerThread)threads[i]).result();
+			results[i] = ((SearchWorkerThread)threads[i]).result();
 		}
-		// Process
+		// Rank
 		List<DocumentInfo> ret = DocumentRanker.rankDocument(storage, results);
 		return ret;
 	}
 	
-	public static String get(String table, String key) throws IOException {
-		// Hash
-		int index = SHA1Partition.getWorkerIndex(key);
-		String server = servers[index];
-		logger.info("query storage: " + table + " | " + key);
-		logger.info("fetch from storage server: " + index + " | " + server);
-		
-		// Get
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		String url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" + QueryGlobal.paraTable + "=" + table + "&" + QueryGlobal.paraKey + "=" + key;
-		logger.info(url);
-		HttpGet httpGet = new HttpGet(url);
-		HttpResponse response = httpclient.execute(httpGet);
-		ResponseHandler<String> handler = new BasicResponseHandler();
-		String body = handler.handleResponse(response);
-		int code = response.getStatusLine().getStatusCode();
-		logger.info("server response code: " + code);
-		
-		// Process
-		return body;
+	public static String[] get(String table, String key) throws IOException {
+		logger.info("get table | key: " + table + " | " +  key);
+		String[] ret = new String[servers.length];
+		Thread[] threads = new Thread[servers.length];
+		for (int i = 0; i < servers.length; i ++) {
+			threads[i] = new GetWorkerThread(servers[i], table, key);
+			logger.error("start thread #" + i);
+			threads[i].start();
+		}
+		for (int i = 0; i < servers.length; i ++) {
+			try {
+				logger.error("join with thread #" + i);
+				threads[i].join();
+			} catch (InterruptedException e) {
+				logger.error("join interrupted");
+				e.printStackTrace();
+			}
+			ret[i] = ((GetWorkerThread)threads[i]).result();
+		}
+		return ret;
 	}
 }

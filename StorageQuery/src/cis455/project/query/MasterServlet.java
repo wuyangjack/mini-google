@@ -45,7 +45,18 @@ public class MasterServlet extends HttpServlet {
 				out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() + "; " + di.getScore() + "</p>");
 			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
-			
+			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
+					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
+				String table = request.getParameter(QueryGlobal.paraTable);
+				String key = request.getParameter(QueryGlobal.paraKey);
+				String[] results = QueryMaster.get(table, key);
+				out.println("<P>Results: " + results.length + "</P>");
+				for (String result : results) {
+					out.println("<P>" + result + "</P>");
+				}
+			} else {
+				QueryMaster.logger.error("no table / no key");
+			}
 		} else {
 			QueryMaster.logger.error("unknown mode");
 		}
