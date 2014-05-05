@@ -128,8 +128,32 @@ public class Storage {
 		this.tables.put(dbname, dat);
 		this.locks.put(dbname, dbname);
 	}
+	
+	public Environment getEnvironment(String dbName) {
+		if (false == this.envs.containsKey(dbName)) return null;
+		else return this.envs.get(dbName);
+	}
+	
+	public Database getDatabase(String dbName) {
+		if (false == this.tables.containsKey(dbName)) return null;
+		else return this.tables.get(dbName);
+	}
+	
+	public synchronized boolean bulk(Environment dbEnv, Database database, String dbName, String key, String value) {
+		try{
+			String lock =  this.locks.get(dbName);
+			synchronized(lock){
+				OperationStatus status = database.put(null, stringToEntry(key), stringToEntry(value));
+				if (status.equals(OperationStatus.SUCCESS)) return true;
+				else return false;
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 		
-	public synchronized boolean put(String dbName, String key, String value, boolean sync){
+	public synchronized boolean put(String dbName, String key, String value){
 		try{
 			if (false == this.envs.containsKey(dbName)) {
 				throw new Exception("env not existed");
@@ -146,12 +170,12 @@ public class Storage {
 			synchronized(lock){
 				OperationStatus status = database.put(null, stringToEntry(key), stringToEntry(value));
 				if (status.equals(OperationStatus.SUCCESS)){
-					if(sync) dbEnv.sync();
+					dbEnv.sync();
 					return true;
 				}
 				return false;
 			}
-		}catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}

@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
+import com.sleepycat.je.Database;
+import com.sleepycat.je.Environment;
+
 import cis455.project.hash.SHA1Partition;
 
 public class FileReaderThread extends Thread{
@@ -21,6 +24,11 @@ public class FileReaderThread extends Thread{
 	@Override
 	public void run(){
 		BufferedReader br = null;
+		Environment env = storage.getEnvironment(DumperDistributed.databaseName);
+		Database dat = storage.getDatabase(DumperDistributed.databaseName);
+		if (env == null || dat == null) {
+			System.err.println("null environment / database");
+		}
 		SHA1Partition.setRange(DumperDistributed.nodeCount);
 		try {
 			while(true){
@@ -59,7 +67,7 @@ public class FileReaderThread extends Thread{
 						
 						if(write){
 							//System.out.println("Save to " + DumperDistributed.databaseName);
-							if(!storage.put(DumperDistributed.databaseName, key, value, false)){
+							if(!storage.bulk(env, dat, DumperDistributed.databaseName, key, value)){
 								System.err.println("bug when putting into DB | key | value: " + DumperDistributed.databaseName + " | " + SHAkey + " | " + line);
 								throw new Exception("error writing index");
 							}
