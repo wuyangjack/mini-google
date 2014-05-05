@@ -101,15 +101,20 @@ public class SearchWorker {
 			// 4.1 for each word in the query
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
 			double final_score = 0, vector_mul = 0;
-			QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
+			//QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
-				QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
+				//QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
 			}
-			QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
-			QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
-			final_score = (vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()))) * pageRankMap.get(entry.getKey());
-			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
+			//QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
+			//QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
+			Double pagerank = pageRankMap.get(entry.getKey());
+			if (pagerank == null) {
+				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
+				pagerank = (double) 1;
+			}
+			final_score = (vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()))) * pagerank;
+			//QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			weightMap.put(entry.getKey(), final_score);
 		}
 		return weightMap;
