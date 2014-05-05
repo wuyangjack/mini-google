@@ -25,6 +25,7 @@ public class DumperDistributed {
 	
 	public static int nodeIndex = -1;
 	public static int nodeCount = -1;
+	public static boolean nodeSingle = false;
 	public static int keyIndex = -1;
 	public static String databaseName = null;
 	public static String  sourceFile = null;
@@ -39,9 +40,9 @@ public class DumperDistributed {
 	}
 	
 	public static void dump(){
+		if (nodeCount == 1 && nodeIndex == 0) nodeSingle = true;
 		File dir = new File(sourceFile);
-		File[] fileList = dir.listFiles();
-		
+		File[] fileList = dir.listFiles();		
 		BlockingQueue<File> entryQ = new LinkedBlockingQueue<File>();
 		
 		try {

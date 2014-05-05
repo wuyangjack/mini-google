@@ -45,10 +45,19 @@ public class FileReaderThread extends Thread{
 						String[] data = line.trim().split("\t", 2);
 						key = data[0];
 						value = data[1];
-						SHAkey = line.trim().split("\t", DumperDistributed.keyIndex + 2)[DumperDistributed.keyIndex];
 						//System.out.println(file.getPath() + ":");
-						//System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
-						if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == DumperDistributed.nodeIndex)){
+						boolean write = false;
+						if (DumperDistributed.nodeSingle) {
+							write = true;
+						} else {
+							SHAkey = line.trim().split("\t", DumperDistributed.keyIndex + 2)[DumperDistributed.keyIndex];
+							if(!SHAkey.equals("") && (SHA1Partition.getWorkerIndex(SHAkey) == DumperDistributed.nodeIndex)) {
+								write = true;
+							}
+							//System.out.print("SHA | Key | Outcome: " + SHAkey + " | " + key + " | ");
+						}
+						
+						if(write){
 							//System.out.println("Save to " + DumperDistributed.databaseName);
 							if(!storage.put(DumperDistributed.databaseName, key, value)){
 								System.err.println("bug when putting into DB | key | value: " + DumperDistributed.databaseName + " | " + SHAkey + " | " + line);
