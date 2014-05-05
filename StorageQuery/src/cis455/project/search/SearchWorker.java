@@ -82,9 +82,9 @@ public class SearchWorker {
 			else {
 				info = urlMap.get(entry.getUrl());
 			}
-			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getWeight());
+			//QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getWeight());
 			info.addWordweight(entry.getWord(), entry.getWeight());
-			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getPositions().size());
+			//QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getPositions().size());
 			info.addWordPosition(entry.getWord(), entry.getPositions());
 			// last step, update this url
 			urlMap.put(entry.getUrl(), info);
