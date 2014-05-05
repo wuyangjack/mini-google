@@ -128,7 +128,7 @@ public class Storage {
 		this.tables.put(dbname, dat);
 		this.locks.put(dbname, dbname);
 	}
-	
+		
 	public synchronized boolean put(String dbName, String key, String value, boolean sync){
 		try{
 			if (false == this.envs.containsKey(dbName)) {
