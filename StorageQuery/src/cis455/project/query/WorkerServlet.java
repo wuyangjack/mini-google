@@ -49,7 +49,11 @@ public class WorkerServlet extends HttpServlet {
 				String key = request.getParameter(QueryGlobal.paraKey);
 				QueryWorker.logger.info("get table | key: " + table + " | " + key);
 				String result = QueryWorker.get(table, key);
-				out.println("<P>" + result + "</P>");
+				if (result.length() != 0) {
+					out.println("<P>" + result + "</P>");
+				} else {
+					out.println("<P>" + "null" + "</P>");
+				}
 			} else {
 				QueryWorker.logger.error("no table / no key");
 			}
