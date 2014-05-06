@@ -83,25 +83,31 @@ case "$1" in
 		;;
 	UploadMaster)
 		WAR="master"
+		LOG=/tmp/QueryMaster.log
 		cd $ROOT
-		rm -rf /tmp/QueryMaster.log
+		git pull
+		rm -rf $LOG
 		sh $TOMCAT/bin/shutdown.sh
 		fuser -k 8080/tcp
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		tail -f $LOG
 		;;
 	UploadWorker)
 		WAR="worker"
+		LOG=/tmp/QueryWorker.log
 		cd $ROOT
-		rm -rf /tmp/QueryWorker.log
+		git pull
+		rm -rf $LOG
 		sh $TOMCAT/bin/shutdown.sh
 		fuser -k 8080/tcp
 		sh $TOMCAT/bin/startup.sh
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		tail -f $LOG
 		;;
 	DBInit)
 		rm -rf $DATABASE
