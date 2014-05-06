@@ -5,7 +5,8 @@ public class DocumentInfo {
 	private String url;
 	private String title;
 	private Double score;
-	private Double tfidf;
+	private Double title_tfidf;
+	private Double meta_tfidf;
 	private Double pagerank;
 	
 	public DocumentInfo(String url, String title, double score) {
@@ -14,11 +15,12 @@ public class DocumentInfo {
 		this.score = score;
 	}
 	
-	public DocumentInfo(String url, String title, double score, double tfidf, double pagerank) {
+	public DocumentInfo(String url, String title, double score, double title_tfidf, double meta_tfidf, double pagerank) {
 		this.url = url;
 		this.title = title;
 		this.score = score;
-		this.tfidf = tfidf;
+		this.title_tfidf = title_tfidf;
+		this.meta_tfidf = meta_tfidf;
 		this.pagerank = pagerank;
 	}
 	
@@ -28,7 +30,9 @@ public class DocumentInfo {
 	
 	public double getScore() { return score; }
 	
-	public double getTfIdf() { return tfidf; }
+	public double getTitleTfIdf() { return title_tfidf; }
+	
+	public double getMetaTfIdf() { return meta_tfidf; }
 	
 	public double getPagerank() { return pagerank; }
 }

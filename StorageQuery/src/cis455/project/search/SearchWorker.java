@@ -17,7 +17,6 @@ import cis455.project.storage.TFIDFEntry;
 public class SearchWorker {
 
 	public static final String CRLF = "\r\n";
-	private static final double METAWEIGHT = 0.5;
 	
 	public SearchWorker() {
 	}
@@ -120,16 +119,19 @@ public class SearchWorker {
 			Double pagerank = pageRankMap.get(entry.getKey());
 			if (pagerank == null) {
 				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
-				pagerank = (double) 1;
+				pagerank = (double) (Math.log(1 + 1) / Math.log(SearchGlobal.scalePageRank));
+			} else {
+				pagerank = (double) (Math.log(1 + pagerank) / Math.log(SearchGlobal.scalePageRank));
 			}
-			double tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
-			double meta_tfidf = meta_mul == 0 ? 0 : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
-			final_score = (tfidf + meta_tfidf * METAWEIGHT) * pagerank;
+			double title_tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
+			double meta_tfidf = meta_mul == 0 ? SearchGlobal.defaultVectorMeta : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
+			final_score = (title_tfidf * SearchGlobal.weightVectorTitle + meta_tfidf * SearchGlobal.weightVectorMeta) * pagerank;
 			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
-			weightMap.put(entry.getKey(), new ScoreInfo(final_score, tfidf, pagerank));
+			weightMap.put(entry.getKey(), new ScoreInfo(final_score, title_tfidf, meta_tfidf, pagerank));
 		}
 		return weightMap;
 	}
+	
 	
 	public static String search(List<String> words) {
 		// 1. calcute tf of the query

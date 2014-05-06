@@ -27,13 +27,13 @@ public class DocumentRanker {
 		List<String> inputs = parseResult(results);
 		List<DocumentInfo> result = new ArrayList<DocumentInfo>();
 		for(String input : inputs) {
-			String[] args = input.split("\t", 4);
+			String[] args = input.split("\t", 5);
 			QueryMaster.logger.info("Input: " + input);
 			QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 			String[] title = database.get(StorageGlobal.tableTitle, args[0]);
 			QueryMaster.logger.info("Title length: " + title.length);
 			DocumentInfo doc_info = new DocumentInfo(args[0], title.length > 0 ? title[0] : "", Double.parseDouble(args[1]), 
-					Double.parseDouble(args[2]), Double.parseDouble(args[3]));
+					Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4]));
 			result.add(doc_info);
 		}
 		Collections.sort(result, new Comparator<DocumentInfo>() {
