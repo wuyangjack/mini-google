@@ -113,6 +113,11 @@ public class SearchWorker {
 					meta_mul += metaInfo.getWordweights().get(weight_entry.getKey()) * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				}
 			}
+			if(metaInfo != null) {
+				for(Entry<String, Double> weight_entry : metaInfo.getWordweights().entrySet()) {
+					meta_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
+				}
+			}
 			//QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
 			QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
 			Double pagerank = pageRankMap.get(entry.getKey());
