@@ -109,9 +109,6 @@ public class SearchWorker {
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				//QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
-				if(metaInfo != null) {
-					meta_mul += metaInfo.getWordweights().get(weight_entry.getKey()) * queryInfo.getWordsWeights().get(weight_entry.getKey());
-				}
 			}
 			if(metaInfo != null) {
 				for(Entry<String, Double> weight_entry : metaInfo.getWordweights().entrySet()) {
