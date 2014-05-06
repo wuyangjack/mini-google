@@ -36,7 +36,7 @@ public class DocumentRanker {
 		//List<DocumentInfo> result = new ArrayList<DocumentInfo>();
 		int num = -1;
 		for(String input : inputs) {
-			String[] args = input.split("\t", 2);
+			String[] args = input.split("\t", 5);
 			if(args.length == 1) {
 				num = Integer.parseInt(args[0].trim());
 			}
@@ -45,7 +45,8 @@ public class DocumentRanker {
 				QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 				String[] title = database.get(StorageGlobal.tableTitle, args[0]);
 				QueryMaster.logger.info("Title length: " + title.length);
-				DocumentInfo doc_info = new DocumentInfo(args[0], title.length > 0 ? title[0] : "", Double.parseDouble(args[1]));
+				DocumentInfo doc_info = new DocumentInfo(args[0], title.length > 0 ? title[0] : "", Double.parseDouble(args[1]),
+						 Double.parseDouble(args[2]),  Double.parseDouble(args[3]),  Double.parseDouble(args[4]));
 				if(! result.containsKey(num)) {
 					result.put(num, new ArrayList<DocumentInfo>());
 				}
