@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ResponseHandler;
@@ -166,7 +167,7 @@ public class QueryMaster {
 		}
 	}
 	
-	public static List<DocumentInfo> search(String query) throws IOException {
+	public static Map<Integer, List<DocumentInfo>> search(String query) throws IOException {
 		logger.info("search query: " + query);
 		String[] results = new String[servers.length];
 		Thread[] threads = new Thread[servers.length];
@@ -186,7 +187,7 @@ public class QueryMaster {
 			results[i] = ((SearchWorkerThread)threads[i]).result();
 		}
 		// Rank
-		List<DocumentInfo> ret = DocumentRanker.rankDocument(storage, results);
+		Map<Integer, List<DocumentInfo>> ret = DocumentRanker.rankDocument(storage, results);
 		return ret;
 	}
 	

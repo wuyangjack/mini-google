@@ -6,6 +6,7 @@ import cis455.project.rank.DocumentInfo;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 public class MasterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1257986842825393951L;
@@ -39,12 +40,16 @@ public class MasterServlet extends HttpServlet {
 		}
 		if (mode.equals(QueryGlobal.modeSearch)) {
 			String query = request.getParameter(QueryGlobal.paraQuery);
-			List<DocumentInfo> results = QueryMaster.search(query);
+			Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
 			out.println("<P>Results: " + results.size() + "</P>");
-			for(DocumentInfo di : results) {
-				out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() 
-						+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
-						+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
+			for(Integer i : results.keySet()) {
+				List<DocumentInfo> doc_infos = results.get(i);
+				out.println("<p> Match Words: " + i + "</p>");
+				for(DocumentInfo di : doc_infos) {
+					out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() 
+							+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
+							+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
+				}
 			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)

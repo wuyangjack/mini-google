@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.HashMap;
 
 import cis455.project.query.QueryWorker;
+import cis455.project.rank.DocumentInfo;
 import cis455.project.storage.StorageGlobal;
 import cis455.project.storage.TFIDFEntry;
 
@@ -93,12 +94,16 @@ public class SearchWorker {
 		return urlMap;
 	}
 	
-	private static Map<String, ScoreInfo> getWeightMap(QueryInfo queryInfo, Map<String, SearchInfo> urlMap, Map<String, SearchInfo> metaMap) {
-		Map<String, ScoreInfo> weightMap = new HashMap<String, ScoreInfo>();
+	private static Map<Integer, List<DocumentInfo>> getWeightMap(QueryInfo queryInfo, Map<String, SearchInfo> urlMap, Map<String, SearchInfo> metaMap) {
+		Map<Integer, List<DocumentInfo>> weightMap = new HashMap<Integer, List<DocumentInfo>>();
+		for(int i = 1; i <= queryInfo.getWordsWeights().size(); i++) {
+			weightMap.put(i, new ArrayList<DocumentInfo>());
+		}
 		Map<String, Double> moduleMap = QueryWorker.getDocmodule(StorageGlobal.tableModTitle, urlMap.keySet());
 		Map<String, Double> metaModuleMap = QueryWorker.getDocmodule(StorageGlobal.tableModMeta, urlMap.keySet());
 		Map<String, Double> pageRankMap = QueryWorker.getPagerank(urlMap.keySet());
 		QueryWorker.logger.info("Module: " + moduleMap.size() + "; PageRank: " + pageRankMap.size());
+		
 		for(Entry<String, SearchInfo> entry: urlMap.entrySet()) {
 			// 4.1 for each word in the query
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
@@ -123,12 +128,11 @@ public class SearchWorker {
 			} else {
 				pagerank = (double) (Math.log(1 + pagerank) / Math.log(SearchGlobal.scalePageRank));
 			}
-			int title_match = wordsWeight.size();
-			double title_tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
-			double meta_tfidf = meta_mul == 0 ? SearchGlobal.defaultVectorMeta : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
-			final_score = (title_tfidf * SearchGlobal.weightVectorTitle + meta_tfidf * SearchGlobal.weightVectorMeta) * pagerank * title_match;
+			double title_tfidf = SearchGlobal.weightVectorTitle * vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
+			double meta_tfidf = !metaModuleMap.containsKey(entry.getKey()) ?  0 : SearchGlobal.weightVectorMeta * meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
+			final_score = (title_tfidf + meta_tfidf) * pagerank;
 			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
-			weightMap.put(entry.getKey(), new ScoreInfo(final_score, title_tfidf, meta_tfidf, pagerank));
+			weightMap.get(wordsWeight.size()).add(new DocumentInfo(entry.getKey(), "" , final_score, title_tfidf, meta_tfidf, pagerank));
 		}
 		return weightMap;
 	}
@@ -146,24 +150,24 @@ public class SearchWorker {
 		if(urlMap.size() == 0)
 			return "";
 		// 3. calculate the weight
-		Map<String, ScoreInfo> weightMap = getWeightMap(queryInfo, urlMap, metaMap);
+		Map<Integer, List<DocumentInfo>> weightMap = getWeightMap(queryInfo, urlMap, metaMap);
 		QueryWorker.logger.info("WeightMap size: " + weightMap.size());
 		// 4. Sort by values
-		List<Entry<String, ScoreInfo> > results = new ArrayList<Entry<String, ScoreInfo>>(weightMap.entrySet());
-		Collections.sort(results, new Comparator<Map.Entry<String, ScoreInfo>>() {
-			@Override
-			public int compare(Entry<String, ScoreInfo> o1,
-					Entry<String, ScoreInfo> o2) {
-				if(o1.getValue().getScore() < o2.getValue().getScore())
-					return 1;
-				else if(o1.getValue().getScore() > o2.getValue().getScore())
-					return -1;
-				else return 0;
-			} 
-		}); 
 		StringBuffer sb = new StringBuffer();
-		for(Entry<String, ScoreInfo> entry : results) {
-			sb.append(entry.getKey() + "\t" + entry.getValue() + CRLF);
+		for(int num : weightMap.keySet()) {
+			List<DocumentInfo> results = weightMap.get(num);
+			Collections.sort(results, new Comparator<DocumentInfo>() {
+				@Override
+				public int compare(DocumentInfo o1, DocumentInfo o2) {
+					if(o1.getScore() > o2.getScore()) return -1;
+					else if(o1.getScore() < o2.getScore()) return 1;
+					else return 0;
+				}
+			});
+			sb.append(num + CRLF);
+			for(DocumentInfo di : results) {
+				sb.append(di.getUrl() + "\t" + di.getScore() + CRLF);
+			}
 		}
 		return sb.toString();
 	}
