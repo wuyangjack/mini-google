@@ -37,10 +37,16 @@ public class WorkerServlet extends HttpServlet {
 			if (false == request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
 				QueryWorker.logger.error("no query string");
 			} else {
-				String query = request.getParameter(QueryGlobal.paraSearch);
-				query = URLDecoder.decode(query, "UTF-8");
-				String result = QueryWorker.search(query);
-				out.println(result);
+				QueryWorker.logger.info("search query arrived");
+				try {
+					String query = request.getParameter(QueryGlobal.paraSearch);
+					query = URLDecoder.decode(query, "UTF-8");
+					String result = QueryWorker.search(query);
+					out.println(result);
+				} catch (Exception e) {
+					QueryWorker.logger.error("search error", e);
+				}
+				QueryWorker.logger.info("search query done");
 			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
