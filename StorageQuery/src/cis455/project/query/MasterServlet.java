@@ -42,7 +42,7 @@ public class MasterServlet extends HttpServlet {
 			List<DocumentInfo> results = QueryMaster.search(query);
 			out.println("<P>Results: " + results.size() + "</P>");
 			for(DocumentInfo di : results) {
-				out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() + "; " + di.getScore() + "</p>");
+				out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() + "; " + di.getScore() + "; " + di.getTfIdf() + "; " + di.getPagerank() + "</p>");
 			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)

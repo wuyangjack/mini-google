@@ -17,6 +17,7 @@ import cis455.project.storage.TFIDFEntry;
 public class SearchWorker {
 
 	public static final String CRLF = "\r\n";
+	private static final double METAWEIGHT = 0.5;
 	
 	public SearchWorker() {
 	}
@@ -68,9 +69,9 @@ public class SearchWorker {
 		return queryInfo;
 	}
 	
-	private static Map<String, SearchInfo> getSearchInfo(List<String> words) {
+	private static Map<String, SearchInfo> getSearchInfo(String tableName, List<String> words) {
 		Map<String, SearchInfo> urlMap =  new HashMap<String, SearchInfo>();
-		List<TFIDFEntry> tf_entries = QueryWorker.getWordweight(StorageGlobal.tableFreqTitle, words);
+		List<TFIDFEntry> tf_entries = QueryWorker.getWordweight(tableName, words);
 		Iterator<TFIDFEntry> tf_iterator = tf_entries.iterator();
 		while(tf_iterator.hasNext()) {
 			TFIDFEntry entry = tf_iterator.next();
@@ -92,19 +93,24 @@ public class SearchWorker {
 		return urlMap;
 	}
 	
-	private static Map<String, Double> getWeightMap(QueryInfo queryInfo, Map<String, SearchInfo> urlMap) {
-		Map<String, Double> weightMap = new HashMap<String, Double>();
+	private static Map<String, ScoreInfo> getWeightMap(QueryInfo queryInfo, Map<String, SearchInfo> urlMap, Map<String, SearchInfo> metaMap) {
+		Map<String, ScoreInfo> weightMap = new HashMap<String, ScoreInfo>();
 		Map<String, Double> moduleMap = QueryWorker.getDocmodule(StorageGlobal.tableModTitle, urlMap.keySet());
+		Map<String, Double> metaModuleMap = QueryWorker.getDocmodule(StorageGlobal.tableModMeta, urlMap.keySet());
 		Map<String, Double> pageRankMap = QueryWorker.getPagerank(urlMap.keySet());
 		QueryWorker.logger.info("Module: " + moduleMap.size() + "; PageRank: " + pageRankMap.size());
 		for(Entry<String, SearchInfo> entry: urlMap.entrySet()) {
 			// 4.1 for each word in the query
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
-			double final_score = 0, vector_mul = 0;
+			SearchInfo metaInfo = metaMap.get(entry.getKey());
+			double final_score = 0, vector_mul = 0, meta_mul = 0;
 			//QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				//QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
+				if(metaInfo != null) {
+					meta_mul += metaInfo.getWordweights().get(weight_entry.getKey()) * queryInfo.getWordsWeights().get(weight_entry.getKey());
+				}
 			}
 			//QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
 			//QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
@@ -113,70 +119,46 @@ public class SearchWorker {
 				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
 				pagerank = (double) 1;
 			}
-			final_score = (vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()))) * pagerank;
+			double tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
+			double meta_tfidf = meta_mul == 0 ? 0 : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
+			final_score = (tfidf + meta_tfidf * METAWEIGHT) * pagerank;
 			//QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
-			weightMap.put(entry.getKey(), final_score);
+			weightMap.put(entry.getKey(), new ScoreInfo(final_score, tfidf, pagerank));
 		}
 		return weightMap;
 	}
+	
 	public static String search(List<String> words) {
 		// 1. calcute tf of the query
 		QueryWorker.logger.info("Begin Search");
 		QueryInfo queryInfo = getQueryInfo(words);
 		// 2. get all the words and their corresponds doc
-		Map<String, SearchInfo> urlMap = getSearchInfo(words);
+		Map<String, SearchInfo> urlMap = getSearchInfo(StorageGlobal.tableFreqTitle, words);
+		Map<String, SearchInfo> metaMap = getSearchInfo(StorageGlobal.tableFreqMeta, words);
 		QueryWorker.logger.info("Url Map: " + urlMap.size());
 		// the node don't have the matching doc
 		if(urlMap.size() == 0)
 			return "";
 		// 3. calculate the weight
-		Map<String, Double> weightMap = getWeightMap(queryInfo, urlMap);
+		Map<String, ScoreInfo> weightMap = getWeightMap(queryInfo, urlMap, metaMap);
 		QueryWorker.logger.info("WeightMap size: " + weightMap.size());
 		// 4. Sort by values
-		List<Entry<String, Double> > results = new ArrayList<Entry<String, Double>>(weightMap.entrySet());
-		Collections.sort(results, new Comparator<Map.Entry<String, Double>>() {
+		List<Entry<String, ScoreInfo> > results = new ArrayList<Entry<String, ScoreInfo>>(weightMap.entrySet());
+		Collections.sort(results, new Comparator<Map.Entry<String, ScoreInfo>>() {
 			@Override
-			public int compare(Entry<String, Double> o1,
-					Entry<String, Double> o2) {
-				if(o1.getValue() < o2.getValue())
+			public int compare(Entry<String, ScoreInfo> o1,
+					Entry<String, ScoreInfo> o2) {
+				if(o1.getValue().getScore() < o2.getValue().getScore())
 					return 1;
-				else if(o1.getValue() > o2.getValue())
+				else if(o1.getValue().getScore() > o2.getValue().getScore())
 					return -1;
 				else return 0;
 			} 
 		}); 
 		StringBuffer sb = new StringBuffer();
-		for(Entry<String, Double> entry : results) {
+		for(Entry<String, ScoreInfo> entry : results) {
 			sb.append(entry.getKey() + "\t" + entry.getValue() + CRLF);
 		}
 		return sb.toString();
-	}
-	
-	public static void main(String[] args) {
-		// test1
-		System.out.println("Test1");
-		List<String> words = new ArrayList<String>();
-		words.add("java");
-		words.add("list");
-		QueryInfo queryInfo = getQueryInfo(words);
-		for(String s : queryInfo.getWordsWeights().keySet()) {
-			System.out.println("Word: " + s + "; Weight: " + queryInfo.getWordsWeights().get(s));
-		}
-		// test2
-		System.out.println("Test2");
-		Map<String, SearchInfo> urlMap = getSearchInfo(words);
-		for(String s : urlMap.keySet()) {
-			System.out.print("Url: " + s + "; ");
-			for(String ss : urlMap.get(s).getWordweights().keySet()) {
-				System.out.print("Word: " + ss + " Weight: " + urlMap.get(s).getWordweights().get(ss) + "; ");
-			}
-			System.out.println();
-		}
-		// test3
-		System.out.println("Test3");
-		Map<String, Double> weightMap = getWeightMap(queryInfo, urlMap);
-		for(Entry<String, Double> entry: weightMap.entrySet()) {
-			System.out.println("Document: " + entry.getKey() + "; Score: " + entry.getValue());
-		}
 	}
 }
