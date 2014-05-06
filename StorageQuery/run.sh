@@ -93,6 +93,7 @@ case "$1" in
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		sleep 3
 		tail -f $LOG
 		;;
 	UploadWorker)
@@ -107,6 +108,7 @@ case "$1" in
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		sleep 3
 		tail -f $LOG
 		;;
 	DBInit)
