@@ -35,4 +35,13 @@ public class DocumentInfo {
 	public double getMetaTfIdf() { return meta_tfidf; }
 	
 	public double getPagerank() { return pagerank; }
+	
+	public String toString() {
+		if(title == null || title.length() == 0) {
+			return url + "\t" + score + "\t" + title_tfidf + "\t" + meta_tfidf + "\t" + pagerank;
+		}
+		else {
+			return url + "\t" + title + "\t" + score + "\t" + title_tfidf + "\t" + meta_tfidf + "\t" + pagerank;
+		}
+	}
 }

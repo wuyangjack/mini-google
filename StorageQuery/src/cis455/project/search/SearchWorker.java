@@ -166,7 +166,7 @@ public class SearchWorker {
 			});
 			sb.append(num + CRLF);
 			for(DocumentInfo di : results) {
-				sb.append(di.getUrl() + "\t" + di.getScore() + CRLF);
+				sb.append(di.toString() + CRLF);
 			}
 		}
 		return sb.toString();
