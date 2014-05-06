@@ -123,9 +123,10 @@ public class SearchWorker {
 			} else {
 				pagerank = (double) (Math.log(1 + pagerank) / Math.log(SearchGlobal.scalePageRank));
 			}
+			int title_match = wordsWeight.size();
 			double title_tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
 			double meta_tfidf = meta_mul == 0 ? SearchGlobal.defaultVectorMeta : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
-			final_score = (title_tfidf * SearchGlobal.weightVectorTitle + meta_tfidf * SearchGlobal.weightVectorMeta) * pagerank;
+			final_score = (title_tfidf * SearchGlobal.weightVectorTitle + meta_tfidf * SearchGlobal.weightVectorMeta) * pagerank * title_match;
 			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			weightMap.put(entry.getKey(), new ScoreInfo(final_score, title_tfidf, meta_tfidf, pagerank));
 		}
