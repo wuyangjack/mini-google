@@ -83,9 +83,9 @@ public class SearchWorker {
 			else {
 				info = urlMap.get(entry.getUrl());
 			}
-			//QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getWeight());
+			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getWeight());
 			info.addWordweight(entry.getWord(), entry.getWeight());
-			//QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getPositions().size());
+			QueryWorker.logger.info("Word: " + entry.getWord() + "; " + entry.getPositions().size());
 			info.addWordPosition(entry.getWord(), entry.getPositions());
 			// last step, update this url
 			urlMap.put(entry.getUrl(), info);
@@ -104,16 +104,16 @@ public class SearchWorker {
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
 			SearchInfo metaInfo = metaMap.get(entry.getKey());
 			double final_score = 0, vector_mul = 0, meta_mul = 0;
-			//QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
+			QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
-				//QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
+				QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
 				if(metaInfo != null) {
 					meta_mul += metaInfo.getWordweights().get(weight_entry.getKey()) * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				}
 			}
-			//QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
-			//QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
+			QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
+			QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
 			Double pagerank = pageRankMap.get(entry.getKey());
 			if (pagerank == null) {
 				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
@@ -122,7 +122,7 @@ public class SearchWorker {
 			double tfidf = vector_mul / (queryInfo.getModule() * moduleMap.get(entry.getKey()));
 			double meta_tfidf = meta_mul == 0 ? 0 : meta_mul / (queryInfo.getModule() * metaModuleMap.get(entry.getKey()));
 			final_score = (tfidf + meta_tfidf * METAWEIGHT) * pagerank;
-			//QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
+			QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			weightMap.put(entry.getKey(), new ScoreInfo(final_score, tfidf, pagerank));
 		}
 		return weightMap;
