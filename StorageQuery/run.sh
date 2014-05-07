@@ -4,7 +4,9 @@
 # e.g. export CIS455_USER="cis455/ec2-user"
 
 BASE=/home/$CIS455_USER
-ROOT=$BASE"/MiniGoogle/StorageQuery"
+REPO=$BASE"/MiniGoogle"
+ROOT=$REPO"/StorageQuery"
+UI=$REPO"/UI"
 SOURCE=$BASE"/data"
 DATABASE=$BASE"/database"
 TOMCAT=$BASE"/tomcat"
@@ -68,7 +70,11 @@ case "$1" in
 		git add storage.jar
 		git add *.java
 		git add run.sh
-		git commit -m "Compile & deploy."
+		cd $UI
+		ant clean
+		ant
+		git add ui.war
+		git commit -m "Compile & deploy servlets."
 		git push
 		;;
 	UnloadMaster)
@@ -82,17 +88,26 @@ case "$1" in
 		rm -rf $TOMCAT/webapps/$WAR.war
 		;;
 	UploadMaster)
-		WAR="master"
-		LOG=/tmp/QueryMaster.log
-		cd $ROOT
+		cd $REPO
 		git pull
+		# Update log
+		LOG=/tmp/QueryMaster.log
 		rm -rf $LOG
+		# Stop Tomcat
 		sh $TOMCAT/bin/shutdown.sh
 		fuser -k 8080/tcp
-		sh $TOMCAT/bin/startup.sh
+		# Master servlet
+		WAR="master"
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		# UI servlet
+		WAR="ui"
+		rm -rf $TOMCAT/webapps/$WAR
+		rm -rf $TOMCAT/webapps/$WAR.war
+		cp $UI/$WAR.war $TOMCAT/webapps/
+		# Start Tomcat
+		sh $TOMCAT/bin/startup.sh
 		sleep 3
 		tail -f $LOG
 		;;
