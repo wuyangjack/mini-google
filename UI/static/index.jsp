@@ -9,10 +9,10 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="/UI2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Google Powered -->
-    <link href="/UI2/css/google_styles.css" rel="stylesheet">
+    <link href="css/google_styles.css" rel="stylesheet">
     
     <!-- UICloud -->
     <!-- <link href="/HelloWorld/css/uicloud.css" rel="stylesheet"> -->

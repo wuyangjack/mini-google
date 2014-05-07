@@ -1,0 +1,46 @@
+<project name="UI" default="all" basedir="./">
+  <target name="init">
+    <mkdir dir="target/ui/WEB-INF/classes"/>
+    <mkdir dir="target/ui/WEB-INF/lib"/>
+  </target>
+  
+  <target name="compile-ui" depends="init">
+    <copy todir="target/ui/WEB-INF/lib" overwrite="true">
+      <fileset dir="lib">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+    <javac srcdir="src" destdir="target/ui/WEB-INF/classes" includes="**/*.java" nowarn="on" debug="on" deprecation="off" optimize="on" includeantruntime="false" classpath="lib/servlet-api.jar">
+      <compilerarg value="-Xlint"/>
+      <classpath>
+          <pathelement path="classes" />
+          <fileset dir="lib">
+            <include name="*.jar"/>
+          </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="ui-war" depends="compile-ui">
+    <delete file="target/ui/WEB-INF/web.xml"/>
+    <copy file="web.xml" tofile="target/ui/WEB-INF/web.xml"/>
+  	<copy todir="target/ui/static" overwrite="true">
+  	 <fileset dir="static">
+  		<include name="**"/>
+  	 </fileset>
+    </copy>
+    <jar destfile="ui.war">
+      <fileset dir="target/ui/" includes="WEB-INF/classes/**/*.class"/>
+      <fileset dir="target/ui/" includes="WEB-INF/lib/*.jar"/>
+      <fileset dir="target/ui/" includes="WEB-INF/*.xml"/>
+      <fileset dir="target/ui/static/" includes="**"/>	
+    </jar>
+  </target>
+
+  <target name="all" depends="ui-war"/>
+
+  <target name="clean">
+    <delete dir="target"/>
+    <delete file="ui.war"/>
+  </target>
+</project>

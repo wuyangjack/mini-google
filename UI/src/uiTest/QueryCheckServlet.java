@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import youtubeAPI.YouTubeThread;
 import youtubeAPI.YoutubeItem;
 
 import com.google.api.services.samples.youtube.cmdline.youtube_cmdline_search_sample.Search;
@@ -92,6 +93,12 @@ public class QueryCheckServlet extends HttpServlet {
 		    }
 		    wiki_string = "https://www.wikipedia.org/search-redirect.php?family=wikipedia&search=" + wiki_string + "&language=en&go=++%E2%86%92++&go=Go";
 			
+		    YoutubeItem youtube_result = new YoutubeItem();
+		    Thread youtubeQuery= null;
+		    if(youtube != null){
+		    	youtubeQuery = new YouTubeThread(query);
+		    	youtubeQuery.start();
+		    }   
 		    
 		    // amazon API 
 		    ItemSearchTool amazon_tool = new ItemSearchTool();
@@ -109,10 +116,18 @@ public class QueryCheckServlet extends HttpServlet {
 //			}
 			
 			// Youtube API
-			Search youtube_tool = new Search();
-			YoutubeItem youtube_result = new YoutubeItem();
+//			Search youtube_tool = new Search();
+//			YoutubeItem youtube_result = new YoutubeItem();
+//			if(youtube != null){
+//				youtube_result.parse(youtube_tool.search(query));
+//			}
 			if(youtube != null){
-				youtube_result.parse(youtube_tool.search(query));
+				try {
+					youtubeQuery.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			
