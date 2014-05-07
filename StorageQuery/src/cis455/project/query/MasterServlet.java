@@ -46,7 +46,7 @@ public class MasterServlet extends HttpServlet {
 				List<DocumentInfo> doc_infos = results.get(i);
 				QueryMaster.logger.info("<p>Matches: " + i + "</p>");
 				for(DocumentInfo di : doc_infos) {
-					out.println(di.getUrl() + "/t" + di.getTitle());
+					out.println(di.getUrl() + "<|_|>" + di.getTitle());
 					QueryMaster.logger.info("<p>URL: " + di.getUrl() + "; Title: " + di.getTitle() 
 							+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
 							+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
