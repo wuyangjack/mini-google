@@ -38,19 +38,36 @@ public class MasterServlet extends HttpServlet {
 		} else {
 			mode = request.getParameter(QueryGlobal.paraMode);
 		}
-		if (mode.equals(QueryGlobal.modeSearch)) {
-			String query = request.getParameter(QueryGlobal.paraQuery);
-			Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
-			out.println("<P>Results: " + results.size() + "</P>");
-			for(Integer i : results.keySet()) {
-				List<DocumentInfo> doc_infos = results.get(i);
-				out.println("<p> Match Words: " + i + "</p>");
-				for(DocumentInfo di : doc_infos) {
-					out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() 
-							+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
-							+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
+		if (mode.equals(QueryGlobal.modeDebug)) {
+			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)) {
+				String query = request.getParameter(QueryGlobal.paraQuery);
+				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
+				out.println("<P>Results: " + results.size() + "</P>");
+				for(Integer i : results.keySet()) {
+					List<DocumentInfo> doc_infos = results.get(i);
+					out.println("<p> Match Words: " + i + "</p>");
+					for(DocumentInfo di : doc_infos) {
+						out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() 
+								+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
+								+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
+					}
 				}
+			} else {
+				QueryMaster.logger.error("no query");
 			}
+		} else if (mode.equals(QueryGlobal.modeSearch)) {
+			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)
+					&& request.getParameterMap().containsKey(QueryGlobal.paraPage)) { 
+				String query = request.getParameter(QueryGlobal.paraQuery);
+				String page = request.getParameter(QueryGlobal.paraPage);
+				
+				
+			} else {
+				QueryMaster.logger.error("no query / page");
+			}
+			
+			
+
 		} else if (mode.equals(QueryGlobal.modeGet)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
 					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
