@@ -30,28 +30,30 @@ public class MasterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println(header);
 		// Read mode
 		String mode = null;
 		if(false == request.getParameterMap().containsKey(QueryGlobal.paraMode)) {
+			out.println(header);
 			out.println("<P>Unknown mode!</P>");
+			out.println(footer);
 		} else {
 			mode = request.getParameter(QueryGlobal.paraMode);
 		}
 		if (mode.equals(QueryGlobal.modeSearch)) {
 			String query = request.getParameter(QueryGlobal.paraQuery);
 			Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
-			out.println("<P>Results: " + results.size() + "</P>");
 			for(Integer i : results.keySet()) {
 				List<DocumentInfo> doc_infos = results.get(i);
-				out.println("<p> Match Words: " + i + "</p>");
+				QueryMaster.logger.info("<p>Matches: " + i + "</p>");
 				for(DocumentInfo di : doc_infos) {
-					out.println("<p> Url: " + di.getUrl() + "; Title: " + di.getTitle() 
+					out.println(di.getUrl() + "/t" + di.getTitle());
+					QueryMaster.logger.info("<p>URL: " + di.getUrl() + "; Title: " + di.getTitle() 
 							+ "; Score: " + di.getScore() + "; Title TFIDF: " + di.getTitleTfIdf() 
 							+ "; Meta TFIDF: " + di.getMetaTfIdf() + "; PageRank: " + di.getPagerank() + "</p>");
 				}
 			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
+			out.println(header);
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
 					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {
 				String table = request.getParameter(QueryGlobal.paraTable);
@@ -64,10 +66,10 @@ public class MasterServlet extends HttpServlet {
 			} else {
 				QueryMaster.logger.error("no table / no key");
 			}
+			out.println(footer);
 		} else {
 			QueryMaster.logger.error("unknown mode");
 		}
 		
-		out.println(footer);
 	}
 }

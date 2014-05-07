@@ -44,4 +44,5 @@ public class DocumentInfo {
 			return url + "\t" + title + "\t" + score + "\t" + title_tfidf + "\t" + meta_tfidf + "\t" + pagerank;
 		}
 	}
+
 }
