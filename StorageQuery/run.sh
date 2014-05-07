@@ -4,7 +4,9 @@
 # e.g. export CIS455_USER="cis455/ec2-user"
 
 BASE=/home/$CIS455_USER
-ROOT=$BASE"/MiniGoogle/StorageQuery"
+PROJ=$BASE"/MiniGoogle"
+ROOT=$PROJ"/StorageQuery"
+UI=$PROJ"/UI"
 SOURCE=$BASE"/data"
 DATABASE=$BASE"/database"
 TOMCAT=$BASE"/tomcat"
@@ -60,15 +62,21 @@ echoConfig
 
 case "$1" in
 	Commit)
+		# Add master servlet
 		cd $ROOT
 		ant clean
 		ant
 		git add master.war
 		git add worker.war
 		git add storage.jar
-		git add *.java
 		git add run.sh
-		git commit -m "Compile & deploy."
+		# Add ui servlet
+		cd $UI
+		ant clean
+		ant
+		git add ui.war
+		# Add 
+		git commit -m "Compile & deploy servlets."
 		git push
 		;;
 	UnloadMaster)
