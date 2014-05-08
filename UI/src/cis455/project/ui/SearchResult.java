@@ -132,11 +132,8 @@ public class SearchResult {
 		return ret;
 	}
 	
-	public String getNeighborPageUrl(boolean next) {
-		int pageNeighbor = pageCurrent;
-		if (next) pageNeighbor = pageCurrent + 1;
-		else pageNeighbor = pageCurrent - 1;
-		if (pageNeighbor > pages || pageNeighbor < 1) {
+	public String getPageUrl(int page) {
+		if (page > pages || page < 1) {
 			return null;
 		} else {
 			String url = UIGlobal.pathSearch + "?";
@@ -146,16 +143,27 @@ public class SearchResult {
 				UIWorker.logger.error("encode url error", e);
 				return null;
 			}
-			url += "&" + UIGlobal.paraPage + "=" + String.valueOf(pageNeighbor);
+			url += "&" + UIGlobal.paraPage + "=" + String.valueOf(page);
 			if (this.amazonItems != null) url += "&" + UIGlobal.paraAmazon + "=1";
 			if (this.youtubeItems != null) url += "&" + UIGlobal.paraYoutube + "=1";
 			if (this.queryCheck != null) url += "&" + UIGlobal.paraSpellCheck + "=1";
-			if (pageNeighbor == 1) url += "&" + UIGlobal.paraWiki + "=1";
+			if (page == 1) url += "&" + UIGlobal.paraWiki + "=1";
 			else url += "&" + UIGlobal.paraWiki + "=0";
 			url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
-		
+	}
+	
+	public String getSpellCheckPageUrl() {
+		if (this.queryCheck != null) return getPageUrl(1);
+		else return null;
+	}
+	
+	public String getNeighborPageUrl(boolean next) {
+		int pageNeighbor = pageCurrent;
+		if (next) pageNeighbor = pageCurrent + 1;
+		else pageNeighbor = pageCurrent - 1;
+		return getPageUrl(pageNeighbor);
 	}
 	
 }

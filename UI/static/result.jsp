@@ -34,6 +34,7 @@
     YoutubeItem youtubeItems = searchResult.getYoutubeItems();
     String urlNext = searchResult.getNeighborPageUrl(true);
     String urlPrev = searchResult.getNeighborPageUrl(false);
+    String urlSpellCheck = searchResult.getSpellCheckPageUrl();
     String time = (String)request.getAttribute(UIGlobal.attrTime);
     String countString = String.valueOf(count);
   %>
@@ -101,7 +102,9 @@
             <div class="col-md-1">&nbsp;</div>
             <div class="col-lg-8">
                 <div class="spellcheck">
-                    <div>Are you looking for: <%= queryCheck%></div>
+                    <a href='<%= urlSpellCheck%>' >
+                        Are you looking for: <%= queryCheck%>
+                    </a>
                 </div>
             </div>
         </div>
