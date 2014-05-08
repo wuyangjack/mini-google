@@ -153,7 +153,7 @@ public class QueryCheckServlet extends HttpServlet {
 			session.setAttribute("amazon_items", amazon_tool.getItems());
 			session.setAttribute("youtube_items", youtube_result);
 			session.setAttribute("page", "1");
-			session.setAttribute("query", query);
+			request.setAttribute("query", query);
 			session.setAttribute("titles", titles);
 			session.setAttribute("urls", urls);
 
