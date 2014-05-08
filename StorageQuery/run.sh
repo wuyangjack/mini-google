@@ -110,40 +110,26 @@ case "$1" in
 		# Update log
 		LOG=/tmp/QueryMaster.log
 		rm -rf $LOG
-		# Stop Tomcat
-		#sh $TOMCAT/bin/shutdown.sh
-		#fuser -k 8080/tcp
-		# Clear Tomcat
-		#rm -rf $TOMCAT
+		# Reset Tomcat
 		resetTomcat
-		# Master servlet
-		#WAR="master"
-		#rm -rf $TOMCAT/webapps/$WAR
-		#rm -rf $TOMCAT/webapps/$WAR.war
+		# Deploy
 		cp $ROOT/master.war $TOMCAT/webapps/
-		# UI servlet
-		#WAR="ui"
-		#rm -rf $TOMCAT/work/Catalina/localhost/$WAR
-		#rm -rf $TOMCAT/webapps/$WAR
-		#rm -rf $TOMCAT/webapps/$WAR.war
-		cp $UI/ui.war $TOMCAT/webapps/
-		# Start Tomcat
-		#sh $TOMCAT/bin/startup.sh
+		cp $UI/ui.war $TOMCAT/webapps/	
+		# Show log	
 		sleep 3
 		tail -f $LOG
 		;;
 	UploadWorker)
-		WAR="worker"
-		LOG=/tmp/QueryWorker.log
-		cd $ROOT
+		cd $REPO
 		git pull
+		# Update log
+		LOG=/tmp/QueryWorker.log
 		rm -rf $LOG
-		sh $TOMCAT/bin/shutdown.sh
-		fuser -k 8080/tcp
-		sh $TOMCAT/bin/startup.sh
-		rm -rf $TOMCAT/webapps/$WAR
-		rm -rf $TOMCAT/webapps/$WAR.war
-		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		# Reset Tomcat
+		resetTomcat
+		# Deploy
+		cp $ROOT/worker.war $TOMCAT/webapps/
+		# Show log	
 		sleep 3
 		tail -f $LOG
 		;;
