@@ -35,7 +35,7 @@
 		<legend>
 			<img src="img/button1.png"/>
 		</legend>
-        <form id="searchFormStyle" method="post" action="UIServlet">
+        <form id="searchFormStyle" method="post" action="search?page=1">
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />
                 <input type="submit" name="submit" id="submitButton" value="Search"/>
@@ -50,14 +50,12 @@
                         <label padding-left="100px">
                             <input type="checkbox" value="amazon" name="amazon" align="center" checked>
                             <img src="img/amazon.jpg" height="45px" width="auto"/>
-
                         </label>
                     </div>
                     <div class="checkbox-inline" height="45px">
                         <label>
                             <input type="checkbox" value="youtube" name="youtube" align="center" checked>
                             <img src="img/youtube.jpg" height="45px" width="auto"/>
-
                         </label>
                     </div>
                 </div>

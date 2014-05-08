@@ -151,8 +151,11 @@
     </div>
     <%
         String query_string = (String)request.getAttribute("query");
+        String page_string = (String)request.getAttribute("page");
     %>
     <div><p>Query String: <%=query_string%></p></div>
+    <div><p>Page String: <%=page_string%></p></div>
+
 
 	
 	</div>

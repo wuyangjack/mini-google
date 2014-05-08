@@ -28,58 +28,56 @@ public class UIServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Fetch parameters
-		String query = request.getParameter("query");
-		String page = request.getParameter("page");
-		String amazon = request.getParameter("amazon");
-		String youtube = request.getParameter("youtube");		
+		String query = request.getParameter(UIGlobal.paraQuery);
+		String page = request.getParameter(UIGlobal.paraPage);
+		String amazon = request.getParameter(UIGlobal.paraAmazon);
+		String youtube = request.getParameter(UIGlobal.paraYoutube);		
 		
-		if(page == null){  // right after search	
-			query = UIWorker.filter(query);
-			if(query == null){
-				response.sendRedirect(UIGlobal.jspIndex);
-				return;
-			}
-			
-		    // Wikipedia
-			String wikipediaUrl = UIWorker.wikipedia(query);
-				   
-		    // Amazon
-			List<Item> amazonItems = null;
-			if (amazon != null) {
-				amazonItems = UIWorker.amazon(query);
-			}
-	
-			// Youtube
-			YoutubeItem youtubeItems = null;
-			if (youtube != null) {
-				youtubeItems = UIWorker.youtube(query);
-			}
-			
-			// Search
-			String message = UIWorker.search(query);
-			SearchResult result = new SearchResult(message);
-			result.setPage(1);
-			String[] titles = result.getPageTitles();
-			String[] urls = result.getPageUrls();
-			UIWorker.logger.info("XXX" + result.count + "XXX");
-			for (int i = 0;  i < urls.length; i ++) {
-				UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
-			}
-			
-			// store information in sessions
-			// HttpSession session = request.getSession();
-			request.setAttribute("wiki", wikipediaUrl);
-			request.setAttribute("amazon_items", amazonItems);
-			request.setAttribute("youtube_items", youtubeItems);
-			request.setAttribute("page", "1");
-			request.setAttribute("query", query);
-			request.setAttribute("titles", titles);
-			request.setAttribute("urls", urls);
-
-			// Forward parameters to JSP
-			RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
-			view.forward(request, response);
+		query = UIWorker.filter(query);
+		if(query == null){
+			response.sendRedirect(UIGlobal.jspIndex);
+			return;
 		}
+		
+	    // Wikipedia
+		String wikipediaUrl = UIWorker.wikipedia(query);
+			   
+	    // Amazon
+		List<Item> amazonItems = null;
+		if (amazon != null) {
+			amazonItems = UIWorker.amazon(query);
+		}
+
+		// Youtube
+		YoutubeItem youtubeItems = null;
+		if (youtube != null) {
+			youtubeItems = UIWorker.youtube(query);
+		}
+		
+		// Search
+		String message = UIWorker.search(query);
+		SearchResult result = new SearchResult(message);
+		result.setPage(1);
+		String[] titles = result.getPageTitles();
+		String[] urls = result.getPageUrls();
+		UIWorker.logger.info("XXX" + result.count + "XXX");
+		for (int i = 0;  i < urls.length; i ++) {
+			UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
+		}
+		
+		// store information in sessions
+		// HttpSession session = request.getSession();
+		request.setAttribute("wiki", wikipediaUrl);
+		request.setAttribute("amazon_items", amazonItems);
+		request.setAttribute("youtube_items", youtubeItems);
+		request.setAttribute("page", page);
+		request.setAttribute("query", query);
+		request.setAttribute("titles", titles);
+		request.setAttribute("urls", urls);
+
+		// Forward parameters to JSP
+		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
+		view.forward(request, response);
 	}
 
 }
