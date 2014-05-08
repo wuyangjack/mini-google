@@ -105,7 +105,7 @@
             String[] urls_arr = (String[])session.getAttribute("urls");
             int result_num = titles_arr.length;
             %>
-            <%for (resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
+            <%for (resultIndex = 0; resultIndex < 1; resultIndex++){ %>
                 <!-- <div>
                     <a href="http://www.google.com"> <%= request.getParameter("title" + resultIndex)%></a>
                     <p><%= request.getParameter("url" + resultIndex)%></p>
