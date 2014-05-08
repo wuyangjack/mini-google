@@ -1,7 +1,6 @@
 package cis455.project.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,11 +12,7 @@ import javax.servlet.http.HttpSession;
 
 
 import cis455.project.amazon.Item;
-import cis455.project.amazon.ItemSearchTool;
-import cis455.project.youtube.YouTubeThread;
 import cis455.project.youtube.YoutubeItem;
-
-import com.google.api.services.samples.youtube.cmdline.youtube_cmdline_search_sample.Search;
 
 public class QueryCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +26,6 @@ public class QueryCheckServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	@SuppressWarnings("static-access")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Fetch parameters
 		String query = request.getParameter("query");
