@@ -20,12 +20,14 @@ import cis455.project.youtube.YoutubeItem;
 
 public class UIServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Map<String, SearchResult> sessions = new HashMap<String, SearchResult>();
-	private static SecureRandom sessionGenerator = new SecureRandom();
+	private Map<String, SearchResult> sessions = null;
+	private static SecureRandom sessionGenerator = null;
 
 	@Override
 	public void init() throws ServletException {
 		UIWorker.logger.info("UI servlet initialized");
+		sessions = new HashMap<String, SearchResult>();
+		sessionGenerator = new SecureRandom();
 		UIWorker.logger.info("initalized sessions");
 		
 	}
@@ -50,6 +52,7 @@ public class UIServlet extends HttpServlet {
 			// Query
 			query = UIWorker.filter(query);
 			if(query == null){
+				UIWorker.logger.error("no query");
 				response.sendRedirect(UIGlobal.jspIndex);
 				return;
 			}
