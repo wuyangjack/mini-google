@@ -3,6 +3,8 @@
 <%@page import="cis455.project.amazon.Item" %>
 <%@page import="cis455.project.youtube.YoutubeItem" %>
 <%@page import="cis455.project.ui.UIGlobal" %>
+<%@page import="cis455.project.ui.SearchResult" %>
+
 
 
 <!DOCTYPE html>
@@ -16,6 +18,20 @@
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
   <body>
+  <% 
+    SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
+    String query = searchResult.getQuery();
+    String wikipediaUrl = searchResult.getWikipediaUrl();
+    String[] titles = searchResult.getPageTitles();
+    String[] urls = searchResult.getPageUrls();
+    int records = titles.length;
+    int count = searchResult.getCount();
+    int pages = searchResult.getPages();
+    int pageCurrent = searchResult.getPageCurrent();
+    List<Item> amazonItems = searchResult.getAmazonItems();
+    YoutubeItem youtubeItems = searchResult.getYoutubeItems();
+  %>
+
   <div>
     <div height="0px">&nbsp;</div>
     <div class="header-wrap">
@@ -59,31 +75,30 @@
 	
     <div class="result">
         <div class="result-display">
-            <%if(request.getAttribute("page").equals("1")){ %>
+            <% if( wikipediaUrl != null ) { %>
                 <fieldset>
                     <legend>
                         <img src="img/button1.png"/>
                     </legend>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href='<%= request.getAttribute(UIGlobal.attrWikiUrl)%>' ><font size="4" color="#26B0FF"> <%= request.getParameter(UIGlobal.paraQuery) + "- Wikipedia, the free encyclopedia"%><br></font></a>
+                            <a href='<%= wikipediaUrl%>' >
+                                <font size="4" color="#26B0FF"> 
+                                    <%= query + "- Wikipedia, the free encyclopedia"%><br>
+                                </font>
+                            </a>
                         </div>
                     </div>
                 </fieldset>
             <% } %>
 
-            <% 
-            String[] titles_arr = (String[])request.getAttribute(UIGlobal.attrTitles);
-            String[] urls_arr = (String[])request.getAttribute(UIGlobal.attrUrls);
-            int result_num = titles_arr.length;
-            %>
-            <%for (int resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
+            <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href='<%= urls_arr[resultIndex]%>'><%= titles_arr[resultIndex]%><br></a>
+                        <a href='<%= urls[i]%>'><%= titles[i]%><br></a>
                     </div>
                     <div class="panel-body">
-                        <%= urls_arr[resultIndex]%>
+                        <%= urls[i]%>
                     </div>
                 </div>
             <%}%>
@@ -96,18 +111,17 @@
         </div>
             
         </div>
+        
         <div class="ad-display" border="1">
             <fieldset>
-            <%
-                ArrayList list = (ArrayList)request.getAttribute(UIGlobal.attrAmazonItems);
-            %>
-            <%
-            for (int resultIndex = 0; resultIndex < list.size(); resultIndex ++) { %>
+
+            <% for (int i = 0; i < amazonItems.size(); i ++) { %>
                 <%
-                String title = ((Item)list.get(resultIndex)).getTitle();
-                String img = ((Item)list.get(resultIndex)).getImg();
-                String price = ((Item)list.get(resultIndex)).getPrice();
-                String url = ((Item)list.get(resultIndex)).getUrl();
+                Item item = ((Item)amazonItems.get(i));
+                String title = item.getTitle();
+                String img = item.getImg();
+                String price = item.getPrice();
+                String url = item.getUrl();
                 %>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-danger" >
@@ -122,43 +136,34 @@
                         </div>
                      </li>
                 </ul>
-            <%}%>
+            <% } %>
 
-            <%for (int resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).item_Num; resultIndex++){ %>
-            <%
-                String y_title = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).title[resultIndex];
-                String y_img = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).img[resultIndex];
-                String y_url = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).url[resultIndex];
-                String y_embed_url = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).embed_url[resultIndex];
-            %>
+            <%for (int i = 0; i < youtubeItems.item_Num; i++){ %>
+                <%
+                String y_title = youtubeItems.title[i];
+                String y_img = youtubeItems.img[i];
+                String y_url = youtubeItems.url[i];
+                String y_embed_url = youtubeItems.embed_url[i];
+                %>
                
                 <ul class="list-group" >
                     <li class="nav nav-pills nav-justified">
                         <a href='<%= y_url%>'>  <%=y_title%> </a>
-                        
-                     </li>
-                     <li align="center">
+                    </li>
+                    <li align="center">
                         <div height="160">
                             <iframe width="275" height="auto" src='<%= y_embed_url%>' >
                             </iframe>
                         </div>
-                     </li>
+                    </li>
                 </ul>
-            <%}%>
-
+            <% } %>
 
         </fieldset>
         </div>
     </div>
-    <%
-        String query_string = (String)request.getAttribute(UIGlobal.attrQuery);
-        String page_string = (String)request.getAttribute(UIGlobal.attrPage);
-    %>
-    <div><p>Query String: <%=query_string%></p></div>
-    <div><p>Page String: <%=page_string%></p></div>
-
-
-	
+    <div><p>Query String: <%=query%></p></div>
+    <div><p>Page String: <%=pageCurrent%></p></div>
 	</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

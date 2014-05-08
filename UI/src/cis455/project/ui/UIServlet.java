@@ -1,7 +1,6 @@
 package cis455.project.ui;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,10 +30,12 @@ public class UIServlet extends HttpServlet {
 		String page = request.getParameter(UIGlobal.paraPage);
 		String amazon = request.getParameter(UIGlobal.paraAmazon);
 		String youtube = request.getParameter(UIGlobal.paraYoutube);
+		String wiki = request.getParameter(UIGlobal.paraWiki);
+
+		//request.setAttribute(UIGlobal.attrPage, page);
+		//request.setAttribute(UIGlobal.attrQuery, query);
 		
-		request.setAttribute(UIGlobal.attrPage, page);
-		request.setAttribute(UIGlobal.attrQuery, query);
-		
+		// Query
 		query = UIWorker.filter(query);
 		if(query == null){
 			response.sendRedirect(UIGlobal.jspIndex);
@@ -42,35 +43,38 @@ public class UIServlet extends HttpServlet {
 		}
 		
 	    // Wikipedia
-		String wikipediaUrl = UIWorker.wikipedia(query);
-		request.setAttribute(UIGlobal.attrWikiUrl, wikipediaUrl);
+		String wikipediaUrl = null;
+		if (wiki != null) {
+			wikipediaUrl = UIWorker.wikipedia(query);
+		}
+		//request.setAttribute(UIGlobal.attrWikiUrl, wikipediaUrl);
 
 	    // Amazon
 		List<Item> amazonItems = null;
 		if (amazon != null) {
 			amazonItems = UIWorker.amazon(query);
 		}
-		request.setAttribute(UIGlobal.attrAmazonItems, amazonItems);
+		//request.setAttribute(UIGlobal.attrAmazonItems, amazonItems);
 
 		// Youtube
 		YoutubeItem youtubeItems = null;
 		if (youtube != null) {
 			youtubeItems = UIWorker.youtube(query);
 		}
-		request.setAttribute(UIGlobal.attrYoutubeItems, youtubeItems);
+		//request.setAttribute(UIGlobal.attrYoutubeItems, youtubeItems);
 
 		// Search
 		String message = UIWorker.search(query);
-		SearchResult result = new SearchResult(message, query, amazonItems, youtubeItems, wikipediaUrl);
-		result.setPage(1);
-		String[] titles = result.getPageTitles();
-		String[] urls = result.getPageUrls();
-		UIWorker.logger.info("XXX" + result.count + "XXX");
-		for (int i = 0;  i < urls.length; i ++) {
-			UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
-		}
-		request.setAttribute(UIGlobal.attrTitles, titles);
-		request.setAttribute(UIGlobal.attrUrls, urls);
+		SearchResult result = new SearchResult(message, page, query, amazonItems, youtubeItems, wikipediaUrl);
+		request.setAttribute(UIGlobal.attrSearchResult, result);
+		//String[] titles = result.getPageTitles();
+		//String[] urls = result.getPageUrls();
+		//UIWorker.logger.info("XXX" + result.count + "XXX");
+		//for (int i = 0;  i < urls.length; i ++) {
+		//	UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
+		//}
+		//request.setAttribute(UIGlobal.attrTitles, titles);
+		//request.setAttribute(UIGlobal.attrUrls, urls);
 		
 		// store information in sessions
 		// HttpSession session = request.getSession();

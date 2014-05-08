@@ -15,6 +15,8 @@ public class UIGlobal {
 	public static final String paraWiki = "wiki";
 	public static final String paraQuery = "query";
 	
+	public static final String attrSearchResult = "result";
+	/*
 	public static final String attrWikiUrl = "wikipedia";
 	public static final String attrAmazonItems = "amazon";
 	public static final String attrYoutubeItems = "youtube";
@@ -22,16 +24,8 @@ public class UIGlobal {
 	public static final String attrQuery = "query";
 	public static final String attrTitles = "titles";
 	public static final String attrUrls = "urls";
-	
+	*/
 	public static String urlSearchSubmit() {
 		return pathSearch + "?" + paraPage + "=1&" + paraWiki + "=1";
 	}
-	/*
-	request.setAttribute("amazon_items", amazonItems);
-	request.setAttribute("youtube_items", youtubeItems);
-	request.setAttribute("page", page);
-	request.setAttribute("query", query);
-	request.setAttribute("titles", titles);
-	request.setAttribute("urls", urls);
-*/
 }

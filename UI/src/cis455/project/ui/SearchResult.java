@@ -10,10 +10,10 @@ import cis455.project.amazon.Item;
 import cis455.project.youtube.YoutubeItem;
 
 public class SearchResult {
-	public String[] titles = null;
-	public String[] urls = null;
-	public Integer count = null;
-	public Integer pages = null;
+	private String[] titles = null;
+	private String[] urls = null;
+	private Integer count = null;
+	private Integer pages = null;
 	private Integer pageCurrent = null;
 	private Integer indexStart = null;
 	private Integer indexEnd = null;
@@ -23,11 +23,12 @@ public class SearchResult {
 	private YoutubeItem youtubeItems = null;
 	private String wikipediaUrl = null;
 	
-	SearchResult(String result, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {
+	SearchResult(String result, String page, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {
 		this.query = query;
 		this.amazonItems = amazonItems;
 		this.youtubeItems = youtubeItems;
 		this.wikipediaUrl = wikipediaUrl;
+		this.setPage(page);
 		
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
@@ -53,12 +54,13 @@ public class SearchResult {
 		urls = urlsList.toArray(urls);
 	}
 	
-	public void setPage(int page) {
-		if (page > pages) {
+	private void setPage(String page) {
+		int pageInt = Integer.parseInt(page.trim());
+		if (pageInt > pages) {
 			this.pageValid = false;
 			return;
 		} else {
-			pageCurrent = page;
+			pageCurrent = pageInt;
 			indexStart = UIGlobal.pageVolume * (pageCurrent -1);
 			indexEnd = indexStart + UIGlobal.pageVolume - 1;
 			if (indexStart > count - 1) {
@@ -69,6 +71,34 @@ public class SearchResult {
 			this.pageValid = true;
 			return;
 		}
+	}
+	
+	public int getPages() {
+		return this.pages;
+	}
+	
+	public int getCount() {
+		return this.count;
+	}
+	
+	public String getQuery() {
+		return this.query;
+	}
+	
+	public int getPageCurrent() {
+		return this.pageCurrent;
+	}
+	
+	public String getWikipediaUrl() {
+		return this.wikipediaUrl;
+	}
+	
+	public List<Item> getAmazonItems() {
+		return this.amazonItems;
+	}
+	
+	public YoutubeItem getYoutubeItems() {
+		return this.youtubeItems;
 	}
 	
 	public String[] getPageTitles() {
