@@ -95,8 +95,7 @@
                 </div>
         </form>
     </div>
-	
-<!--****************************Still have to use jsp to concatenate to generate the redirect query************************************-->
+
     <% if (queryCheck != null) { %>
         <div class="row">
             <div class="col-md-1">&nbsp;</div>
@@ -153,7 +152,7 @@
                             </div>
                     
                             <div class="col-md-1">
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
                                     Preview
                                 </button>
                             </div>
@@ -231,17 +230,18 @@
 	</div>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <% for (int i = 0; i < records; i++) { %>
+    <div class="modal fade" id='<%= "#myModal" + String.valueOf(i)%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel"><%= titles[i]%></h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <!-- ... -->
-                        <iframe height = "400px" width="100%" src="http://www.upenn.edu"> </iframe>
+                        <iframe height = "400px" width="100%" src='<%= urls[i]%>'> </iframe>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -250,6 +250,7 @@
             </div>
         </div>
     </div>
+    <% } %>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
