@@ -6,6 +6,11 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +36,7 @@ public class UIServlet extends HttpServlet {
 		
 	}
 	
-	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, InterruptedException, ExecutionException, TimeoutException {
 		// Get sessionID
 		String sessionID = request.getParameter(UIGlobal.paraSessionID);
 		SearchResult result = null;
@@ -55,7 +60,7 @@ public class UIServlet extends HttpServlet {
 				response.sendRedirect(UIGlobal.jspIndex);
 				return;
 			}
-			
+			/*
 		    // Wikipedia
 			String wikipediaUrl = null;
 			if (wiki != null) {
@@ -76,6 +81,37 @@ public class UIServlet extends HttpServlet {
 
 			// Search
 			String message = UIWorker.search(query);
+			*/
+			FutureTask<List<Item>> amazon_thread = null;
+			FutureTask<String> wiki_thread = null;
+			FutureTask<YoutubeItem> youtube_thread = null;
+			// Amazon
+			if (amazon != null) {
+				amazon_thread = new FutureTask<List<Item>>(new AmazonThread(query));
+				new Thread(amazon_thread).start();
+			}
+			
+		    // Wikipedia
+			if (wiki != null) {
+				wiki_thread = new FutureTask<String>(new WikiThread(query));
+				new Thread(wiki_thread).start();
+			}
+
+			// Youtube
+			if (youtube != null) {
+				youtube_thread = new FutureTask<YoutubeItem>(new YoutubeThread(query));
+				new Thread(youtube_thread).start();
+			}
+
+			FutureTask<String> title_thread = new FutureTask<String>(new MessageThread(query));
+			new Thread(title_thread).start();
+			
+			// Search
+			String message = title_thread.get(5, TimeUnit.SECONDS);
+			String wikipediaUrl = wiki_thread != null ? wiki_thread.get(5, TimeUnit.SECONDS) : null;
+			YoutubeItem youtubeItems = youtube_thread != null ? youtube_thread.get(5, TimeUnit.SECONDS) : null;
+			List<Item> amazonItems = amazon_thread != null ? amazon_thread.get(5, TimeUnit.SECONDS) : null;
+			
 			result = new SearchResult(sessionID, message, page, query, amazonItems, youtubeItems, wikipediaUrl);
 			
 			// Save to session
@@ -95,13 +131,90 @@ public class UIServlet extends HttpServlet {
 	}
 	
 
+	static class WikiThread implements Callable<String> {
+
+		private String query;
+
+		public WikiThread(String query) {
+			this.query = query;
+		}
+
+		@Override
+		public String call() throws Exception {
+			return UIWorker.wikipedia(query);
+		}
+	} 
+
+	static class MessageThread implements Callable<String> {
+
+		private String query;
+
+		public MessageThread(String query) {
+			this.query = query;
+		}
+
+		@Override
+		public String call() throws Exception {
+			return UIWorker.search(query);
+		}
+	} 
+
+	static class AmazonThread implements Callable<List<Item>> {
+
+		private String query;
+
+		public AmazonThread(String query) {
+			this.query = query;
+		}
+
+		@Override
+		public List<Item> call() throws Exception {
+			return UIWorker.amazon(query);
+		}
+	} 
+
+	static class YoutubeThread implements Callable<YoutubeItem> {
+
+		private String query;
+
+		public YoutubeThread(String query) {
+			this.query = query;
+		}
+
+		@Override
+		public YoutubeItem call() throws Exception {
+			return UIWorker.youtube(query);
+		}
+	} 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.search(request, response);
+		try {
+			this.search(request, response);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.search(request, response);
+		try {
+			this.search(request, response);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

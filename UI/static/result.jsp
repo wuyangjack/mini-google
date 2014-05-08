@@ -41,14 +41,11 @@
     	<div class="header">
     		<ul class="nav clearfix">
     			<li class="item screen">
-    				<a href="#">item1</a>
-    			</li>
-    			<li class="item screen">
-    				<a href="#">item2</a>
-    			</li>
-    			<li class="item screen">
-    				<a href="#">item3</a>
-    			</li>
+                    <a href="index.jsp">Web</a>
+                </li>
+                <li class="item screen">
+                    <a href="#">Image</a>
+                </li>
     		</ul>
     	</div>
     </div>
