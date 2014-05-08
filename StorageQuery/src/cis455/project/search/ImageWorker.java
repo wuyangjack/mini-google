@@ -21,6 +21,7 @@ public class ImageWorker {
 		Iterator<String> url_iterator = url_entries.iterator();
 		while(url_iterator.hasNext()) {
 			String url = url_iterator.next();
+			if(! contains(url, words)) continue;
 			Integer i = 0;
 			// 1.1 for each word, add the weight and position to url map
 			if(! urlMap.containsKey(url)) {
@@ -34,6 +35,14 @@ public class ImageWorker {
 			urlMap.put(url, i);
 		}
 		return urlMap;
+	}
+	
+	private static boolean contains(String url, List<String> words) {
+		for(String word : words) {
+			if(url.contains(word))
+				return true;
+		}
+		return false;
 	}
 
 	private static Map<Integer, List<String>> getImageWeight(Map<String, Integer> urlMap) {
