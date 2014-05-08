@@ -54,12 +54,12 @@ public class QueryCheckServlet extends HttpServlet {
 		
 		if(page == null){  //right after search
 			if(query == null){
-				response.sendRedirect("UIServlet");
+				response.sendRedirect(UIGlobal.jspIndex);
 				return;      // if null then return to main page
 			}
 			query = query.trim();
 			if(query.length() == 0){
-				response.sendRedirect("UIServlet");
+				response.sendRedirect(UIGlobal.jspIndex);
 				return;
 			}
 		
@@ -69,7 +69,7 @@ public class QueryCheckServlet extends HttpServlet {
 			
 			query = query.trim();
 			if(query.length() == 0){
-				response.sendRedirect("UIServlet");
+				response.sendRedirect(UIGlobal.jspIndex);
 				return;
 			}
 			
