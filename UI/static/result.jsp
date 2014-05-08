@@ -21,6 +21,7 @@
   <%
     SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
     String query = searchResult.getQuery();
+    String queryCheck = searchResult.getQueryCheck();
     String wikipediaUrl = searchResult.getWikipediaUrl();
     String paraWikipedia = request.getParameter(UIGlobal.paraWiki);
     String[] titles = searchResult.getPageTitles();
@@ -75,6 +76,15 @@
         </form>
     </div>
 	
+
+    <% if (queryCheck != null) { %>
+        <div class="row">
+            <div class="col-md-1">&nbsp;</div>
+            <div>Are you looking for: <%= queryCheck%></div>
+        </div>
+    <% } %>
+
+    
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
         <div>About <%= countString%> results (<%= time%> seconds)</div>

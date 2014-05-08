@@ -19,12 +19,13 @@ public class SearchResult {
 	private Integer indexEnd = null;
 	private Boolean pageValid = null;
 	private String query = null;
+	private String queryCheck = null;
 	private List<Item> amazonItems = null;
 	private YoutubeItem youtubeItems = null;
 	private String wikipediaUrl = null;
 	private String sessionID = null;
 	
-	SearchResult(String sessionID, String result, String page, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
+	SearchResult(String sessionID, String result, String page, String query, String queryCheck, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
 		// Parse result
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
@@ -52,6 +53,7 @@ public class SearchResult {
 		// Initalize others
 		this.sessionID = sessionID;
 		this.query = query;
+		this.queryCheck = queryCheck;
 		this.amazonItems = amazonItems;
 		this.youtubeItems = youtubeItems;
 		this.wikipediaUrl = wikipediaUrl;
@@ -87,6 +89,10 @@ public class SearchResult {
 	
 	public String getQuery() {
 		return this.query;
+	}
+	
+	public String getQueryCheck() {
+		return this.queryCheck;
 	}
 	
 	public int getPageCurrent() {

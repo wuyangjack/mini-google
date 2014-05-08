@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +28,18 @@ public class UIServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, SearchResult> sessions = null;
 	private static SecureRandom sessionGenerator = null;
-
+	private static SpellChecker spellChecker = null;
+	
 	@Override
 	public void init() throws ServletException {
 		UIWorker.logger.info("UI servlet initialized");
+		UIWorker.logger.info("initalized sessions");
 		sessions = new HashMap<String, SearchResult>();
 		sessionGenerator = new SecureRandom();
-		UIWorker.logger.info("initalized sessions");
-		
+		ServletConfig config = getServletConfig();
+		String pathDict = config.getInitParameter(UIGlobal.initPathDict);
+		UIWorker.logger.info("initalize dictionary: " + pathDict);
+		spellChecker = new SpellChecker(pathDict);
 	}
 	
 	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, InterruptedException, ExecutionException, TimeoutException {
@@ -64,6 +69,7 @@ public class UIServlet extends HttpServlet {
 				response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
 				return;
 			}
+			String queryCheck = spellChecker.correct(query);
 			
 			// Amazon
 			FutureTask<List<Item>> amazon_thread = null;
@@ -95,7 +101,7 @@ public class UIServlet extends HttpServlet {
 			YoutubeItem youtubeItems = youtube_thread != null ? youtube_thread.get(5, TimeUnit.SECONDS) : null;
 			List<Item> amazonItems = amazon_thread != null ? amazon_thread.get(5, TimeUnit.SECONDS) : null;
 			
-			result = new SearchResult(sessionID, message, page, query, amazonItems, youtubeItems, wikipediaUrl);
+			result = new SearchResult(sessionID, message, page, query, queryCheck, amazonItems, youtubeItems, wikipediaUrl);
 			
 			// Save to session
 			this.sessions.put(sessionID, result);
