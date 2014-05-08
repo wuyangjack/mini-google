@@ -19,6 +19,7 @@
   </head>
   <body>
     <%
+       SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
        String query = searchResult.getQuery();
     %>
     <%= query%>
