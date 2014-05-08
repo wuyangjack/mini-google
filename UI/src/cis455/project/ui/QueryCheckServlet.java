@@ -26,13 +26,10 @@ import com.google.api.services.samples.youtube.cmdline.youtube_cmdline_search_sa
  */
 public class QueryCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String INDEX_JSP = "/index.jsp";
-	private static String RESULT_JSP = "/result.jsp";
 	
 	@Override
 	public void init() throws ServletException {
-		String[] servers = new String[]{"127.0.0.1:8080", "127.0.0.1:8080"};
-//		QueryMaster.initialize(servers);
+
 	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -151,7 +148,7 @@ public class QueryCheckServlet extends HttpServlet {
 
 
 			// forward req and resp to JSP
-			RequestDispatcher view = request.getRequestDispatcher(RESULT_JSP);
+			RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 			view.forward(request, response);
 		}
 		else{ // if after pressing prev or next
@@ -162,7 +159,7 @@ public class QueryCheckServlet extends HttpServlet {
 			else if(direction.equals("next")){
 				
 			}
-			RequestDispatcher view = request.getRequestDispatcher(RESULT_JSP);
+			RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 			view.forward(request, response);
 		}
 		
