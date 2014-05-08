@@ -31,16 +31,5 @@
     <servlet-name>QueryCheckServlet</servlet-name>
     <url-pattern>/QueryCheckServlet</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ResultServlet</display-name>
-    <servlet-name>ResultServlet</servlet-name>
-    <servlet-class>cis455.project.ui.ResultServlet</servlet-class>
-    <load-on-startup/>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ResultServlet</servlet-name>
-    <url-pattern>/ResultServlet</url-pattern>
-  </servlet-mapping>
 </web-app>
 
