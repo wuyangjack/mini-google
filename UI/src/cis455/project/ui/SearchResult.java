@@ -12,6 +12,7 @@ public class SearchResult {
 	private Integer pageCurrent = null;
 	private Integer indexStart = null;
 	private Integer indexEnd = null;
+	private Boolean pageValid = null;
 	
 	SearchResult(String result) {
 		String[] lines = result.split(UIGlobal.CRLF);
@@ -38,24 +39,32 @@ public class SearchResult {
 		urls = urlsList.toArray(urls);
 	}
 	
-	public boolean setPage(int page) {
+	public void setPage(int page) {
 		if (page > pages) {
-			return false;
+			this.pageValid = false;
+			return;
 		} else {
 			pageCurrent = page;
 			indexStart = UIGlobal.pageVolume * (pageCurrent -1);
 			indexEnd = indexStart + UIGlobal.pageVolume - 1;
-			if (indexEnd > count) indexEnd = count;
-			return true;
+			if (indexStart > count - 1) {
+				this.pageValid = false;
+				return;
+			}
+			if (indexEnd > count - 1) indexEnd = count;
+			this.pageValid = true;
+			return;
 		}
 	}
 	
 	public String[] getPageTitles() {
+		if (this.pageValid == false) return new String[0];
 		String[] ret = Arrays.copyOfRange(titles, indexStart, indexEnd);
 		return ret;
 	}
 	
 	public String[] getPageUrls() {
+		if (this.pageValid == false) return new String[0];
 		String[] ret = Arrays.copyOfRange(urls, indexStart, indexEnd);
 		return ret;
 	}
