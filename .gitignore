@@ -1,5 +1,6 @@
 *.class
 StorageQuery/target
+UI/target
 
 # Secrets
 *.pem
