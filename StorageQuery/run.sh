@@ -58,6 +58,21 @@ echoConfig() {
 	echo "Node index: "$CIS455_INDEX
 }
 
+resetTomcat() {
+	# Delete
+	sh $TOMCAT/bin/shutdown.sh
+	fuser -k 8080/tcp
+	rm -rf $TOMCAT
+	# Install
+	cd $BASE
+	TOMCAT_SOURCE=$BASE/MiniGoogle/AWS/tomcat
+	echo $TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz
+	tar xvfz $TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz
+	mv $ROOT/jakarta-tomcat-5.5.9 $TOMCAT
+	cp $TOMCAT_SOURCE/tomcat-users.xml $TOMCAT/conf/
+	sh $TOMCAT/bin/startup.sh
+}
+
 echoConfig
 
 case "$1" in
@@ -96,21 +111,24 @@ case "$1" in
 		LOG=/tmp/QueryMaster.log
 		rm -rf $LOG
 		# Stop Tomcat
-		sh $TOMCAT/bin/shutdown.sh
-		fuser -k 8080/tcp
+		#sh $TOMCAT/bin/shutdown.sh
+		#fuser -k 8080/tcp
+		# Clear Tomcat
+		#rm -rf $TOMCAT
+		resetTomcat
 		# Master servlet
-		WAR="master"
-		rm -rf $TOMCAT/webapps/$WAR
-		rm -rf $TOMCAT/webapps/$WAR.war
-		cp $ROOT/$WAR.war $TOMCAT/webapps/
+		#WAR="master"
+		#rm -rf $TOMCAT/webapps/$WAR
+		#rm -rf $TOMCAT/webapps/$WAR.war
+		cp $ROOT/master.war $TOMCAT/webapps/
 		# UI servlet
-		WAR="ui"
-		rm -rf $TOMCAT/work/Catalina/localhost/$WAR
-		rm -rf $TOMCAT/webapps/$WAR
-		rm -rf $TOMCAT/webapps/$WAR.war
-		cp $UI/$WAR.war $TOMCAT/webapps/
+		#WAR="ui"
+		#rm -rf $TOMCAT/work/Catalina/localhost/$WAR
+		#rm -rf $TOMCAT/webapps/$WAR
+		#rm -rf $TOMCAT/webapps/$WAR.war
+		cp $UI/ui.war $TOMCAT/webapps/
 		# Start Tomcat
-		sh $TOMCAT/bin/startup.sh
+		#sh $TOMCAT/bin/startup.sh
 		sleep 3
 		tail -f $LOG
 		;;
