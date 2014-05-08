@@ -27,7 +27,8 @@ public class ImageWorker {
 				i = 1;
 			}
 			else {
-				i = urlMap.get(url);
+				int j = urlMap.get(url) + 1;
+				i = j >= words.size() ? words.size() : j;
 			}
 			// 1.3 last step, update this url
 			urlMap.put(url, i);
