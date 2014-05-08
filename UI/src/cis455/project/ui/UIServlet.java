@@ -31,9 +31,6 @@ public class UIServlet extends HttpServlet {
 		String amazon = request.getParameter(UIGlobal.paraAmazon);
 		String youtube = request.getParameter(UIGlobal.paraYoutube);
 		String wiki = request.getParameter(UIGlobal.paraWiki);
-
-		//request.setAttribute(UIGlobal.attrPage, page);
-		//request.setAttribute(UIGlobal.attrQuery, query);
 		
 		// Query
 		query = UIWorker.filter(query);
@@ -47,38 +44,24 @@ public class UIServlet extends HttpServlet {
 		if (wiki != null) {
 			wikipediaUrl = UIWorker.wikipedia(query);
 		}
-		//request.setAttribute(UIGlobal.attrWikiUrl, wikipediaUrl);
 
 	    // Amazon
 		List<Item> amazonItems = null;
 		if (amazon != null) {
 			amazonItems = UIWorker.amazon(query);
 		}
-		//request.setAttribute(UIGlobal.attrAmazonItems, amazonItems);
 
 		// Youtube
 		YoutubeItem youtubeItems = null;
 		if (youtube != null) {
 			youtubeItems = UIWorker.youtube(query);
 		}
-		//request.setAttribute(UIGlobal.attrYoutubeItems, youtubeItems);
 
 		// Search
 		String message = UIWorker.search(query);
 		SearchResult result = new SearchResult(message, page, query, amazonItems, youtubeItems, wikipediaUrl);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
-		//String[] titles = result.getPageTitles();
-		//String[] urls = result.getPageUrls();
-		//UIWorker.logger.info("XXX" + result.count + "XXX");
-		//for (int i = 0;  i < urls.length; i ++) {
-		//	UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
-		//}
-		//request.setAttribute(UIGlobal.attrTitles, titles);
-		//request.setAttribute(UIGlobal.attrUrls, urls);
 		
-		// store information in sessions
-		// HttpSession session = request.getSession();
-
 		// Forward parameters to JSP
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 		view.forward(request, response);
