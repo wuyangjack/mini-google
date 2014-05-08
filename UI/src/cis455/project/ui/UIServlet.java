@@ -41,7 +41,8 @@ public class UIServlet extends HttpServlet {
 		
 	    // Wikipedia
 		String wikipediaUrl = UIWorker.wikipedia(query);
-			   
+		request.setAttribute(UIGlobal.attrWikiUrl, wikipediaUrl);
+
 	    // Amazon
 		List<Item> amazonItems = null;
 		if (amazon != null) {
@@ -67,7 +68,6 @@ public class UIServlet extends HttpServlet {
 		
 		// store information in sessions
 		// HttpSession session = request.getSession();
-		request.setAttribute("wiki", wikipediaUrl);
 		request.setAttribute("amazon_items", amazonItems);
 		request.setAttribute("youtube_items", youtubeItems);
 		request.setAttribute("page", page);

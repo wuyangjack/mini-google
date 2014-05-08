@@ -2,6 +2,8 @@
 <%@page import="java.util.*" %>
 <%@page import="cis455.project.amazon.Item" %>
 <%@page import="cis455.project.youtube.YoutubeItem" %>
+<%@page import="cis455.project.ui.UIGlobal" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +66,7 @@
                     </legend>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href='<%= request.getAttribute("wiki")%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
+                            <a href='<%= request.getAttribute(UIGlobal.attrWikiUrl)%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
                         </div>
                     </div>
                 </fieldset>
