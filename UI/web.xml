@@ -15,6 +15,10 @@
     <display-name>MiniGoogle UI</display-name>
     <servlet-name>UIServlet</servlet-name>
     <servlet-class>cis455.project.ui.UIServlet</servlet-class>
+    <init-param>
+           <param-name>pathDict</param-name>
+           <param-value>/home/ec2-user/database/dict.txt</param-value>
+    </init-param>
     <load-on-startup/>
   </servlet>
   <servlet-mapping>
