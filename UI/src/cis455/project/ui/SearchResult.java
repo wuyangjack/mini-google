@@ -150,7 +150,7 @@ public class SearchResult {
 			if (this.queryCheck != null) url += "&" + UIGlobal.paraSpellCheck + "=1";
 			if (page == 1) url += "&" + UIGlobal.paraWiki + "=1";
 			else url += "&" + UIGlobal.paraWiki + "=0";
-			url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
+			if (spellCheck == false) url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
 	}
