@@ -18,5 +18,5 @@ public class QueryGlobal {
 	public static final String modeGet = "get";
 	public static final String initPathDatabase = "pathDatabase";
 	public static final String delimiterNetwork = " ? ";
-	public static final String delimiterUI = "<|_|>";
+	public static final String delimiterUI = "\t";
 }
