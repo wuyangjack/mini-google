@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MiniGoogle</title>
+    <title>Avernus Search Engine</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
@@ -18,15 +18,12 @@
     <div class="header-wrap">
     	<div class="header">
     		<ul class="nav clearfix">
-    			<li class="item screen">
-    				<a href="#">item1</a>
-    			</li>
-    			<li class="item screen">
-    				<a href="#">item2</a>
-    			</li>
-    			<li class="item screen">
-    				<a href="#">item3</a>
-    			</li>
+                <li class="item screen">
+                    <a href="index.jsp">Web</a>
+                </li>
+                <li class="item screen">
+                    <a href="#">Image</a>
+                </li>
     		</ul>
     	</div>
     </div>
