@@ -95,10 +95,10 @@
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <%= urls[i]%>
+                        <a href='<%= urls[i]%>'><%= titles[i]%><br></a>
                     </div>
                     <div class="panel-body">
-                        <a href='<%= urls[i]%>'><%= titles[i]%><br></a>
+                        <%= urls[i]%>
                     </div>
                 </div>
             <%}%>
