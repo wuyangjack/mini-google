@@ -136,13 +136,15 @@ public class QueryCheckServlet extends HttpServlet {
 			}
 			*/
 			
-			
 			// Search
 			String message = UIWorker.search(query);
 			SearchResult result = new SearchResult(message);
+			result.setPage(1);
+			String[] titles = result.getPageTitles();
+			String[] urls = result.getPageUrls();
 			UIWorker.logger.info("XXX" + result.count + "XXX");
 			for (int i = 0;  i < result.count; i ++) {
-				UIWorker.logger.info("Title: " + result.titles[i] + "; URL: " + result.urls[i]);
+				UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
 			}
 			
 			// store information in sessions
@@ -152,7 +154,7 @@ public class QueryCheckServlet extends HttpServlet {
 			session.setAttribute("youtube_items", youtube_result);
 			session.setAttribute("page", "1");
 			session.setAttribute("query", query);
-		
+
 			// forward req and resp to JSP
 			RequestDispatcher view = request.getRequestDispatcher(RESULT_JSP);
 			view.forward(request, response);
