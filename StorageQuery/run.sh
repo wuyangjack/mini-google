@@ -105,6 +105,7 @@ case "$1" in
 		cp $ROOT/$WAR.war $TOMCAT/webapps/
 		# UI servlet
 		WAR="ui"
+		rm -rf $TOMCAT/work/Catalina/localhost/$WAR
 		rm -rf $TOMCAT/webapps/$WAR
 		rm -rf $TOMCAT/webapps/$WAR.war
 		cp $UI/$WAR.war $TOMCAT/webapps/
