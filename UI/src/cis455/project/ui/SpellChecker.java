@@ -134,7 +134,8 @@ public class SpellChecker {
 	    for(int i = 0; i < query_split_list.length; i++){
 	    	ret += this.check(query_split_list[i]);
 	    }
-	    if (query.equals(ret)) return null;
+	    if (ret.length() == 0) return null;
+	    else if (query.equals(ret)) return null;
 	    else return ret;
 	}
 	
