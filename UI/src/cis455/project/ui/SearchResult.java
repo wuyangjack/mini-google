@@ -119,8 +119,8 @@ public class SearchResult {
 	
 	public String getNeighborPageUrl(boolean next) {
 		int pageNeighbor = pageCurrent;
-		if (next) pageNeighbor = pageCurrent ++;
-		else pageCurrent --;
+		if (next) pageNeighbor = pageCurrent + 1;
+		else pageNeighbor = pageCurrent - 1;
 		if (pageNeighbor > pages || pageNeighbor < 1) {
 			return null;
 		} else {
