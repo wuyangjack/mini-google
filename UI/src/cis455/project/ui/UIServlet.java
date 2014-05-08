@@ -3,6 +3,7 @@ package cis455.project.ui;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,9 @@ public class UIServlet extends HttpServlet {
 	}
 	
 	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, InterruptedException, ExecutionException, TimeoutException {
+		// Start
+		Long timeStart = System.currentTimeMillis();
+		
 		// Get sessionID
 		String sessionID = request.getParameter(UIGlobal.paraSessionID);
 		SearchResult result = null;
@@ -104,6 +108,11 @@ public class UIServlet extends HttpServlet {
 		}
 		
 		// Forward parameters to JSP
+		Long timeEnd = System.currentTimeMillis();
+		double timeDuration = (timeEnd - timeStart) / 1000.00;
+		DecimalFormat df = new DecimalFormat("#.##");
+		String time = df.format(timeDuration);
+		request.setAttribute(UIGlobal.attrTime, time);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 		view.forward(request, response);

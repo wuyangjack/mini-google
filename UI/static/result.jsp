@@ -33,6 +33,8 @@
     YoutubeItem youtubeItems = searchResult.getYoutubeItems();
     String urlNext = searchResult.getNeighborPageUrl(true);
     String urlPrev = searchResult.getNeighborPageUrl(false);
+    String time = (String)request.getAttribute(UIGlobal.attrTime);
+    String countString = String.valueOf(count);
   %>
 
   <div>
@@ -73,6 +75,11 @@
         </form>
     </div>
 	
+    <div class="row">
+        <div class="col-md-1">&nbsp;</div>
+        <div>About <%= countString%> results (<%= time%> seconds)</div>
+    </div>
+
     <div class="result">
         <div class="result-display">
             <% if( wikipediaUrl != null && paraWikipedia.equals("1")) { %>

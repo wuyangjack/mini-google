@@ -18,6 +18,7 @@ public class UIGlobal {
 	public static final String paraSessionID = "sessionID";
 	
 	public static final String attrSearchResult = "result";
+	public static final String attrTime = "time";
 	public static String urlSearchSubmit() {
 		return pathSearch + "?" + paraPage + "=1&" + paraWiki + "=1";
 	}
