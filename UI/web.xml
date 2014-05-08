@@ -9,17 +9,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>UIServlet</display-name>
-    <servlet-name>UIServlet</servlet-name>
-    <servlet-class>cis455.project.ui.UIServlet</servlet-class>
-    <load-on-startup/>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UIServlet</servlet-name>
-    <url-pattern>/UIServlet</url-pattern>
-  </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>QueryCheckServlet</display-name>
