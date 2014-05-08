@@ -86,7 +86,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href='<%= wikipediaUrl%>' >
-                                <font size="4" color="#26B0FF"> 
+                                <font size="5" color="#26B0FF"> 
                                     <%= query + "- Wikipedia, the free encyclopedia"%><br>
                                 </font>
                             </a>
@@ -98,14 +98,18 @@
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href='<%= urls[i]%>'><%= titles[i]%><br></a>
+                        <a href='<%= urls[i]%>'>
+                            <font size="4" color="#26B0FF"> 
+                                <%= titles[i]%><br>
+                            </font>
+                        </a>
                     </div>
                     <div class="panel-body">
                         <%= urls[i]%>
                     </div>
                 </div>
-            <%}%>
-           
+            <% } %>
+            
         <div class="row">
             <ul class="pager">
                 <% if (urlNext != null) { %>

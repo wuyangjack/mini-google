@@ -3,16 +3,38 @@
 	padding:0;
 }
 
-body{
+body.welcome{
+	font-size:13px;
+	/*height:100%;*/
+	/*color:#eee;*/
+	font-family:Arial, Helvetica, sans-serif;
+	background:url("../img/fire.jpg") no-repeat #718693;
+	background-size: 100% 100%;
+	min-height: 800px;
+}
+
+
+body.image{
 	font-size:13px;
 	height:100%;
 	/*color:#eee;*/
 	font-family:Arial, Helvetica, sans-serif;
-	background:url("../img/bg1.png") repeat-y #718693;
+	background:url("../img/flower.jpg") no-repeat #718693;
+	background-size: 100% 100%;
+	min-height: 700px;
+}
+
+body.result{
+	font-size:13px;
+	height:100%;
+	/*color:#eee;*/
+	font-family:Arial, Helvetica, sans-serif;
+
 }
 
 #page{
 	/* The main container div */
+
 	width:620px;
 	margin:150px auto 0;
 }
@@ -27,7 +49,9 @@ h1{
 
 #searchFormStyle{
 	/* The search form. */
-	background-color:#87CEFA;
+	/*background-color:#87CEFA;*/
+	/*background-color:#000000;*/
+	background:transparent;
 	padding:50px 50px 30px;
 	margin: 0px 0;
 	position:relative;
@@ -88,7 +112,7 @@ fieldset{
 	margin-left:5px;
 }
 
-.header-wrap { width: 100%; height: 40px; background: #4D4D4D; position: fixed; z-index: 999; box-shadow: 0 1px 4px rgba(0,0,0,0.2); top:0px;}
+.header-wrap { width: 100%; height: 40px; background: #000000; position: fixed; z-index: 999; box-shadow: 0 1px 4px rgba(0,0,0,0.2); top:0px;}
 .header { margin: 0 auto; padding: 8px; }
 .footer-wrap { width: 100%; padding: 16px 0; position:absolute; bottom: 0;}
 .footer { text-align: center; font-size: 12px; color: #999; }
@@ -96,9 +120,9 @@ fieldset{
 .footer-social { display: inline-block; text-align: center; }
 
 .nav { margin: 0; }
-.nav li.item { float: left; list-style: none;  margin-right: 4px; position: relative; }
-.nav li.item a { color: #FFF; font-size: 14px; display: block; padding: 4px 8px; border-radius: 2px; }
-.nav li.item a:hover, .nav li.item a.active { background-color: #3396CE; }
+.nav li.item { float: left; list-style: none;  margin-right: 4px; position: relative; outline:none; border:0;}
+.nav li.item a { color: #FFF; font-size: 14px; display: block; padding: 4px 8px; border-radius: 2px; outline:none; border:0;}
+.nav li.item a:hover, .nav li.item a.active { /*background-color: #3396CE;*/ background-color: #E10101;}
 .nav li.item a img { vertical-align: bottom; }
 .nav li.right { float: right; margin: 0 0 0 8px; }
 .nav li.item .menu { display: none; position: absolute; width: 216px; top: 100%; padding-top: 24px; }
@@ -115,6 +139,13 @@ fieldset{
 
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
 .clearfix { display: inline-block; }
+
+.imagegallery{
+	margin: 0 auto;
+	width:75%;
+	height:auto;
+	
+}
 
 
 

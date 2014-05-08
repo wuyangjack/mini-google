@@ -19,7 +19,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UIServlet</servlet-name>
-    <url-pattern>/UIServlet</url-pattern>
+    <url-pattern>/search</url-pattern>
   </servlet-mapping>
 </web-app>
 
