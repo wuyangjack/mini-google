@@ -57,47 +57,26 @@ public class UIServlet extends HttpServlet {
 			query = UIWorker.filter(query);
 			if(query == null){
 				UIWorker.logger.error("no query");
-				response.sendRedirect(UIGlobal.jspIndex);
+				response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
 				return;
 			}
-			/*
-		    // Wikipedia
-			String wikipediaUrl = null;
-			if (wiki != null) {
-				wikipediaUrl = UIWorker.wikipedia(query);
-			}
-
-		    // Amazon
-			List<Item> amazonItems = null;
-			if (amazon != null) {
-				amazonItems = UIWorker.amazon(query);
-			}
-
-			// Youtube
-			YoutubeItem youtubeItems = null;
-			if (youtube != null) {
-				youtubeItems = UIWorker.youtube(query);
-			}
-
-			// Search
-			String message = UIWorker.search(query);
-			*/
-			FutureTask<List<Item>> amazon_thread = null;
-			FutureTask<String> wiki_thread = null;
-			FutureTask<YoutubeItem> youtube_thread = null;
+			
 			// Amazon
+			FutureTask<List<Item>> amazon_thread = null;
 			if (amazon != null) {
 				amazon_thread = new FutureTask<List<Item>>(new AmazonThread(query));
 				new Thread(amazon_thread).start();
 			}
 			
 		    // Wikipedia
+			FutureTask<String> wiki_thread = null;
 			if (wiki != null) {
 				wiki_thread = new FutureTask<String>(new WikiThread(query));
 				new Thread(wiki_thread).start();
 			}
 
 			// Youtube
+			FutureTask<YoutubeItem> youtube_thread = null;
 			if (youtube != null) {
 				youtube_thread = new FutureTask<YoutubeItem>(new YoutubeThread(query));
 				new Thread(youtube_thread).start();
@@ -190,30 +169,20 @@ public class UIServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			this.search(request, response);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			UIWorker.logger.error("error in search", e);
+			response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+			return;
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			this.search(request, response);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}  catch (Exception e) {
+			UIWorker.logger.error("error in search", e);
+			response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+			return;
 		}
 	}
 

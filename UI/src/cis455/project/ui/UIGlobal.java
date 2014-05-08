@@ -8,6 +8,7 @@ public class UIGlobal {
 	public static final String jspIndex = "/index.jsp";
 	public static final String jspResult = "/result.jsp";
 	public static final String pathSearch = "search";
+	public static final String contextUI = "/ui";
 	
 	public static final String paraPage = "page";
 	public static final String paraAmazon = "amazon";
