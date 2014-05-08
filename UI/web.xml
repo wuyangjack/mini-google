@@ -13,7 +13,8 @@
     <description></description>
     <display-name>UIServlet</display-name>
     <servlet-name>UIServlet</servlet-name>
-    <servlet-class>uiTest.UIServlet</servlet-class>
+    <servlet-class>cis455.project.ui.UIServlet</servlet-class>
+    <load-on-startup/>
   </servlet>
   <servlet-mapping>
     <servlet-name>UIServlet</servlet-name>
@@ -23,7 +24,8 @@
     <description></description>
     <display-name>QueryCheckServlet</display-name>
     <servlet-name>QueryCheckServlet</servlet-name>
-    <servlet-class>uiTest.QueryCheckServlet</servlet-class>
+    <servlet-class>cis455.project.ui.QueryCheckServlet</servlet-class>
+    <load-on-startup/>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryCheckServlet</servlet-name>
@@ -33,7 +35,8 @@
     <description></description>
     <display-name>ResultServlet</display-name>
     <servlet-name>ResultServlet</servlet-name>
-    <servlet-class>uiTest.ResultServlet</servlet-class>
+    <servlet-class>cis455.project.ui.ResultServlet</servlet-class>
+    <load-on-startup/>
   </servlet>
   <servlet-mapping>
     <servlet-name>ResultServlet</servlet-name>
