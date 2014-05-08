@@ -206,7 +206,7 @@ case "$1" in
 		;;
 	DumpTitle)
 		cd $ROOT
-		THREADS=1
+		THREADS=5
 		KEY=0
 		java -cp $CLASSPATH $DUMPER $SOURCE_TITLE $DATABASE 1 0 $TABLE_TITLE $THREADS $KEY
 		;;
