@@ -31,7 +31,10 @@ public class UIServlet extends HttpServlet {
 		String query = request.getParameter(UIGlobal.paraQuery);
 		String page = request.getParameter(UIGlobal.paraPage);
 		String amazon = request.getParameter(UIGlobal.paraAmazon);
-		String youtube = request.getParameter(UIGlobal.paraYoutube);		
+		String youtube = request.getParameter(UIGlobal.paraYoutube);
+		
+		request.setAttribute(UIGlobal.attrPage, page);
+		request.setAttribute(UIGlobal.attrQuery, query);
 		
 		query = UIWorker.filter(query);
 		if(query == null){
@@ -48,13 +51,15 @@ public class UIServlet extends HttpServlet {
 		if (amazon != null) {
 			amazonItems = UIWorker.amazon(query);
 		}
+		request.setAttribute(UIGlobal.attrAmazonItems, amazonItems);
 
 		// Youtube
 		YoutubeItem youtubeItems = null;
 		if (youtube != null) {
 			youtubeItems = UIWorker.youtube(query);
 		}
-		
+		request.setAttribute(UIGlobal.attrYoutubeItems, youtubeItems);
+
 		// Search
 		String message = UIWorker.search(query);
 		SearchResult result = new SearchResult(message);
@@ -65,15 +70,11 @@ public class UIServlet extends HttpServlet {
 		for (int i = 0;  i < urls.length; i ++) {
 			UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
 		}
+		request.setAttribute(UIGlobal.attrTitles, titles);
+		request.setAttribute(UIGlobal.attrUrls, urls);
 		
 		// store information in sessions
 		// HttpSession session = request.getSession();
-		request.setAttribute("amazon_items", amazonItems);
-		request.setAttribute("youtube_items", youtubeItems);
-		request.setAttribute("page", page);
-		request.setAttribute("query", query);
-		request.setAttribute("titles", titles);
-		request.setAttribute("urls", urls);
 
 		// Forward parameters to JSP
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);

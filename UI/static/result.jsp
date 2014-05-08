@@ -66,15 +66,15 @@
                     </legend>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href='<%= request.getAttribute(UIGlobal.attrWikiUrl)%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
+                            <a href='<%= request.getAttribute(UIGlobal.attrWikiUrl)%>' ><font size="4" color="#26B0FF"> <%= request.getParameter(UIGlobal.paraQuery) + "- Wikipedia, the free encyclopedia"%><br></font></a>
                         </div>
                     </div>
                 </fieldset>
             <% } %>
 
             <% 
-            String[] titles_arr = (String[])request.getAttribute("titles");
-            String[] urls_arr = (String[])request.getAttribute("urls");
+            String[] titles_arr = (String[])request.getAttribute(UIGlobal.attrTitles);
+            String[] urls_arr = (String[])request.getAttribute(UIGlobal.attrUrls);
             int result_num = titles_arr.length;
             %>
             <%for (int resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
@@ -99,17 +99,16 @@
         <div class="ad-display" border="1">
             <fieldset>
             <%
-                ArrayList list = (ArrayList)request.getAttribute("amazon_items");
+                ArrayList list = (ArrayList)request.getAttribute(UIGlobal.attrAmazonItems);
             %>
-            <%for (int resultIndex = 0; resultIndex < list.size(); resultIndex++){ %>
             <%
-               
+            for (int resultIndex = 0; resultIndex < list.size(); resultIndex ++) { %>
+                <%
                 String title = ((Item)list.get(resultIndex)).getTitle();
                 String img = ((Item)list.get(resultIndex)).getImg();
                 String price = ((Item)list.get(resultIndex)).getPrice();
                 String url = ((Item)list.get(resultIndex)).getUrl();
-            %>
-               
+                %>
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-danger" >
                         <a href='<%= url%>'> <%=title%> </a>
@@ -125,12 +124,12 @@
                 </ul>
             <%}%>
 
-            <%for (int resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute("youtube_items")).item_Num; resultIndex++){ %>
+            <%for (int resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).item_Num; resultIndex++){ %>
             <%
-                String y_title = ((YoutubeItem)request.getAttribute("youtube_items")).title[resultIndex];
-                String y_img = ((YoutubeItem)request.getAttribute("youtube_items")).img[resultIndex];
-                String y_url = ((YoutubeItem)request.getAttribute("youtube_items")).url[resultIndex];
-                String y_embed_url = ((YoutubeItem)request.getAttribute("youtube_items")).embed_url[resultIndex];
+                String y_title = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).title[resultIndex];
+                String y_img = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).img[resultIndex];
+                String y_url = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).url[resultIndex];
+                String y_embed_url = ((YoutubeItem)request.getAttribute(UIGlobal.attrYoutubeItems)).embed_url[resultIndex];
             %>
                
                 <ul class="list-group" >
@@ -152,8 +151,8 @@
         </div>
     </div>
     <%
-        String query_string = (String)request.getAttribute("query");
-        String page_string = (String)request.getAttribute("page");
+        String query_string = (String)request.getAttribute(UIGlobal.attrQuery);
+        String page_string = (String)request.getAttribute(UIGlobal.attrPage);
     %>
     <div><p>Query String: <%=query_string%></p></div>
     <div><p>Page String: <%=page_string%></p></div>

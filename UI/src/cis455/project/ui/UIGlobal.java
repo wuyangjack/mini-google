@@ -22,7 +22,6 @@ public class UIGlobal {
 	public static final String attrTitles = "titles";
 	public static final String attrUrls = "urls";
 	/*
-	request.setAttribute("wiki", wikipediaUrl);
 	request.setAttribute("amazon_items", amazonItems);
 	request.setAttribute("youtube_items", youtubeItems);
 	request.setAttribute("page", page);
