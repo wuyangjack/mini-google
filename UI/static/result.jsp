@@ -10,20 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MiniGoogle</title>
-
-    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Powered -->
     <link href="css/google_styles.css" rel="stylesheet">
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
   <div>
@@ -31,11 +19,6 @@
     <div class="header-wrap">
     	<div class="header">
     		<ul class="nav clearfix">
-    			<!-- <li class="item">
-    				<a href="#">
-    					<img src="">
-    				</a>
-    			</li> -->
     			<li class="item screen">
     				<a href="#">item1</a>
     			</li>
@@ -55,26 +38,20 @@
     <div class="row">
         <div class="col-md-12">&nbsp;</div>
     </div>
-    <!-- <form>
-        <div width = "80%" align = "center">
-        <input type="text" display="block" width="100%" height = "20px" padding="0 50px 0 50px">
-        <input type="submit">
-    </div>
-    </form> -->
+
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
         <form>
-        <div class="col-lg-8">
-            <div class="input-group">
-                
-                <span class="glyphicon glyphicon-search input-group-btn"></span>
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                    <input type="submit" name="submit" id="submitButton" value="Search"/>
-                </span>
-                
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+            <div class="col-lg-8">
+                <div class="input-group">
+                    <span class="glyphicon glyphicon-search input-group-btn"></span>
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <input type="submit" name="submit" id="submitButton" value="Search"/>
+                    </span>
+                    
+                </div>
+            </div>
         </form>
     </div>
 	
@@ -99,10 +76,6 @@
             int result_num = titles_arr.length;
             %>
             <%for (int resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
-                <!-- <div>
-                    <a href="http://www.google.com"> <%= request.getParameter("title" + resultIndex)%></a>
-                    <p><%= request.getParameter("url" + resultIndex)%></p>
-                </div> -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a href='<%= urls_arr[resultIndex]%>'><%= titles_arr[resultIndex]%><br></a>
@@ -114,20 +87,6 @@
             <%}%>
            
         <div class="row">
-        <!-- <ul class="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">9</a></li>
-            <li><a href="#">10</a></li>
-            <li><a href="#">&raquo;</a></li>
-        </ul> -->
             <ul class="pager">
                 <li class="previous"><a href="#">&larr; Older</a></li>
                 <li class="next"><a href="#">Newer &rarr;</a></li>
@@ -174,7 +133,6 @@
                
                 <ul class="list-group" >
                     <li class="nav nav-pills nav-justified">
-                        <!-- <a href='<%= y_url%>' onClick="PopupCenter('<%= y_url%>', '<%=y_title%>', 100, 100)"> <%=y_title%> </a> -->
                         <a href='<%= y_url%>'>  <%=y_title%> </a>
                         
                      </li>
@@ -198,25 +156,8 @@
 
 	
 	</div>
-
-    <!-- <iframe  name="iframe"></iframe> -->
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/google_script.js"></script>
-    <script>
-    function PopupCenter(pageURL, title,w,h) {
-    var left = (screen.width/2)-(w/2);
-    var top = (screen.height/2)-(h/2);
-    var targetWin = window.open (pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-    } 
-    </script>
-  </body>
-</html> width='+w+', height='+h+', top='+top+', left='+left);
-    } 
-    </script>
   </body>
 </html>
