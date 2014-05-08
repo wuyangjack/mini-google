@@ -66,9 +66,9 @@ resetTomcat() {
 	# Install
 	cd $BASE
 	TOMCAT_SOURCE=$BASE/MiniGoogle/AWS/tomcat
-	echo $TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz
-	tar xvfz $TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz
-	mv $ROOT/jakarta-tomcat-5.5.9 $TOMCAT
+	echo "unzip "$TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz
+	tar xvfz $TOMCAT_SOURCE/jakarta-tomcat-5.5.9.tar.gz &> /dev/null
+	mv $BASE/jakarta-tomcat-5.5.9 $TOMCAT
 	cp $TOMCAT_SOURCE/tomcat-users.xml $TOMCAT/conf/
 	sh $TOMCAT/bin/startup.sh
 }
