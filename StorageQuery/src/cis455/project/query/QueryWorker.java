@@ -15,6 +15,7 @@ import org.apache.log4j.PatternLayout;
 
 import StopAndStemmer.WordPreprocessor;
 
+import cis455.project.search.ImageWorker;
 import cis455.project.search.SearchWorker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
@@ -40,7 +41,7 @@ public class QueryWorker{
 		logger.info("connect to database: " + pathDatabase);
 		try {
 			Storage.setEnvPath(pathDatabase, true);
-			String[] databaseNames = new String[]{StorageGlobal.tablePageRank, StorageGlobal.tableFreqTitle, StorageGlobal.tableModTitle, StorageGlobal.tableFreqMeta, StorageGlobal.tableModMeta};
+			String[] databaseNames = new String[]{StorageGlobal.tablePageRank, StorageGlobal.tableFreqTitle, StorageGlobal.tableModTitle, StorageGlobal.tableFreqMeta, StorageGlobal.tableModMeta, StorageGlobal.tableFreqImage};
 			storage = Storage.getInstance(databaseNames);
 		} catch (Exception e) {
 			logger.error("failure open database", e);
@@ -105,6 +106,17 @@ public class QueryWorker{
 				words.add(w);
 		}
 		String result = SearchWorker.search(words);
+		return result;
+	}
+	
+	public static String searchImage(String query) {
+		List<String> words = new ArrayList<String>();
+		for(String word : query.split("\\s")) {
+			String w = WordPreprocessor.preprocess(word);
+			if(w != null)
+				words.add(w);
+		}
+		String result = ImageWorker.search(words);
 		return result;
 	}
 	

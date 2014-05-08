@@ -48,6 +48,21 @@ public class WorkerServlet extends HttpServlet {
 				}
 				QueryWorker.logger.info("search query done");
 			}
+		} else if (mode.equals(QueryGlobal.modeImage)) {
+			if (false == request.getParameterMap().containsKey(QueryGlobal.paraSearch)) {
+				QueryWorker.logger.error("no query string");
+			} else {
+				QueryWorker.logger.info("search query arrived");
+				try {
+					String query = request.getParameter(QueryGlobal.paraSearch);
+					query = URLDecoder.decode(query, "UTF-8");
+					String result = QueryWorker.searchImage(query);
+					out.println(result);
+				} catch (Exception e) {
+					QueryWorker.logger.error("search error", e);
+				}
+				QueryWorker.logger.info("search query done");
+			}
 		} else if (mode.equals(QueryGlobal.modeGet)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraTable)
 					&& request.getParameterMap().containsKey(QueryGlobal.paraKey)) {

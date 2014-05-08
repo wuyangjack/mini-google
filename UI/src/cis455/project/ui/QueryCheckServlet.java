@@ -37,22 +37,13 @@ public class QueryCheckServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Fetch parameters
 		String query = request.getParameter("query");
 		String page = request.getParameter("page");
-		String direction = request.getParameter("direction");
-//		String category = request.getParameter("category");
 		String amazon = request.getParameter("amazon");
-		String youtube = request.getParameter("youtube");
-//		if(category == null)
-//			category = "web";
-//		else{
-//			category.trim();
-//			category = category.substring(0, category.indexOf(" ")).trim();
-//		}
+		String youtube = request.getParameter("youtube");		
 		
-		
-		
-		if(page == null){  //right after search
+		if(page == null){  // right after search
 			if(query == null){
 				response.sendRedirect(UIGlobal.jspIndex);
 				return;      // if null then return to main page
@@ -153,12 +144,6 @@ public class QueryCheckServlet extends HttpServlet {
 		}
 		else{ // if after pressing prev or next
 			int page_num = Integer.parseInt(page);
-			if(direction.equals("prev")){
-			    
-			}
-			else if(direction.equals("next")){
-				
-			}
 			RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 			view.forward(request, response);
 		}
