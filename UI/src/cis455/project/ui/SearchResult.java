@@ -49,6 +49,7 @@ public class SearchResult {
 		urls = new String[count];
 		urls = urlsList.toArray(urls);
 		// Initalize others
+		this.sessionID = sessionID;
 		this.query = query;
 		this.amazonItems = amazonItems;
 		this.youtubeItems = youtubeItems;
