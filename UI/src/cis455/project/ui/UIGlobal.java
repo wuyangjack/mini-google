@@ -14,6 +14,7 @@ public class UIGlobal {
 	public static final String paraYoutube = "youtube";
 	public static final String paraWiki = "wiki";
 	public static final String paraQuery = "query";
+	public static final String paraSessionID = "sessionID";
 	
 	public static final String attrSearchResult = "result";
 	public static String urlSearchSubmit() {

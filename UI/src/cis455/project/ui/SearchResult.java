@@ -22,8 +22,9 @@ public class SearchResult {
 	private List<Item> amazonItems = null;
 	private YoutubeItem youtubeItems = null;
 	private String wikipediaUrl = null;
+	private String sessionID = null;
 	
-	SearchResult(String result, String page, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {
+	SearchResult(String sessionID, String result, String page, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
 		// Parse result
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
@@ -34,8 +35,8 @@ public class SearchResult {
 			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
 			//UIWorker.logger.info("tokens: " + tokens.length);
 			if(tokens.length == 2) {
-				titlesList.add(tokens[1]);
 				urlsList.add(tokens[0]);
+				titlesList.add(tokens[1]);
 			} else {
 				UIWorker.logger.info("discard invalid line: " + lines[i]);
 			}
@@ -55,7 +56,7 @@ public class SearchResult {
 		this.setPage(page);
 	}
 	
-	private void setPage(String page) {
+	public void setPage(String page) {
 		int pageInt = Integer.parseInt(page.trim());
 		if (pageInt > pages) {
 			this.pageValid = false;
@@ -131,7 +132,8 @@ public class SearchResult {
 			url += "&" + UIGlobal.paraPage + "=" + String.valueOf(pageNeighbor);
 			if (this.amazonItems != null) url += "&" + UIGlobal.paraAmazon + "=1";
 			if (this.youtubeItems != null) url += "&" + UIGlobal.paraYoutube + "=1";
-			if (this.wikipediaUrl != null) url += "&" + UIGlobal.paraWiki + "=1";
+			if (pageNeighbor == 1) url += "&" + UIGlobal.paraWiki + "=1";
+			url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
 		
