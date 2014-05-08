@@ -57,6 +57,12 @@
                             <img src="img/youtube.jpg" height="45px" width="auto"/>
                         </label>
                     </div>
+                    <div class="checkbox-inline" height="45px">
+                    <label>
+                        <input type="checkbox" value="spellcheck" name="spellcheck" align="center" checked>
+                        <img src="img/spellcheck.jpg" height="45px" width="auto"/>
+                    </label>
+                </div>
                 </div>
 
             </fieldset>

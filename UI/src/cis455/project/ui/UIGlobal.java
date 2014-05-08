@@ -13,6 +13,7 @@ public class UIGlobal {
 	public static final String paraPage = "page";
 	public static final String paraAmazon = "amazon";
 	public static final String paraYoutube = "youtube";
+	public static final String paraSpellCheck = "spellcheck";
 	public static final String paraWiki = "wiki";
 	public static final String paraQuery = "query";
 	public static final String paraSessionID = "sessionID";

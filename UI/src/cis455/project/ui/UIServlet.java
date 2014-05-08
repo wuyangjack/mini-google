@@ -57,6 +57,7 @@ public class UIServlet extends HttpServlet {
 			String amazon = request.getParameter(UIGlobal.paraAmazon);
 			String youtube = request.getParameter(UIGlobal.paraYoutube);
 			String wiki = request.getParameter(UIGlobal.paraWiki);
+			String spellcheck = request.getParameter(UIGlobal.paraSpellCheck);
 			
 			// Session 
 			sessionID = new BigInteger(130, sessionGenerator).toString(32);
@@ -69,7 +70,12 @@ public class UIServlet extends HttpServlet {
 				response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
 				return;
 			}
-			String queryCheck = spellChecker.correct(query);
+			
+			// Spell check
+			String queryCheck = null;
+			if (spellcheck != null) {
+				queryCheck = spellChecker.correct(query);
+			}
 			
 			// Amazon
 			FutureTask<List<Item>> amazon_thread = null;
