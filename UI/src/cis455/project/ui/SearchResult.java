@@ -24,12 +24,7 @@ public class SearchResult {
 	private String wikipediaUrl = null;
 	
 	SearchResult(String result, String page, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {
-		this.query = query;
-		this.amazonItems = amazonItems;
-		this.youtubeItems = youtubeItems;
-		this.wikipediaUrl = wikipediaUrl;
-		this.setPage(page);
-		
+		// Parse result
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
 		List<String> urlsList = new ArrayList<String>();
@@ -52,6 +47,12 @@ public class SearchResult {
 		titles = titlesList.toArray(titles);
 		urls = new String[count];
 		urls = urlsList.toArray(urls);
+		// Initalize others
+		this.query = query;
+		this.amazonItems = amazonItems;
+		this.youtubeItems = youtubeItems;
+		this.wikipediaUrl = wikipediaUrl;
+		this.setPage(page);
 	}
 	
 	private void setPage(String page) {
