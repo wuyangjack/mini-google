@@ -81,7 +81,7 @@ public class UIWorker {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String url = null;
 		try {
-			url = UIGlobal.searchURL + URLEncoder.encode(query, "UTF-8");
+			url = UIGlobal.urlMasterSearch + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error encoding query");
 			e.printStackTrace();

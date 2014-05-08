@@ -1,5 +1,7 @@
 <%-- <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%> --%>
+<%@page import="cis455.project.ui.UIGlobal" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,7 +37,7 @@
 		<legend>
 			<img src="img/button1.png"/>
 		</legend>
-        <form id="searchFormStyle" method="post" action="search?page=1">
+        <form id="searchFormStyle" method="post" action='<%= UIGlobal.urlSearchSubmit()%>'>
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />
                 <input type="submit" name="submit" id="submitButton" value="Search"/>

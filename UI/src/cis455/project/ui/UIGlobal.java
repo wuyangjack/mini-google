@@ -4,7 +4,7 @@ public class UIGlobal {
 	public static final Integer pageVolume = 10;
 	public static final String delimiterUI = "\t";
 	public static final String CRLF = "\r\n";
-	public static final String searchURL = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=search&query=";
+	public static final String urlMasterSearch = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=search&query=";
 	public static final String jspIndex = "/index.jsp";
 	public static final String jspResult = "/result.jsp";
 	public static final String pathSearch = "/search";
@@ -22,6 +22,10 @@ public class UIGlobal {
 	public static final String attrQuery = "query";
 	public static final String attrTitles = "titles";
 	public static final String attrUrls = "urls";
+	
+	public static String urlSearchSubmit() {
+		return pathSearch + "?" + paraPage + "=1&" + paraWiki + "=1";
+	}
 	/*
 	request.setAttribute("amazon_items", amazonItems);
 	request.setAttribute("youtube_items", youtubeItems);
