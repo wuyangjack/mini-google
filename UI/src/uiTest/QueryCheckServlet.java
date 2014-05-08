@@ -148,14 +148,14 @@ public class QueryCheckServlet extends HttpServlet {
 			}
 			
 			// store information in sessions
-			HttpSession session = request.getSession();
-			session.setAttribute("wiki", wiki_string);
-			session.setAttribute("amazon_items", amazon_tool.getItems());
-			session.setAttribute("youtube_items", youtube_result);
-			session.setAttribute("page", "1");
+			// HttpSession session = request.getSession();
+			request.setAttribute("wiki", wiki_string);
+			request.setAttribute("amazon_items", amazon_tool.getItems());
+			request.setAttribute("youtube_items", youtube_result);
+			request.setAttribute("page", "1");
 			request.setAttribute("query", query);
-			session.setAttribute("titles", titles);
-			session.setAttribute("urls", urls);
+			request.setAttribute("titles", titles);
+			request.setAttribute("urls", urls);
 
 
 			// forward req and resp to JSP

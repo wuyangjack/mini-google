@@ -5,8 +5,8 @@
 
 <!DOCTYPE html>
 <%! int resultIndex; 
-    // String page_number = session.getAttribute("page");
-    // String wiki_string = session.getAttribute("wiki");
+    // String page_number = request.getAttribute("page");
+    // String wiki_string = request.getAttribute("wiki");
 %>
 <html lang="en">
   <head>
@@ -84,14 +84,14 @@
 	
     <div class="result">
         <div class="result-display">
-            <%if(session.getAttribute("page").equals("1")){ %>
+            <%if(request.getAttribute("page").equals("1")){ %>
                 <fieldset>
                     <legend>
                         <img src="img/button1.png"/>
                     </legend>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a href='<%= session.getAttribute("wiki")%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
+                            <a href='<%= request.getAttribute("wiki")%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
                         </div>
                         <!-- <div class="panel-body">
                             <%= request.getParameter("url" + resultIndex)%>
@@ -101,8 +101,8 @@
             <% } %>
 
             <% 
-            String[] titles_arr = (String[])session.getAttribute("titles");
-            String[] urls_arr = (String[])session.getAttribute("urls");
+            String[] titles_arr = (String[])request.getAttribute("titles");
+            String[] urls_arr = (String[])request.getAttribute("urls");
             int result_num = titles_arr.length;
             %>
             <%for (resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
@@ -145,7 +145,7 @@
         <div class="ad-display" border="1">
             <fieldset>
             <%
-                ArrayList list = (ArrayList)session.getAttribute("amazon_items");
+                ArrayList list = (ArrayList)request.getAttribute("amazon_items");
             %>
             <%for (resultIndex = 0; resultIndex < list.size(); resultIndex++){ %>
             <%
@@ -171,12 +171,12 @@
                 </ul>
             <%}%>
 
-            <%for (resultIndex = 0; resultIndex < ((YoutubeItem)session.getAttribute("youtube_items")).item_Num; resultIndex++){ %>
+            <%for (resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute("youtube_items")).item_Num; resultIndex++){ %>
             <%
-                String y_title = ((YoutubeItem)session.getAttribute("youtube_items")).title[resultIndex];
-                String y_img = ((YoutubeItem)session.getAttribute("youtube_items")).img[resultIndex];
-                String y_url = ((YoutubeItem)session.getAttribute("youtube_items")).url[resultIndex];
-                String y_embed_url = ((YoutubeItem)session.getAttribute("youtube_items")).embed_url[resultIndex];
+                String y_title = ((YoutubeItem)request.getAttribute("youtube_items")).title[resultIndex];
+                String y_img = ((YoutubeItem)request.getAttribute("youtube_items")).img[resultIndex];
+                String y_url = ((YoutubeItem)request.getAttribute("youtube_items")).url[resultIndex];
+                String y_embed_url = ((YoutubeItem)request.getAttribute("youtube_items")).embed_url[resultIndex];
             %>
                
                 <ul class="list-group" >
