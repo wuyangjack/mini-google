@@ -18,7 +18,7 @@
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
   <body>
-  <% 
+  <%
     SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
     String query = searchResult.getQuery();
     String wikipediaUrl = searchResult.getWikipediaUrl();
@@ -28,7 +28,7 @@
     int count = searchResult.getCount();
     int pages = searchResult.getPages();
     int pageCurrent = searchResult.getPageCurrent();
-    List<Item> amazonItems = searchResult.getAmazonItems();
+    List amazonItems = searchResult.getAmazonItems();
     YoutubeItem youtubeItems = searchResult.getYoutubeItems();
   %>
 
@@ -111,7 +111,7 @@
         </div>
             
         </div>
-        
+
         <div class="ad-display" border="1">
             <fieldset>
 
