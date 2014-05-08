@@ -14,6 +14,7 @@ public class SearchResult {
 		for (int i = 0; i < count; i ++ ) {
 			UIWorker.logger.info(lines[i]);
 			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
+			UIWorker.logger.info("tokens: " + tokens.length);
 			titles[i] = tokens[0];
 			urls[i] = tokens[1];
 		}
