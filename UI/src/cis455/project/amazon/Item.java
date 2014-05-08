@@ -1,4 +1,4 @@
-package amazonAPI;
+package cis455.project.amazon;
 
 public class Item {
 
