@@ -43,6 +43,11 @@ public class SearchResult {
 			}
 		}
 		count = urlsList.size();
+		if (count == 0) {
+			urlsList.add("http://www.google.com");
+			titlesList.add("Try Google instead!");
+			count = 1;
+		}
 		UIWorker.logger.info("parsed titles/urls: " + count);
 		pages = (int) Math.ceil((double)count / (double)UIGlobal.pageVolume);
 		titles = new String[count];
