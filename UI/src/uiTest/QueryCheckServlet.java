@@ -138,8 +138,12 @@ public class QueryCheckServlet extends HttpServlet {
 			
 			
 			// Search
-			String result = UIWorker.search(query);
-			UIWorker.logger.info("XXX" + result + "XXX");
+			String message = UIWorker.search(query);
+			SearchResult result = new SearchResult(message);
+			UIWorker.logger.info("XXX" + result.count + "XXX");
+			for (int i = 0;  i < result.count; i ++) {
+				UIWorker.logger.info("Title: " + result.titles[i] + "; URL: " + result.urls[i]);
+			}
 			
 			// store information in sessions
 			HttpSession session = request.getSession();

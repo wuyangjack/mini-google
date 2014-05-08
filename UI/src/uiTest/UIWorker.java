@@ -19,7 +19,6 @@ import org.apache.log4j.PatternLayout;
 public class UIWorker {
 	public static final Logger logger = Logger.getLogger(UIWorker.class);
 	private static String loggerPath = "/tmp/UI.log";
-	private static final String searchURL = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=search&query=";
 	
 	static {
 		logger.addAppender(new ConsoleAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN)));
@@ -37,7 +36,7 @@ public class UIWorker {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String url = null;
 		try {
-			url = searchURL + URLEncoder.encode(query, "UTF-8");
+			url = UIGlobal.searchURL + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error encoding query");
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package cis455.project.query;
 
 public class QueryGlobal {
+	public static final String CRLF = "\r\n";
 	public static final String logMaster = "/tmp/QueryMaster.log";
 	public static final String logWorker = "/tmp/QueryWorker.log";
 	public static final String pathContextMaster = "master";
@@ -17,4 +18,5 @@ public class QueryGlobal {
 	public static final String modeGet = "get";
 	public static final String initPathDatabase = "pathDatabase";
 	public static final String delimiterNetwork = " ? ";
+	public static final String delimiterUI = "<|_|>";
 }
