@@ -19,7 +19,7 @@
  *
  */
 
-package amazonAPI;
+package cis455.project.amazon;
 
 import java.io.UnsupportedEncodingException;
 

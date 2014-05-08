@@ -19,7 +19,7 @@
  *
  */
 
-package amazonAPI;
+package cis455.project.amazon;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -136,59 +136,62 @@ public class ItemSearchTool {
 		try {
 			DocumentBuilder info_builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document info_doc = info_builder.parse(infoRequestUrl);
+			
+			Thread[] threads = new Thread[3];
 			for(int i = 0; i < 3; i++){
 				System.out.println(i);
 				Node ASINNode = info_doc.getElementsByTagName("ASIN").item(i);
-				if(ASINNode == null){
-					System.out.println("no more results");
-					break;
-				}
-				else{
-					System.out.println(ASINNode.getTextContent());
-					ASIN.add(ASINNode.getTextContent());
-				}
-	        }
-			
-		} catch (ParserConfigurationException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
+				threads[i] = new FetchThread(ASINNode, helper);
+				threads[i].start();
+			}
+			for(int i = 0; i < 3; i++){
+				threads[i].join();
+			}
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
+    }
+    
+    class FetchThread extends Thread{
+    	
+    	private Node node = null;
+    	SignedRequestsHelper helper = null;
+    	
+    	public FetchThread(Node node, SignedRequestsHelper helper){
+    		this.node = node;
+    		this.helper = helper;
     	}
-    	catch (SAXException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-
-		
-//		System.out.println("******************Phase 2*****************");
-        for(int i = 0; i < ASIN.size(); i++){
-//        System.out.println("round" + i + " " + ASIN.get(i));
-        
-        	params.clear();
-        	params.put("Service", "AWSECommerceService");
+    	
+    	@Override
+    	public void run(){
+			String itemId = null;
+			if(node == null){
+				System.out.println("no more results");
+				return;
+			}
+			else{
+				System.out.println(node.getTextContent());
+				itemId = node.getTextContent();
+			}
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("Service", "AWSECommerceService");
         	params.put("Version", "2011-08-01");
         	params.put("Operation", "ItemLookup");
         	params.put("ItemPage", "1");
         	params.put("IdType", "ISBN");
-        	params.put("ItemId", ASIN.get(i));
+        	params.put("ItemId", itemId);
         	params.put("SearchIndex", "All");
         	params.put("ResponseGroup", "Images");
         	params.put("AssociateTag","th0426-20");
-        
-        	imgRequestUrl = helper.sign(params);
+        	
+        	String imgRequestUrl = helper.sign(params);
         	System.out.println("Signed img Request is \"" + imgRequestUrl + "\"");
         
         	params.put("ResponseGroup", "Medium");
-        	infoRequestUrl = helper.sign(params);
+        	String infoRequestUrl = helper.sign(params);
         	System.out.println("Signed Medium Request is \"" + infoRequestUrl + "\"");
-
-        
-        	try {
-
-			
+        	
+        	try {		
         		DocumentBuilder img_builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         		Document img_doc = img_builder.parse(imgRequestUrl);
         		DocumentBuilder info_builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -196,34 +199,29 @@ public class ItemSearchTool {
 				Node titleNode = info_doc.getElementsByTagName("Title").item(0);
 				if(titleNode == null){
 					System.out.println("title empty");
-					break;
+					return;
 				}
 	            String title = titleNode.getTextContent();
 	            Node priceNode = info_doc.getElementsByTagName("FormattedPrice").item(0);
 	            if(priceNode == null){
 	            	System.out.println("price empty");
-					break;
+					return;
 	            }
 	            String price = priceNode.getTextContent();
 	            Node detailNode = info_doc.getElementsByTagName("DetailPageURL").item(0);
 	            if(detailNode == null){
 	            	System.out.println("detail empty");
-					break;
+					return;
 	            }
 	            String detail = detailNode.getTextContent();
 	            Node imageNode = img_doc.getElementsByTagName("MediumImage").item(0).getFirstChild();
 	            if(imageNode == null){
 	            	System.out.println("img empty");
-					break;
+					return;
 	            }
 	            String imgUrl = imageNode.getTextContent();
-//	            System.out.println("title: " + title + "\nimgurl: " + imgUrl + "\nprice: " + price + "\nurl: " + detail);
-//			    title_list.add(title);
-//			    img_list.add(imgUrl);
-//			    price_list.add(price);
-//			    url_list.add(detail);
+
 	            Item new_item = new Item(title, imgUrl, price, detail);
-//	            new_item.print();
 	            item_list.add(new_item);
 			
         	} catch (ParserConfigurationException e) {
@@ -238,7 +236,8 @@ public class ItemSearchTool {
         		// TODO Auto-generated catch block
         		e.printStackTrace();
         	}
-        }
+    	}
+    	
     }
 
 }
