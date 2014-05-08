@@ -34,8 +34,8 @@ public class SearchResult {
 			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
 			//UIWorker.logger.info("tokens: " + tokens.length);
 			if(tokens.length == 2) {
-				titlesList.add(tokens[0]);
-				urlsList.add(tokens[1]);
+				titlesList.add(tokens[1]);
+				urlsList.add(tokens[0]);
 			} else {
 				UIWorker.logger.info("discard invalid line: " + lines[i]);
 			}
