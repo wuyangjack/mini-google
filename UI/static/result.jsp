@@ -100,18 +100,22 @@
                 </fieldset>
             <% } %>
 
-            
-            <%for (resultIndex = 1; resultIndex <= 10; resultIndex++){ %>
+            <% 
+            String[] titles_arr = (String[])session.getAttribute("titles");
+            String[] urls_arr = (String[])session.getAttribute("urls");
+            int result_num = titles_arr.length;
+            %>
+            <%for (resultIndex = 1; resultIndex <= result_num; resultIndex++){ %>
                 <!-- <div>
                     <a href="http://www.google.com"> <%= request.getParameter("title" + resultIndex)%></a>
                     <p><%= request.getParameter("url" + resultIndex)%></p>
                 </div> -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href="http://www.google.com"><%= request.getParameter("title" + resultIndex)%><br></a>
+                        <a href='<%= urls_arr[resultIndex]%>'><%= titles_arr[resultIndex]%><br></a>
                     </div>
                     <div class="panel-body">
-                        <%= request.getParameter("url" + resultIndex)%>
+                        <%= urls_arr[resultIndex]%>
                     </div>
                 </div>
             <%}%>

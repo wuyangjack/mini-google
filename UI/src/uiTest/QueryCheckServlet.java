@@ -143,7 +143,7 @@ public class QueryCheckServlet extends HttpServlet {
 			String[] titles = result.getPageTitles();
 			String[] urls = result.getPageUrls();
 			UIWorker.logger.info("XXX" + result.count + "XXX");
-			for (int i = 0;  i < result.count; i ++) {
+			for (int i = 0;  i < urls.length; i ++) {
 				UIWorker.logger.info("Title: " + titles[i] + "; URL: " + urls[i]);
 			}
 			
@@ -154,6 +154,9 @@ public class QueryCheckServlet extends HttpServlet {
 			session.setAttribute("youtube_items", youtube_result);
 			session.setAttribute("page", "1");
 			session.setAttribute("query", query);
+			session.setAttribute("titles", titles);
+			session.setAttribute("urls", urls);
+
 
 			// forward req and resp to JSP
 			RequestDispatcher view = request.getRequestDispatcher(RESULT_JSP);
