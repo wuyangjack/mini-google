@@ -136,12 +136,10 @@ public class QueryCheckServlet extends HttpServlet {
 			}
 			*/
 			
-			// deserialize the index strings and get all urls.
 			
-			
-			// Get pageranks by URLs.
-			
-		
+			// Search
+			String result = UIWorker.search(query);
+			UIWorker.logger.info("XXX" + result + "XXX");
 			
 			// store information in sessions
 			HttpSession session = request.getSession();
