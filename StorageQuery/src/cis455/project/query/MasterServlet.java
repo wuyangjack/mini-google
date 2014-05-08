@@ -62,7 +62,7 @@ public class MasterServlet extends HttpServlet {
 				for(Integer i : results.keySet()) {
 					List<DocumentInfo> doc_infos = results.get(i);
 					for(DocumentInfo di : doc_infos) {
-						out.println(di.getUrl() + QueryGlobal.delimiterUI + di.getTitle() + QueryGlobal.CRLF);
+						out.print(di.getUrl() + QueryGlobal.delimiterUI + di.getTitle() + QueryGlobal.CRLF);
 					}
 				}
 			} else {
