@@ -12,7 +12,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
-  <body>
+  <body class="welcome">
   <div>
     <div height="0px">&nbsp;</div>
     <div class="header-wrap">
@@ -34,9 +34,9 @@
     
 	<div id="page">
 	<fieldset>
-		<legend>
-			<img src="img/button1.png"/>
-		</legend>
+        <div align="center">
+            <img src="img/logo6.png"/>
+        </div>
         <form id="searchFormStyle" method="post" action='<%= UIGlobal.urlSearchSubmit()%>'>
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />

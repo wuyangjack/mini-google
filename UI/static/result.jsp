@@ -80,9 +80,6 @@
         <div class="result-display">
             <% if( wikipediaUrl != null && paraWikipedia.equals("1")) { %>
                 <fieldset>
-                    <legend>
-                        <img src="img/button1.png"/>
-                    </legend>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <a href='<%= wikipediaUrl%>' >
