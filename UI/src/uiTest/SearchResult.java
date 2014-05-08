@@ -10,8 +10,10 @@ public class SearchResult {
 		count = lines.length;
 		titles = new String[count];
 		urls = new String[count];
+		UIWorker.logger.info("received matches: " + count);
 		for (int i = 0; i < count; i ++ ) {
-			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
+			UIWorker.logger.info(lines[i]);
+			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 3);
 			titles[i] = tokens[0];
 			urls[i] = tokens[1];
 		}
