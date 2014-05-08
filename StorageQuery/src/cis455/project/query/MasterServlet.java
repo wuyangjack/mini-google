@@ -59,6 +59,7 @@ public class MasterServlet extends HttpServlet {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)) {
 				String query = request.getParameter(QueryGlobal.paraQuery);
 				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
+				QueryMaster.logger.info("map size: " + results.size());
 				for(Integer i : results.keySet()) {
 					List<DocumentInfo> doc_infos = results.get(i);
 					for(DocumentInfo di : doc_infos) {

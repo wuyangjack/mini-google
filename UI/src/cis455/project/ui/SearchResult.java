@@ -1,6 +1,8 @@
 package cis455.project.ui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SearchResult {
 	public String[] titles = null;
@@ -13,18 +15,27 @@ public class SearchResult {
 	
 	SearchResult(String result) {
 		String[] lines = result.split(UIGlobal.CRLF);
-		count = lines.length;
+		List<String> titlesList = new ArrayList<String>();
+		List<String> urlsList = new ArrayList<String>();
+		UIWorker.logger.info("received lines: " + lines.length);
+		for (int i = 0; i < lines.length; i ++ ) {
+			//UIWorker.logger.info(lines[i]);
+			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
+			//UIWorker.logger.info("tokens: " + tokens.length);
+			if(tokens.length == 2) {
+				titlesList.add(tokens[0]);
+				urlsList.add(tokens[1]);
+			} else {
+				UIWorker.logger.info("discard invalid line: " + lines[i]);
+			}
+		}
+		count = urlsList.size();
+		UIWorker.logger.info("parsed titles/urls: " + count);
 		pages = (int) Math.ceil((double)count / (double)UIGlobal.pageVolume);
 		titles = new String[count];
+		titles = titlesList.toArray(titles);
 		urls = new String[count];
-		UIWorker.logger.info("received links: " + count + "; pages: " + pages);
-		for (int i = 0; i < count; i ++ ) {
-			UIWorker.logger.info(lines[i]);
-			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
-			UIWorker.logger.info("tokens: " + tokens.length);
-			titles[i] = tokens[0];
-			urls[i] = tokens[1];
-		}
+		urls = urlsList.toArray(urls);
 	}
 	
 	public boolean setPage(int page) {
@@ -48,4 +59,5 @@ public class SearchResult {
 		String[] ret = Arrays.copyOfRange(urls, indexStart, indexEnd);
 		return ret;
 	}
+	
 }
