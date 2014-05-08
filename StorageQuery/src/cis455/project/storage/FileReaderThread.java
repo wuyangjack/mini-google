@@ -72,7 +72,7 @@ public class FileReaderThread extends Thread{
 								throw new Exception("error writing index");
 							}
 						} else {
-							//System.out.println("Skip");
+							System.out.println("Skip");
 						}
 					} catch (Exception e) {
 						System.err.println("error dumping line: " + line);
