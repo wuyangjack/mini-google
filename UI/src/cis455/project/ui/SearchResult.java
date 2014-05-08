@@ -132,13 +132,14 @@ public class SearchResult {
 		return ret;
 	}
 	
-	public String getPageUrl(int page) {
+	public String getPageUrl(int page, boolean spellCheck) {
 		if (page > pages || page < 1) {
 			return null;
 		} else {
 			String url = UIGlobal.pathSearch + "?";
 			try {
-				url += UIGlobal.paraQuery + "=" + URLEncoder.encode(query, "UTF-8");
+				if (spellCheck) url += UIGlobal.paraQuery + "=" + URLEncoder.encode(queryCheck, "UTF-8");
+				else url += UIGlobal.paraQuery + "=" + URLEncoder.encode(query, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				UIWorker.logger.error("encode url error", e);
 				return null;
@@ -155,7 +156,7 @@ public class SearchResult {
 	}
 	
 	public String getSpellCheckPageUrl() {
-		if (this.queryCheck != null) return getPageUrl(1);
+		if (this.queryCheck != null) return getPageUrl(1, true);
 		else return null;
 	}
 	
@@ -163,7 +164,7 @@ public class SearchResult {
 		int pageNeighbor = pageCurrent;
 		if (next) pageNeighbor = pageCurrent + 1;
 		else pageNeighbor = pageCurrent - 1;
-		return getPageUrl(pageNeighbor);
+		return getPageUrl(pageNeighbor, false);
 	}
 	
 }
