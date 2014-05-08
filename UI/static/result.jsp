@@ -4,16 +4,12 @@
 <%@page import="cis455.project.youtube.YoutubeItem" %>
 
 <!DOCTYPE html>
-<%! int resultIndex; 
-    // String page_number = request.getAttribute("page");
-    // String wiki_string = request.getAttribute("wiki");
-%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>MiniGoogle</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -93,9 +89,6 @@
                         <div class="panel-heading">
                             <a href='<%= request.getAttribute("wiki")%>' ><font size="4" color="#26B0FF"> <%= request.getParameter("query") + "- Wikipedia, the free encyclopedia"%><br></font></a>
                         </div>
-                        <!-- <div class="panel-body">
-                            <%= request.getParameter("url" + resultIndex)%>
-                        </div> -->
                     </div>
                 </fieldset>
             <% } %>
@@ -105,7 +98,7 @@
             String[] urls_arr = (String[])request.getAttribute("urls");
             int result_num = titles_arr.length;
             %>
-            <%for (resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
+            <%for (int resultIndex = 0; resultIndex < result_num; resultIndex++){ %>
                 <!-- <div>
                     <a href="http://www.google.com"> <%= request.getParameter("title" + resultIndex)%></a>
                     <p><%= request.getParameter("url" + resultIndex)%></p>
@@ -147,7 +140,7 @@
             <%
                 ArrayList list = (ArrayList)request.getAttribute("amazon_items");
             %>
-            <%for (resultIndex = 0; resultIndex < list.size(); resultIndex++){ %>
+            <%for (int resultIndex = 0; resultIndex < list.size(); resultIndex++){ %>
             <%
                
                 String title = ((Item)list.get(resultIndex)).getTitle();
@@ -171,7 +164,7 @@
                 </ul>
             <%}%>
 
-            <%for (resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute("youtube_items")).item_Num; resultIndex++){ %>
+            <%for (int resultIndex = 0; resultIndex < ((YoutubeItem)request.getAttribute("youtube_items")).item_Num; resultIndex++){ %>
             <%
                 String y_title = ((YoutubeItem)request.getAttribute("youtube_items")).title[resultIndex];
                 String y_img = ((YoutubeItem)request.getAttribute("youtube_items")).img[resultIndex];
