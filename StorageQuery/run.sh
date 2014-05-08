@@ -73,6 +73,8 @@ case "$1" in
 		cd $UI
 		ant clean
 		ant
+		git add *.jsp
+		git add *.java
 		git add ui.war
 		git commit -m "Compile & deploy servlets."
 		git push

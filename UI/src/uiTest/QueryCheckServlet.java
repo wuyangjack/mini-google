@@ -93,17 +93,21 @@ public class QueryCheckServlet extends HttpServlet {
 		    }
 		    wiki_string = "https://www.wikipedia.org/search-redirect.php?family=wikipedia&search=" + wiki_string + "&language=en&go=++%E2%86%92++&go=Go";
 			
+		    /*
 		    YoutubeItem youtube_result = new YoutubeItem();
 		    Thread youtubeQuery= null;
 		    if(youtube != null){
 		    	youtubeQuery = new YouTubeThread(query);
 		    	youtubeQuery.start();
 		    }   
+		    */
 		    
 		    // amazon API 
 		    ItemSearchTool amazon_tool = new ItemSearchTool();
 		    if(amazon != null)
 		    	amazon_tool.fetch(query);
+		    
+		    // Search request
 			
 			ArrayList<String> title_results = new ArrayList<String>();
 			ArrayList<String> meta_results = new ArrayList<String>();
@@ -116,11 +120,12 @@ public class QueryCheckServlet extends HttpServlet {
 //			}
 			
 			// Youtube API
-//			Search youtube_tool = new Search();
-//			YoutubeItem youtube_result = new YoutubeItem();
-//			if(youtube != null){
-//				youtube_result.parse(youtube_tool.search(query));
-//			}
+			Search youtube_tool = new Search();
+			YoutubeItem youtube_result = new YoutubeItem();
+			if(youtube != null){
+				youtube_result.parse(youtube_tool.search(query));
+			}
+			/*
 			if(youtube != null){
 				try {
 					youtubeQuery.join();
@@ -129,7 +134,7 @@ public class QueryCheckServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
+			*/
 			
 			// deserialize the index strings and get all urls.
 			

@@ -194,7 +194,10 @@
         </fieldset>
         </div>
     </div>
-
+    <%
+        String query_string = (String)session.getAttribute("query");
+    %>
+    <div><p>Query String: <%=query_string%></p></div>
 
 	
 	</div>
