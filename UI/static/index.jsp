@@ -35,7 +35,7 @@
 		<legend>
 			<img src="img/button1.png"/>
 		</legend>
-        <form id="searchFormStyle" method="post" action="QueryCheckServlet">
+        <form id="searchFormStyle" method="post" action="UIServlet">
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />
                 <input type="submit" name="submit" id="submitButton" value="Search"/>

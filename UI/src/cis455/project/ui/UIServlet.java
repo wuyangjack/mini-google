@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import cis455.project.amazon.Item;
 import cis455.project.youtube.YoutubeItem;
 
-public class QueryCheckServlet extends HttpServlet {
+public class UIServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
