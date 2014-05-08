@@ -80,6 +80,23 @@ public class QueryWorker{
 		return entryList;
 	}
 	
+	public static List<String> getImageweight(String tableName, List<String> words) {
+		ArrayList<String> entryList = new ArrayList<String>();
+		for(String word: words){
+			String[] re = storage.get(tableName, word);
+			if(re.length == 0){
+				logger.info("No entry found");
+			}
+			else{
+				for(int i = 0; i < re.length; i++){
+					String entry = re[i];
+					entryList.add(entry);
+				}
+			}
+		}
+		return entryList;
+	}
+	
 	public static String search(String query) {
 		List<String> words = new ArrayList<String>();
 		for(String word : query.split("\\s")) {

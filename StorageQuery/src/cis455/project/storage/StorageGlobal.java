@@ -11,4 +11,6 @@ public class StorageGlobal {
 	public static final String tableTitle = "title";
 	public static final String tableMeta = "meta";
 	public static final String tableBody = "body";
+	public static final String tableImage = "image";
+	public static final String tableFreqImage = "freqimage";
 }

@@ -16,7 +16,7 @@ public class TFIDFEntry {
 		this.tfidf = tfidf;
 		String[] ps = positions.substring(1, positions.length() - 1).split(", ");
 		for(int i = 0; i < ps.length; i++){
-			if(!ps[i].equals("")){
+			if(!ps[i].equals("")) {
 				this.positions.add(Integer.parseInt(ps[i]));
 			}
 		}
