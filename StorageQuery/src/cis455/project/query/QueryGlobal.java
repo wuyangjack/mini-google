@@ -13,6 +13,7 @@ public class QueryGlobal {
 	public static final String paraKey = "key";
 	public static final String paraQuery = "query";
 	public static final String modeSearch = "search";
+	public static final String modeDebug = "debug";
 	public static final String modeGet = "get";
 	public static final String initPathDatabase = "pathDatabase";
 	public static final String delimiterNetwork = " ? ";
