@@ -22,6 +22,7 @@
     SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
     String query = searchResult.getQuery();
     String wikipediaUrl = searchResult.getWikipediaUrl();
+    String paraWikipedia = request.getParameter(UIGlobal.paraWiki);
     String[] titles = searchResult.getPageTitles();
     String[] urls = searchResult.getPageUrls();
     int records = titles.length;
@@ -77,7 +78,7 @@
 	
     <div class="result">
         <div class="result-display">
-            <% if( wikipediaUrl != null ) { %>
+            <% if( wikipediaUrl != null && paraWikipedia.equals("1")) { %>
                 <fieldset>
                     <legend>
                         <img src="img/button1.png"/>

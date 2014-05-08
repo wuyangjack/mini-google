@@ -48,6 +48,7 @@ public class SearchResult {
 		titles = titlesList.toArray(titles);
 		urls = new String[count];
 		urls = urlsList.toArray(urls);
+		
 		// Initalize others
 		this.sessionID = sessionID;
 		this.query = query;
@@ -134,6 +135,7 @@ public class SearchResult {
 			if (this.amazonItems != null) url += "&" + UIGlobal.paraAmazon + "=1";
 			if (this.youtubeItems != null) url += "&" + UIGlobal.paraYoutube + "=1";
 			if (pageNeighbor == 1) url += "&" + UIGlobal.paraWiki + "=1";
+			else url += "&" + UIGlobal.paraWiki + "=0";
 			url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
