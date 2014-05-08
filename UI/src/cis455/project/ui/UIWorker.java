@@ -38,6 +38,8 @@ public class UIWorker {
 		}
 	}
 	
+	
+	
 	public static String filter(String query) {
 		if (query == null) return null;
 		query = query.replaceAll("\\W+", " ");

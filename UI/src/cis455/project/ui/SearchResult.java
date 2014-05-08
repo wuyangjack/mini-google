@@ -1,8 +1,13 @@
 package cis455.project.ui;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import cis455.project.amazon.Item;
+import cis455.project.youtube.YoutubeItem;
 
 public class SearchResult {
 	public String[] titles = null;
@@ -13,8 +18,17 @@ public class SearchResult {
 	private Integer indexStart = null;
 	private Integer indexEnd = null;
 	private Boolean pageValid = null;
+	private String query = null;
+	private List<Item> amazonItems = null;
+	private YoutubeItem youtubeItems = null;
+	private String wikipediaUrl = null;
 	
-	SearchResult(String result) {
+	SearchResult(String result, String query, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {
+		this.query = query;
+		this.amazonItems = amazonItems;
+		this.youtubeItems = youtubeItems;
+		this.wikipediaUrl = wikipediaUrl;
+		
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
 		List<String> urlsList = new ArrayList<String>();
@@ -67,6 +81,29 @@ public class SearchResult {
 		if (this.pageValid == false) return new String[0];
 		String[] ret = Arrays.copyOfRange(urls, indexStart, indexEnd);
 		return ret;
+	}
+	
+	public String getNeighborPageUrl(boolean next) {
+		int pageNeighbor = pageCurrent;
+		if (next) pageNeighbor = pageCurrent ++;
+		else pageCurrent --;
+		if (pageNeighbor > pages || pageNeighbor < 1) {
+			return null;
+		} else {
+			String url = UIGlobal.pathSearch + "?";
+			try {
+				url += UIGlobal.paraQuery + "=" + URLEncoder.encode(query, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				UIWorker.logger.error("encode url error", e);
+				return null;
+			}
+			url += "&" + UIGlobal.paraPage + "=" + String.valueOf(pageNeighbor);
+			if (this.amazonItems != null) url += "&" + UIGlobal.paraAmazon + "=1";
+			if (this.youtubeItems != null) url += "&" + UIGlobal.paraYoutube + "=1";
+			if (this.wikipediaUrl != null) url += "&" + UIGlobal.paraWiki + "=1";
+			return url;
+		}
+		
 	}
 	
 }

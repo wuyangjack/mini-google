@@ -1,6 +1,7 @@
 package cis455.project.ui;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -19,14 +20,12 @@ public class UIServlet extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-
+		UIWorker.logger.info("UI servlet initialized");
 	}
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	
+	
+	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		// Fetch parameters
 		String query = request.getParameter(UIGlobal.paraQuery);
 		String page = request.getParameter(UIGlobal.paraPage);
@@ -62,7 +61,7 @@ public class UIServlet extends HttpServlet {
 
 		// Search
 		String message = UIWorker.search(query);
-		SearchResult result = new SearchResult(message);
+		SearchResult result = new SearchResult(message, query, amazonItems, youtubeItems, wikipediaUrl);
 		result.setPage(1);
 		String[] titles = result.getPageTitles();
 		String[] urls = result.getPageUrls();
@@ -79,6 +78,14 @@ public class UIServlet extends HttpServlet {
 		// Forward parameters to JSP
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 		view.forward(request, response);
+	}
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.search(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.search(request, response);
 	}
 
 }
