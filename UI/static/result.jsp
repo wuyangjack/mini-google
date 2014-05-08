@@ -18,6 +18,11 @@
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
   <body>
+    <%
+       String query = searchResult.getQuery();
+    %>
+    <%= query%>
+    <!--
   <%
     SearchResult searchResult = (SearchResult)request.getAttribute(UIGlobal.attrSearchResult);
     String query = searchResult.getQuery();
@@ -190,5 +195,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/google_script.js"></script>
+-->
   </body>
 </html>

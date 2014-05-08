@@ -127,6 +127,7 @@ public class UIServlet extends HttpServlet {
 		request.setAttribute(UIGlobal.attrTime, time);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
+		UIWorker.logger.info("enter forward");
 		view.forward(request, response);
 	}
 	
