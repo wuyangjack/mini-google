@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <%@page import="java.util.*" %>
-<%@page import="amazonAPI.Item" %>
-<%@page import="youtubeAPI.YoutubeItem" %>
+<%@page import="cis455.project.amazon.Item" %>
+<%@page import="cis455.project.youtube.YoutubeItem" %>
 
 <!DOCTYPE html>
 <%! int resultIndex; 
