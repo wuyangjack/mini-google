@@ -93,6 +93,8 @@ public class UIServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 		view.forward(request, response);
 	}
+	
+
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.search(request, response);

@@ -109,10 +109,10 @@
         <div class="row">
             <ul class="pager">
                 <% if (urlNext != null) { %>
-                    <li class="next"><a href='<%= urlNext%>'>&larr; Next</a></li>
+                    <li class="next"><a href='<%= urlNext%>'>Next &rarr;</a></li>
                 <% } %>
                 <% if (urlPrev != null) { %>
-                    <li class="previous"><a href='<%= urlPrev%>'>Previous &rarr;</a></li>
+                    <li class="previous"><a href='<%= urlPrev%>'>&larr; Previous </a></li>
                 <% } %>
             </ul>
         </div>
