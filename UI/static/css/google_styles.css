@@ -147,6 +147,36 @@ fieldset{
 	
 }
 
+.result_title{
+	color: #1e0fbe;
+	font-style: normal;
+	font-weight: normal;
+	font-family: arial,sans-serif;
+	font-size: 20px!important;
+}
+
+.result_link{
+	color: #006621;
+	font-style: normal;
+	font-size: 16px;
+	font-family: arial,sans-serif;
+
+}
+
+.spellcheck{ 
+	padding:6px 12px 0 7px; 
+	font-size:20px;
+	line-height:1.42857143;
+	color:#555;
+}
+
+.time_elapse{ 
+	padding:6px 12px 0 7px; 
+	font-size:15px;
+	line-height:1.42857143;
+	color: #808080;
+	font-family: arial,sans-serif;
+}
 
 
 /* Styling each icon */
@@ -346,12 +376,12 @@ p.credit a:hover{
 	border-color:#38464f #788E9B #788E9B #38464f;
 }
 
-a, a:visited {
+/*a, a:visited {
 	text-decoration:none;
 	outline:none;
 	border-bottom:1px dotted #97cae6;
 	color:#97cae6;
-}
+}*/
 
 a:hover{
 	border-bottom:1px dashed transparent;

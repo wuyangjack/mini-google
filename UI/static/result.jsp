@@ -95,18 +95,26 @@
         </form>
     </div>
 	
-
+<!--****************************Still have to use jsp to concatenate to generate the redirect query************************************-->
     <% if (queryCheck != null) { %>
         <div class="row">
             <div class="col-md-1">&nbsp;</div>
-            <div>Are you looking for: <%= queryCheck%></div>
+            <div class="col-lg-8">
+                <div class="spellcheck">
+                    <div>Are you looking for: <%= queryCheck%></div>
+                </div>
+            </div>
         </div>
     <% } %>
 
-    
+<!--****************************changed the font of time elapses************************************-->
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
-        <div>About <%= countString%> results (<%= time%> seconds)</div>
+        <div class="col-lg-8">
+            <div class="spellcheck">
+                <div>About <%= countString%> results (<%= time%> seconds)</div>
+            </div>
+        </div>
     </div>
 
     <div class="result">
@@ -134,14 +142,20 @@
                             </font>
                         </a>
                     </div>
+<!--****************************added the preview button************************************-->
                     <div class="panel-body">
-                        <%= urls[i]%>
-                    </div>
-                    <div class="col-md-1">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-                                Preview
-                            </button>
-                            
+                         <div class="row">
+                            <div class="col-md-10 result_link">
+                                <%= urls[i]%>
+                            </div>
+                    
+                            <div class="col-md-1">
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                    Preview
+                                </button>
+                            </div>
+<!--****************************************************************-->
+                        </div>
                     </div>
                 </div>
             <% } %>
@@ -171,7 +185,7 @@
                 String url = item.getUrl();
                 %>
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-danger" >
+                    <li class="list-group-item list-group-item-info" >
                         <a href='<%= url%>'> <%=title%> </a>
                         <span class="badge"><%=price%></span>
                      </li>
@@ -233,7 +247,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/google_script.js"></script>
