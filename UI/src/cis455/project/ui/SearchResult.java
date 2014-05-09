@@ -24,8 +24,9 @@ public class SearchResult {
 	private YoutubeItem youtubeItems = null;
 	private String wikipediaUrl = null;
 	private String sessionID = null;
+	private String mode = null;
 	
-	SearchResult(String sessionID, String result, String page, String query, String queryCheck, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
+	SearchResult(String mode, String sessionID, String result, String page, String query, String queryCheck, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
 		// Parse result
 		String[] lines = result.split(UIGlobal.CRLF);
 		List<String> titlesList = new ArrayList<String>();
@@ -60,6 +61,7 @@ public class SearchResult {
 		urls = urlsList.toArray(urls);
 		
 		// Initalize others
+		this.mode = mode;
 		this.sessionID = sessionID;
 		this.query = query;
 		this.queryCheck = queryCheck;
@@ -132,13 +134,14 @@ public class SearchResult {
 		return ret;
 	}
 	
-	public String getPageUrl(int page, String queryString, boolean session, boolean wiki, boolean amazon, boolean youtube, boolean spellcheck) {
+	public String getPageUrl(int page, String mode, String queryString, boolean session, boolean wiki, boolean amazon, boolean youtube, boolean spellcheck) {
 		if (page > pages || page < 1) {
 			return null;
 		} else {
 			String url = UIGlobal.pathSearch + "?";
+			url += UIGlobal.paraMode + "=" + mode;
 			try {
-				if (queryString != null) url += UIGlobal.paraQuery + "=" + URLEncoder.encode(queryString, "UTF-8");
+				if (queryString != null) url += "&" + UIGlobal.paraQuery + "=" + URLEncoder.encode(queryString, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				UIWorker.logger.error("encode url error", e);
 				return null;
@@ -158,7 +161,7 @@ public class SearchResult {
 		boolean amazon = false, youtube = false, wiki = true, session = false, spellcheck = true;
 		if (amazonItems != null) amazon = true;
 		if (youtubeItems != null) youtube = true;
-		return getPageUrl(1, null, session, wiki, amazon, youtube, spellcheck);
+		return getPageUrl(1, mode, null, session, wiki, amazon, youtube, spellcheck);
 	}
 	
 	public String getSpellCheckPageUrl() {
@@ -166,7 +169,7 @@ public class SearchResult {
 		boolean amazon = false, youtube = false, wiki = true, session = false, spellcheck = true;
 		if (amazonItems != null) amazon = true;
 		if (youtubeItems != null) youtube = true;
-		return getPageUrl(1, queryCheck, session, wiki, amazon, youtube, spellcheck);
+		return getPageUrl(1, mode, queryCheck, session, wiki, amazon, youtube, spellcheck);
 	}
 	
 	public String getNeighborPageUrl(boolean next) {
@@ -178,6 +181,6 @@ public class SearchResult {
 		if (youtubeItems != null) youtube = true;
 		if (queryCheck != null) spellcheck = true;
 		if (pageNeighbor == 1) wiki = true;
-		return getPageUrl(pageNeighbor, query, session, wiki, amazon, youtube, spellcheck);
+		return getPageUrl(pageNeighbor, mode, query, session, wiki, amazon, youtube, spellcheck);
 	}
 }

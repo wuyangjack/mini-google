@@ -76,12 +76,12 @@ public class UIWorker {
 		return youtube_result;
 	}
 
-	public static String search(String query) {
+	public static String search(String query, String urlSearch) {
 		// Get
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		String url = null;
 		try {
-			url = UIGlobal.urlMasterSearch + URLEncoder.encode(query, "UTF-8");
+			url = urlSearch + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			logger.error("error encoding query");
 			e.printStackTrace();

@@ -58,6 +58,7 @@ public class UIServlet extends HttpServlet {
 			String youtube = request.getParameter(UIGlobal.paraYoutube);
 			String wiki = request.getParameter(UIGlobal.paraWiki);
 			String spellcheck = request.getParameter(UIGlobal.paraSpellCheck);
+			String mode = request.getParameter(UIGlobal.paraMode);
 			
 			// Session 
 			sessionID = new BigInteger(130, sessionGenerator).toString(32);
@@ -67,7 +68,7 @@ public class UIServlet extends HttpServlet {
 			query = UIWorker.filter(query);
 			if(query == null){
 				UIWorker.logger.error("no query");
-				response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+				response.sendRedirect(UIGlobal.urlError());
 				return;
 			}
 			
@@ -98,16 +99,34 @@ public class UIServlet extends HttpServlet {
 				new Thread(youtube_thread).start();
 			}
 
-			FutureTask<String> title_thread = new FutureTask<String>(new MessageThread(query));
+			FutureTask<String> title_thread = null;
+			if (mode == null) {
+				UIWorker.logger.error("unknown mode");
+				response.sendRedirect(UIGlobal.urlError());
+				return;
+			}
+			if (mode.equals(UIGlobal.modeSearchWeb)) {
+				title_thread = new FutureTask<String>(new MessageThread(query, UIGlobal.urlMasterSearchWeb));
+			} else if (mode.equals(UIGlobal.modeSearchImage)) {
+				title_thread = new FutureTask<String>(new MessageThread(query, UIGlobal.urlMasterSearchImage));
+			} else {
+				UIWorker.logger.error("unknown mode");
+				response.sendRedirect(UIGlobal.urlError());
+				return;
+			}
 			new Thread(title_thread).start();
 			
 			// Search
 			String message = title_thread.get(5, TimeUnit.SECONDS);
+			if (mode.equals(UIGlobal.modeSearchImage)) {
+				UIWorker.logger.error(message + "XXXXXXXX");
+				return;
+			}
 			String wikipediaUrl = wiki_thread != null ? wiki_thread.get(5, TimeUnit.SECONDS) : null;
 			YoutubeItem youtubeItems = youtube_thread != null ? youtube_thread.get(5, TimeUnit.SECONDS) : null;
 			List<Item> amazonItems = amazon_thread != null ? amazon_thread.get(5, TimeUnit.SECONDS) : null;
 			
-			result = new SearchResult(sessionID, message, page, query, queryCheck, amazonItems, youtubeItems, wikipediaUrl);
+			result = new SearchResult(mode, sessionID, message, page, query, queryCheck, amazonItems, youtubeItems, wikipediaUrl);
 			
 			// Save to session
 			this.sessions.put(sessionID, result);
@@ -149,14 +168,16 @@ public class UIServlet extends HttpServlet {
 	static class MessageThread implements Callable<String> {
 
 		private String query;
+		private String urlSearch;
 
-		public MessageThread(String query) {
+		public MessageThread(String query, String urlSearch) {
 			this.query = query;
+			this.urlSearch = urlSearch;
 		}
 
 		@Override
 		public String call() throws Exception {
-			return UIWorker.search(query);
+			return UIWorker.search(query, urlSearch);
 		}
 	} 
 
@@ -207,7 +228,7 @@ public class UIServlet extends HttpServlet {
 			}
 		//} catch (Exception e) {
 		//	UIWorker.logger.error("error in search", e);
-		//	response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+		//					response.sendRedirect(UIGlobal.urlError());
 		//	return;
 		//}
 	}
@@ -231,7 +252,7 @@ public class UIServlet extends HttpServlet {
 			}
 		//}  catch (Exception e) {
 		//	UIWorker.logger.error("error in search", e);
-		//	response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+		//					response.sendRedirect(UIGlobal.urlError());
 		//	return;
 		//}
 	}

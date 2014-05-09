@@ -4,7 +4,8 @@ public class UIGlobal {
 	public static final Integer pageVolume = 10;
 	public static final String delimiterUI = "\t";
 	public static final String CRLF = "\r\n";
-	public static final String urlMasterSearch = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=search&query=";
+	public static final String urlMasterSearchWeb = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=search&query=";
+	public static final String urlMasterSearchImage = "http://ec2-54-221-87-56.compute-1.amazonaws.com:8080/master/query?mode=image&query=";
 	public static final String jspIndex = "/index.jsp";
 	public static final String jspResult = "/result.jsp";
 	public static final String pathSearch = "search";
@@ -17,12 +18,22 @@ public class UIGlobal {
 	public static final String paraWiki = "wiki";
 	public static final String paraQuery = "query";
 	public static final String paraSessionID = "sessionID";
-	
+	public static final String paraMode = "mode";
+	public static final String paraCatagory = "catagory";
+
+	public static final String modeSearchWeb = "web";
+	public static final String modeSearchImage = "image";
+
 	public static final String attrSearchResult = "result";
 	public static final String attrTime = "time";
 	public static final String initPathDict = "pathDict";
 	
+	
 	public static String urlSearchSubmit() {
-		return pathSearch + "?" + paraPage + "=1&" + paraWiki + "=1";
+		return pathSearch + "?" + paraMode + "=" + modeSearchWeb + "&" + paraPage + "=1&" + paraWiki + "=1";
+	}
+	
+	public static String urlError() {
+		return UIGlobal.contextUI + UIGlobal.jspIndex + "?" + paraMode + "=" + modeSearchWeb;
 	}
 }

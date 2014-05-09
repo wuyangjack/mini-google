@@ -13,16 +13,20 @@
     <link href="css/google_styles.css" rel="stylesheet">
   </head>
   <body class="welcome">
+  <%
+    String mode = (String)request.getAttribute(UIGlobal.paraMode);
+  %>
+
   <div>
     <div height="0px">&nbsp;</div>
     <div class="header-wrap">
     	<div class="header">
     		<ul class="nav clearfix">
                 <li class="item screen">
-                    <a href="index.jsp">Web</a>
+                    <a href="index.jsp?mode=web">Web</a>
                 </li>
                 <li class="item screen">
-                    <a href="#">Image</a>
+                    <a href="index.jsp?mode=image">Image</a>
                 </li>
     		</ul>
     	</div>
@@ -38,7 +42,7 @@
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />
                 <input type="submit" name="submit" id="submitButton" value="Search"/>
-                <input type="hidden" id="hiddenbox" name="category" value="web" />
+                <input type="hidden" id="hiddenbox" name="category" value='<%= mode%>' />
 
                 <div class="row" padding-top="10px">
                     &nbsp;
