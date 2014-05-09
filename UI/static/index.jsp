@@ -14,7 +14,7 @@
   </head>
   <body class="welcome">
   <%
-    String mode = (String)request.getAttribute(UIGlobal.paraMode);
+    String mode = (String)request.getParameter(UIGlobal.paraMode);
   %>
 
   <div>
