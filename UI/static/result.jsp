@@ -140,18 +140,18 @@
                     </div>
                     <div class="panel-body">
                          <div class="row">
-                            <div class="col-md-9 result_link">
-                                <%= UIGlobal.urlShorten(urls[i])%>
-                            </div>
-                            <div class="col-md-1 result_link">
-                                &nbsp;
-                            </div>
                             <% if (mode.equals(UIGlobal.modeSearchWeb)) { %>
-                            <div class="col-md-1">
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
-                                    Preview
-                                </button>
-                            </div>
+                                <div class="col-md-9 result_link">
+                                    <%= UIGlobal.urlShorten(urls[i])%>
+                                </div>
+                                <div class="col-md-1 result_link">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
+                                        Preview
+                                    </button>
+                                </div>
                             <% } %>
                         </div>
                     </div>
