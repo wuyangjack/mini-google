@@ -117,15 +117,19 @@
                 </fieldset>
             <% } %>
 
-            <% if (mode.equals(UIGlobal.modeSearchWeb)) { %>
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <a href='<%= urls[i]%>'>
-                            <font size="4" color="#26B0FF"> 
-                                <%= titles[i]%><br>
-                            </font>
-                        </a>
+                        <% if (mode.equals(UIGlobal.modeSearchWeb)) { %>
+                            <a href='<%= urls[i]%>'>
+                                <font size="4" color="#26B0FF"> 
+                                    <%= titles[i]%><br>
+                                </font>
+                            </a>
+                        <% } %>
+                        <% if (mode.equals(UIGlobal.modeSearchImage)) { %>
+                            <img src='<%= urls[i]%>'/>
+                        <% } %>
                     </div>
                     <div class="panel-body">
                          <div class="row">
@@ -143,7 +147,6 @@
                         </div>
                     </div>
                 </div>
-            <% } %>
             <% } %>
             
         <div class="row">
