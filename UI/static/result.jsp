@@ -71,7 +71,6 @@
                     <span class="input-group-btn">
                         <input type="submit" name="submit" id="submitButton" value="Search"/>
                     </span>
-                    
                 </div>
             </div>
                 <div class="row" align="center">
@@ -229,7 +228,6 @@
     <div><p>Page String: <%=pageCurrent%></p></div>
 	</div>
 
-    <!-- Modal -->
     <% for (int i = 0; i < records; i++) { %>
     <div class="modal fade" id='<%= "myModal" + String.valueOf(i)%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -240,7 +238,6 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <!-- ... -->
                         <iframe height = "400px" width="100%" src='<%= urls[i]%>'> </iframe>
                     </div>
                 </div>
