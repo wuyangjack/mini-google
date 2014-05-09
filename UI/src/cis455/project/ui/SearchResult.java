@@ -49,9 +49,9 @@ public class SearchResult {
 		}
 		count = urlsList.size();
 		if (count == 0 && mode.equals(UIGlobal.modeSearchWeb)) {
-			urlsList.add("https://www.google.com/");
+			urlsList.add("http://www.google.com/");
 			titlesList.add("Google");
-			urlsList.add("https://www.yahoo.com/");
+			urlsList.add("http://www.yahoo.com/");
 			titlesList.add("Yahoo!");
 			urlsList.add("http://www.bing.com/");
 			titlesList.add("Bing");
