@@ -231,7 +231,7 @@
 
     <!-- Modal -->
     <% for (int i = 0; i < records; i++) { %>
-    <div class="modal fade" id='<%= "#myModal" + String.valueOf(i)%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id='<%= "myModal" + String.valueOf(i)%>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
