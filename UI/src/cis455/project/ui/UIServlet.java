@@ -139,10 +139,7 @@ public class UIServlet extends HttpServlet {
 		
 		// Forward parameters to JSP
 		Long timeEnd = System.currentTimeMillis();
-		double timeDuration = (timeEnd - timeStart) / 1000.00;
-		DecimalFormat df = new DecimalFormat("#.##");
-		String time = df.format(timeDuration);
-		if (time.equals("0")) time = "0.01";
+		String time = String.valueOf(timeEnd - timeStart);
 		request.setAttribute(UIGlobal.attrTime, time);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);

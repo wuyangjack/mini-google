@@ -96,7 +96,7 @@
         <div class="col-md-1">&nbsp;</div>
         <div class="col-lg-8">
             <div class="spellcheck">
-                <div>About <%= countString%> results (<%= time%> seconds)</div>
+                <div>About <%= countString%> results (<%= time%> milliseconds)</div>
             </div>
         </div>
     </div>
