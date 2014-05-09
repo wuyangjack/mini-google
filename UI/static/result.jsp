@@ -129,7 +129,13 @@
                             </a>
                         <% } %>
                         <% if (mode.equals(UIGlobal.modeSearchImage)) { %>
-                            <img src='<%= urls[i]%>'/>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <a href = '<%= urls[i]%>'>
+                                        <img src='<%= urls[i]%>' class="img-thumbnail"/>
+                                    </a>
+                                </div>
+                            </div>
                         <% } %>
                     </div>
                     <div class="panel-body">
