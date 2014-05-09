@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.HashMap;
-
 import cis455.project.query.QueryWorker;
 import cis455.project.rank.DocumentInfo;
 import cis455.project.storage.StorageGlobal;
@@ -101,13 +100,12 @@ public class SearchWorker {
 	private static Map<Integer, List<DocumentInfo>> getWeightMap(QueryInfo queryInfo, Map<String, SearchInfo> urlMap, Map<String, SearchInfo> metaMap) {
 		// 1 init weight Map 
 		// number match : url list
-		Map<Integer, List<DocumentInfo>> weightMap = new HashMap<Integer, List<DocumentInfo>>();
+		Map<Integer, Map<String, DocumentInfo>> weightMap = new HashMap<Integer, Map<String, DocumentInfo>>();
 		for(int i = 1; i <= queryInfo.getWordsWeights().size(); i++) {
-			weightMap.put(i, new ArrayList<DocumentInfo>());
+			weightMap.put(i, new HashMap<String, DocumentInfo>());
 		}
 		// 2 get the module and pageRank
 		Map<String, Double> moduleMap = QueryWorker.getDocmodule(StorageGlobal.tableModTitle, urlMap.keySet());
-		Map<String, Double> metaModuleMap = QueryWorker.getDocmodule(StorageGlobal.tableModMeta, urlMap.keySet());
 		Map<String, Double> pageRankMap = QueryWorker.getPagerank(urlMap.keySet());
 		//QueryWorker.logger.info("Module: " + moduleMap.size() + "; PageRank: " + pageRankMap.size());
 		
@@ -115,23 +113,17 @@ public class SearchWorker {
 		for(Entry<String, SearchInfo> entry: urlMap.entrySet()) {
 			// 3.1  get all the words in the url
 			Map<String, Double> wordsWeight = entry.getValue().getWordweights();
-			SearchInfo metaInfo = metaMap.get(entry.getKey());
-			double final_score = 0, vector_mul = 0, meta_mul = 0;
+			//SearchInfo metaInfo = metaMap.get(entry.getKey());
+			double final_score = 0, vector_mul = 0;
 			//QueryWorker.logger.info("Doc: " + entry.getKey() + "; ");
 			// 3.2 calculte the title score
 			for(Entry<String, Double> weight_entry : wordsWeight.entrySet()) {
 				vector_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
 				//QueryWorker.logger.info("Word: " + weight_entry.getKey() + "; two weight: " + weight_entry.getValue() + "; " + queryInfo.getWordsWeights().get(weight_entry.getKey()));
 			}
-			// 3.3 if the url have meta info calculate the meta score
-			if(metaInfo != null) {
-				for(Entry<String, Double> weight_entry : metaInfo.getWordweights().entrySet()) {
-					meta_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
-				}
-			}
 			//QueryWorker.logger.info(entry.getKey() + "; " + entry.getValue());
 			//QueryWorker.logger.info("1: " + vector_mul + "; 2: " + queryInfo.getModule() + "; 3: " + moduleMap.get(entry.getKey()) + "; 4: " + pageRankMap.get(entry.getKey()));
-			// 3.4 if we have page rank, we get the page rank of this url
+			// 3.3 if we have page rank, we get the page rank of this url
 			Double pagerank = pageRankMap.get(entry.getKey());
 			if (pagerank == null) {
 				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
@@ -141,15 +133,51 @@ public class SearchWorker {
 			}
 			// 3.5 we get the module
 			Double title_module = moduleMap.containsKey(entry.getKey()) ? moduleMap.get(entry.getKey()) : 100;
-			Double meta_module = metaModuleMap.containsKey(entry.getKey()) ? metaModuleMap.get(entry.getKey()) : 100;
 			double title_tfidf = SearchGlobal.weightVectorTitle * vector_mul / (queryInfo.getModule() * title_module);
-			double meta_tfidf = SearchGlobal.weightVectorMeta * meta_mul / (queryInfo.getModule() * meta_module);
-			final_score = (title_tfidf + meta_tfidf) * pagerank;
+			final_score = title_tfidf * pagerank;
 			//QueryWorker.logger.info("Url: " + entry.getKey() + "; final score: " + final_score);
 			// 3.6 update the weightMap
-			weightMap.get(wordsWeight.size()).add(new DocumentInfo(entry.getKey(), "" , final_score, title_tfidf, meta_tfidf, pagerank));
+			weightMap.get(wordsWeight.size()).put(entry.getKey(), new DocumentInfo(entry.getKey(), "" , final_score, title_tfidf, 0, pagerank));
 		}
-		return weightMap;
+
+		Map<String, Double> metaModuleMap = QueryWorker.getDocmodule(StorageGlobal.tableModMeta, metaMap.keySet());
+		Map<String, Double> metaPageRankMap = QueryWorker.getPagerank(metaMap.keySet());
+
+		for(Entry<String, SearchInfo> entry: metaMap.entrySet()) {
+			Map<String, Double> metaWordsWeight = entry.getValue().getWordweights();
+			SearchInfo titleInfo = urlMap.get(entry.getKey());
+			double final_score = 0, meta_mul = 0;
+			for(Entry<String, Double> weight_entry : metaWordsWeight.entrySet()) {
+					meta_mul += weight_entry.getValue() * queryInfo.getWordsWeights().get(weight_entry.getKey());
+			}
+			Double pagerank = metaPageRankMap.get(entry.getKey());
+			if (pagerank == null) {
+				QueryWorker.logger.warn("pagerank not found: " + entry.getKey());
+				pagerank = (double) (Math.log(1 + 1) / Math.log(SearchGlobal.scalePageRank));
+			} else {
+				pagerank = (double) (Math.log(1 + pagerank) / Math.log(SearchGlobal.scalePageRank));
+			}
+
+			Double meta_module = metaModuleMap.containsKey(entry.getKey()) ? metaModuleMap.get(entry.getKey()) : 100;
+			double meta_tfidf = SearchGlobal.weightVectorMeta * meta_mul / (queryInfo.getModule() * meta_module);
+			final_score = meta_tfidf * pagerank;
+			
+			if(titleInfo == null) {
+				weightMap.get(metaWordsWeight.size()).put(entry.getKey(), new DocumentInfo(entry.getKey(), "", final_score, 0, meta_tfidf, pagerank));
+			}
+			else {
+				DocumentInfo di = weightMap.get(titleInfo.getWordweights().size()).get(entry.getKey());
+				di.setMetaTfIdf(meta_tfidf);
+				di.setScore(di.getTitleTfIdf() + meta_tfidf);
+			}
+		}
+
+		Map<Integer, List<DocumentInfo>> resultMap = new HashMap<Integer, List<DocumentInfo>>();
+		for(Integer i : weightMap.keySet()) {
+			List<DocumentInfo> list = new ArrayList<DocumentInfo>(weightMap.get(i).values());
+			resultMap.put(i, list);
+		}
+		return resultMap;
 	}
 	
 	

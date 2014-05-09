@@ -36,6 +36,14 @@ public class DocumentInfo {
 	
 	public double getPagerank() { return pagerank; }
 	
+	public void setScore(double score) { this.score = score; }
+	
+	public void setTitleTfIdf(double title_tfidf) { this.title_tfidf = title_tfidf; }
+	
+	public void setMetaTfIdf(double meta_tfidf) { this.meta_tfidf = meta_tfidf; }
+	
+	public void setPageRank(double pagerank) { this.pagerank = pagerank; }
+	
 	public String toString() {
 		if(title == null || title.length() == 0) {
 			return url + "\t" + score + "\t" + title_tfidf + "\t" + meta_tfidf + "\t" + pagerank;
