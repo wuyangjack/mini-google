@@ -41,6 +41,8 @@ public class ImageRanker {
 				//QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 				int num = Integer.parseInt(args[0]);
 				//QueryMaster.logger.info("Title length: " + title.length);
+				if(! args[1].toLowerCase().matches("^http://.*(gif|jpg|png|jpeg)$"))
+						continue;
 				DocumentInfo doc_info = new DocumentInfo(args[1], "", 0,
 						 0,  0,  0);
 				if(! result.containsKey(num)) {
