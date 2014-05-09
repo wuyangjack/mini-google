@@ -217,8 +217,6 @@
         </fieldset>
         </div>
     </div>
-    <div><p>Query String: <%=query%></p></div>
-    <div><p>Page String: <%=pageCurrent%></p></div>
 	</div>
 
     <% for (int i = 0; i < records; i++) { %>

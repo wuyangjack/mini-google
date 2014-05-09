@@ -76,7 +76,6 @@
 	</div>
     <div class="footer-wrap">
         <div class = "footer">
-            <p>Footer</p>
         </div>
     </div>
 	

@@ -142,6 +142,7 @@ public class UIServlet extends HttpServlet {
 		double timeDuration = (timeEnd - timeStart) / 1000.00;
 		DecimalFormat df = new DecimalFormat("#.##");
 		String time = df.format(timeDuration);
+		if (time.equals("0")) time = "0.01";
 		request.setAttribute(UIGlobal.attrTime, time);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
