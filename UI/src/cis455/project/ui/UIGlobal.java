@@ -38,7 +38,7 @@ public class UIGlobal {
 	}
 	
 	public static String urlShorten(String url){
-		int max_len = 70;
+		int max_len = 50;
 		url = url.substring(7);
 		if(url.length() <= max_len){
 			return url;
