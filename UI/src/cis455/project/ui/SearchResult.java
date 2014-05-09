@@ -41,7 +41,7 @@ public class SearchResult {
 				titlesList.add(tokens[1]);
 			} else if (tokens.length == 2 && mode.equals(UIGlobal.modeSearchImage)) {
 				urlsList.add(tokens[0]);
-				titlesList.add("image title");
+				titlesList.add(tokens[0]);
 			} else {
 				UIWorker.logger.info("discard invalid line: " + lines[i]);
 			}
@@ -58,7 +58,7 @@ public class SearchResult {
 		}
 		if (count == 0 && mode.equals(UIGlobal.modeSearchImage)) {
 			urlsList.add("https://www.google.com/");
-			titlesList.add("image title");
+			titlesList.add("https://www.google.com/");
 			count = 1;
 		}
 		UIWorker.logger.info("parsed titles/urls: " + count);
@@ -96,6 +96,10 @@ public class SearchResult {
 			this.pageValid = true;
 			return;
 		}
+	}
+	
+	public String getMode() {
+		return this.mode;
 	}
 	
 	public int getPages() {

@@ -38,6 +38,7 @@
     String urlSearch = searchResult.getSearchUrl();
     String time = (String)request.getAttribute(UIGlobal.attrTime);
     String countString = String.valueOf(count);
+    String mode = searchResult.getMode();
   %>
 
   <div>
@@ -115,7 +116,7 @@
                     </div>
                 </fieldset>
             <% } %>
-
+            
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
