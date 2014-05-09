@@ -67,7 +67,7 @@
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
         <form method="post" action='<%= urlSearch%>'>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="input-group">
                     <span class="glyphicon glyphicon-search input-group-btn"></span>
                     <input type="text" class="form-control" placeholder='<%= query%>' name="query">
