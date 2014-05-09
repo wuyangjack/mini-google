@@ -35,8 +35,8 @@ public class ImageRanker {
 		});
 		// 2. combine all results
 		for(String input : inputs) {
-			String[] args = input.split("\t", 2);
-			if(args.length == 2) {
+			String[] args = input.split("\t", 4);
+			if(args.length == 4) {
 				//QueryMaster.logger.info("Input: " + input);
 				//QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 				int num = Integer.parseInt(args[0]);
