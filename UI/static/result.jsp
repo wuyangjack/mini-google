@@ -236,12 +236,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"><%= titles[i]%></h4>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <!-- ... -->
-                        <iframe height = "400px" width="100%" src='<%= urls[i]%>'> </iframe>
+                        <iframe height = "400px" width="100%" src="http://www.upenn.edu"> </iframe>
                     </div>
                 </div>
                 <div class="modal-footer">
