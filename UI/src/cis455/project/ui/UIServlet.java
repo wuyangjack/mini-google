@@ -189,23 +189,51 @@ public class UIServlet extends HttpServlet {
 	} 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			this.search(request, response);
-		} catch (Exception e) {
-			UIWorker.logger.error("error in search", e);
-			response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
-			return;
-		}
+		//try {
+			try {
+				this.search(request, response);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			}
+		//} catch (Exception e) {
+		//	UIWorker.logger.error("error in search", e);
+		//	response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+		//	return;
+		//}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			this.search(request, response);
-		}  catch (Exception e) {
-			UIWorker.logger.error("error in search", e);
-			response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
-			return;
-		}
+		//try {
+			try {
+				this.search(request, response);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			} catch (TimeoutException e) {
+				// TODO Auto-generated catch block
+				UIWorker.logger.error("error in search", e);
+				e.printStackTrace();
+			}
+		//}  catch (Exception e) {
+		//	UIWorker.logger.error("error in search", e);
+		//	response.sendRedirect(UIGlobal.contextUI + UIGlobal.jspIndex);
+		//	return;
+		//}
 	}
 
 }
