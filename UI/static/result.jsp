@@ -157,7 +157,7 @@
 
         <div class="ad-display" border="1">
             <fieldset>
-            <% if (amazonItems != null) %>
+            <% if (amazonItems != null) { %>
                 <% for (int i = 0; i < amazonItems.size(); i ++) { %>
                     <%
                     Item item = ((Item)amazonItems.get(i));
@@ -182,7 +182,7 @@
                 <% } %>
             <% } %>
 
-            <% if (youtubeItems != null) %>
+            <% if (youtubeItems != null) { %>
                 <%for (int i = 0; i < youtubeItems.item_Num; i++){ %>
                     <%
                     String y_title = youtubeItems.title[i];
