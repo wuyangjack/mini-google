@@ -223,7 +223,7 @@
                 </div>
                 <div class="modal-body">
                     <div>
-                        <iframe height = "400px" width="100%" src='<%= urls[i]%>'> </iframe>
+                        <iframe height = "400px" width="100%" src='<%= urls[i]%>' sandbox=""> </iframe>
                     </div>
                 </div>
                 <div class="modal-footer">
