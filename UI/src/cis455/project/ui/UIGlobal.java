@@ -36,4 +36,24 @@ public class UIGlobal {
 	public static String urlError() {
 		return UIGlobal.contextUI + UIGlobal.jspIndex + "?" + paraMode + "=" + modeSearchWeb;
 	}
+	
+	public static String urlShorten(String url){
+		int max_len = 40;
+		url = url.substring(7);
+		if(url.length() <= max_len){
+			return url;
+		}
+
+		if(url.charAt(url.length() - 1) == '/')
+		url = url.substring(0, url.length() - 1);
+		int first_slash = url.indexOf('/');
+		int last_slash = url.lastIndexOf('/');
+		String domain_name = url.substring(0, first_slash);
+		String last_piece = url.substring(last_slash);
+		String new_url = domain_name + "/..." + last_piece;
+		if(new_url.length() > max_len){
+			return new_url.substring(0, max_len) + "...";
+		}
+		return new_url;
+	}
 }

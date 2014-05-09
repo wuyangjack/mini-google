@@ -116,7 +116,7 @@
                     </div>
                 </fieldset>
             <% } %>
-            
+
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -130,7 +130,7 @@
                     <div class="panel-body">
                          <div class="row">
                             <div class="col-md-9 result_link">
-                                <%= urls[i]%>
+                                <%= UIGlobal.urlShorten(urls[i])%>
                             </div>
                             <div class="col-md-1 result_link">
                                 &nbsp;
