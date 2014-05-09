@@ -132,14 +132,13 @@ public class SearchResult {
 		return ret;
 	}
 	
-	public String getPageUrl(int page, boolean spellCheck) {
+	public String getPageUrl(int page, String queryString, boolean session) {
 		if (page > pages || page < 1) {
 			return null;
 		} else {
 			String url = UIGlobal.pathSearch + "?";
 			try {
-				if (spellCheck) url += UIGlobal.paraQuery + "=" + URLEncoder.encode(queryCheck, "UTF-8");
-				else url += UIGlobal.paraQuery + "=" + URLEncoder.encode(query, "UTF-8");
+				if (queryString != null) url += UIGlobal.paraQuery + "=" + URLEncoder.encode(queryString, "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				UIWorker.logger.error("encode url error", e);
 				return null;
@@ -150,13 +149,17 @@ public class SearchResult {
 			if (this.queryCheck != null) url += "&" + UIGlobal.paraSpellCheck + "=1";
 			if (page == 1) url += "&" + UIGlobal.paraWiki + "=1";
 			else url += "&" + UIGlobal.paraWiki + "=0";
-			if (spellCheck == false) url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
+			if (session) url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
 	}
 	
+	public String getSearchUrl() {
+		return getPageUrl(1, null, false);
+	}
+	
 	public String getSpellCheckPageUrl() {
-		if (this.queryCheck != null) return getPageUrl(1, true);
+		if (this.queryCheck != null) return getPageUrl(1, queryCheck, false);
 		else return null;
 	}
 	
@@ -164,7 +167,6 @@ public class SearchResult {
 		int pageNeighbor = pageCurrent;
 		if (next) pageNeighbor = pageCurrent + 1;
 		else pageNeighbor = pageCurrent - 1;
-		return getPageUrl(pageNeighbor, false);
+		return getPageUrl(pageNeighbor, query, true);
 	}
-	
 }

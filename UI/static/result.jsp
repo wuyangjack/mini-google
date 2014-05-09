@@ -73,25 +73,6 @@
                     </span>
                 </div>
             </div>
-                <div class="row" align="center">
-                    <div class="checkbox-inline" height="45px">
-                        <label padding-left="100px">
-                            <input type="checkbox" value="amazon" name="amazon" align="center" checked>
-                            <img src="img/amazon.jpg" height="45px" width="auto"/>
-                        </label>
-                    </div>
-                    <div class="checkbox-inline" height="45px">
-                        <label>
-                            <input type="checkbox" value="youtube" name="youtube" align="center" checked>
-                            <img src="img/youtube.jpg" height="45px" width="auto"/>
-                        </label>
-                    </div>
-                    <div class="checkbox-inline" height="45px">
-                    <label>
-                        <input type="checkbox" value="spellcheck" name="spellcheck" align="center" checked>
-                        <img src="img/spellcheck.jpg" height="45px" width="auto"/>
-                    </label>
-                </div>
         </form>
     </div>
 
