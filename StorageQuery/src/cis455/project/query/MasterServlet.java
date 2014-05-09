@@ -99,7 +99,8 @@ public class MasterServlet extends HttpServlet {
 			}
 			out.println(footer);
 		} else {
-			QueryMaster.logger.error("unknown mode");
+			QueryMaster.logger.error("unknown mode:");
+			if (mode != null) QueryMaster.logger.error(mode);
 		}
 		
 	}
