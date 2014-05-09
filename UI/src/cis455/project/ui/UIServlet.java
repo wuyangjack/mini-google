@@ -206,7 +206,7 @@ public class UIServlet extends HttpServlet {
 		public YoutubeItem call() throws Exception {
 			return UIWorker.youtube(query);
 		}
-	} 
+	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {

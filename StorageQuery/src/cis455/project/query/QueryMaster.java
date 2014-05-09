@@ -143,7 +143,7 @@ public class QueryMaster {
 		// Logging
 		logger.addAppender(new ConsoleAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN)));
 		logger.setAdditivity(false);
-		logger.setLevel(Level.INFO);
+		logger.setLevel(Level.ERROR);
 		try {
 			logger.addAppender(new FileAppender(new PatternLayout(PatternLayout.TTCC_CONVERSION_PATTERN), loggerPath, true));
 		} catch (IOException e) {
