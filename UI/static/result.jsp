@@ -70,7 +70,7 @@
             <div class="col-lg-8">
                 <div class="input-group">
                     <span class="glyphicon glyphicon-search input-group-btn"></span>
-                    <input type="text" class="form-control" placeholder="Search Keyword" name="query">
+                    <input type="text" class="form-control" placeholder='<%= query%>' name="query">
                     <span class="input-group-btn">
                         <input type="submit" name="submit" id="submitButton" value="Search"/>
                     </span>
