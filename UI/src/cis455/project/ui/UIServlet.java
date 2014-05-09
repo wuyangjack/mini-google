@@ -59,7 +59,7 @@ public class UIServlet extends HttpServlet {
 			String youtube = request.getParameter(UIGlobal.paraYoutube);
 			String wiki = request.getParameter(UIGlobal.paraWiki);
 			String spellcheck = request.getParameter(UIGlobal.paraSpellCheck);
-			String mode = request.getParameter(UIGlobal.paraCatagory);
+			String mode = request.getParameter(UIGlobal.paraMode);
 			UIWorker.logger.info("search mode: " + mode);
 
 			
