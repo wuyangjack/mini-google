@@ -43,16 +43,16 @@
   <div>
     <div height="0px">&nbsp;</div>
     <div class="header-wrap">
-    	<div class="header">
-    		<ul class="nav clearfix">
-    			<li class="item screen">
-                    <a href="index.jsp">Web</a>
+        <div class="header">
+            <ul class="nav clearfix">
+                <li class="item screen">
+                    <a href="index.jsp?mode=web">Web</a>
                 </li>
                 <li class="item screen">
-                    <a href="#">Image</a>
+                    <a href="index.jsp?mode=image">Image</a>
                 </li>
-    		</ul>
-    	</div>
+            </ul>
+        </div>
     </div>
     
     <div class="row">

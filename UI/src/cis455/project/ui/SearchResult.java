@@ -39,7 +39,7 @@ public class SearchResult {
 			if(tokens.length == 2 && mode.equals(UIGlobal.modeSearchWeb)) {
 				urlsList.add(tokens[0]);
 				titlesList.add(tokens[1]);
-			} else if (tokens.length == 1 && mode.equals(UIGlobal.modeSearchImage)) {
+			} else if (tokens.length == 2 && mode.equals(UIGlobal.modeSearchImage)) {
 				urlsList.add(tokens[0]);
 				titlesList.add("image title");
 			} else {
