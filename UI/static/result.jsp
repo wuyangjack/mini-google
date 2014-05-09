@@ -139,11 +139,13 @@
                             <div class="col-md-1 result_link">
                                 &nbsp;
                             </div>
+                            <% if (mode.equals(UIGlobal.modeSearchWeb)) { %>
                             <div class="col-md-1">
                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
                                     Preview
                                 </button>
                             </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
