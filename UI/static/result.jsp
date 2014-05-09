@@ -148,7 +148,7 @@
                                     &nbsp;
                                 </div>
                                 <div class="col-md-1">
-                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target='<%= "#myModal" + String.valueOf(i)%>'>
                                         Preview
                                     </button>
                                 </div>
