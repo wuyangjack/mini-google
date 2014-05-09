@@ -33,18 +33,21 @@ public class SearchResult {
 		List<String> urlsList = new ArrayList<String>();
 		UIWorker.logger.info("received lines: " + lines.length);
 		for (int i = 0; i < lines.length; i ++ ) {
-			//UIWorker.logger.info(lines[i]);
+			UIWorker.logger.info(lines[i]);
 			String[] tokens = lines[i].split(UIGlobal.delimiterUI, 2);
 			//UIWorker.logger.info("tokens: " + tokens.length);
-			if(tokens.length == 2) {
+			if(tokens.length == 2 && mode.equals(UIGlobal.modeSearchWeb)) {
 				urlsList.add(tokens[0]);
 				titlesList.add(tokens[1]);
+			} else if (tokens.length == 1 && mode.equals(UIGlobal.modeSearchImage)) {
+				urlsList.add(tokens[0]);
+				titlesList.add("image title");
 			} else {
 				UIWorker.logger.info("discard invalid line: " + lines[i]);
 			}
 		}
 		count = urlsList.size();
-		if (count == 0) {
+		if (count == 0 && mode.equals(UIGlobal.modeSearchWeb)) {
 			urlsList.add("https://www.google.com/");
 			titlesList.add("Google");
 			urlsList.add("https://www.yahoo.com/");
@@ -52,6 +55,11 @@ public class SearchResult {
 			urlsList.add("http://www.bing.com/");
 			titlesList.add("Bing");
 			count = 3;
+		}
+		if (count == 0 && mode.equals(UIGlobal.modeSearchImage)) {
+			urlsList.add("https://www.google.com/");
+			titlesList.add("image title");
+			count = 1;
 		}
 		UIWorker.logger.info("parsed titles/urls: " + count);
 		pages = (int) Math.ceil((double)count / (double)UIGlobal.pageVolume);

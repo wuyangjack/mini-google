@@ -121,10 +121,10 @@ public class UIServlet extends HttpServlet {
 			
 			// Search
 			String message = title_thread.get(5, TimeUnit.SECONDS);
-			if (mode.equals(UIGlobal.modeSearchImage)) {
+			//if (mode.equals(UIGlobal.modeSearchImage)) {
 				UIWorker.logger.error(message + "XXXXXXXX");
-				return;
-			}
+				//return;
+			//}
 			String wikipediaUrl = wiki_thread != null ? wiki_thread.get(5, TimeUnit.SECONDS) : null;
 			YoutubeItem youtubeItems = youtube_thread != null ? youtube_thread.get(5, TimeUnit.SECONDS) : null;
 			List<Item> amazonItems = amazon_thread != null ? amazon_thread.get(5, TimeUnit.SECONDS) : null;
