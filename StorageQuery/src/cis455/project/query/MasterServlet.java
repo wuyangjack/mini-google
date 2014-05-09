@@ -42,7 +42,7 @@ public class MasterServlet extends HttpServlet {
 		if (mode.equals(QueryGlobal.modeDebug)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)) {
 				String query = request.getParameter(QueryGlobal.paraQuery);
-				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
+				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query, QueryGlobal.modeSearch);
 				for(Integer i : results.keySet()) {
 					List<DocumentInfo> doc_infos = results.get(i);
 					out.println("<p>Matches: " + i + "</p>");
@@ -58,8 +58,22 @@ public class MasterServlet extends HttpServlet {
 		} else if (mode.equals(QueryGlobal.modeSearch)) {
 			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)) {
 				String query = request.getParameter(QueryGlobal.paraQuery);
-				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query);
-				QueryMaster.logger.info("map size: " + results.size());
+				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query, QueryGlobal.modeSearch);
+				QueryMaster.logger.info("search map size: " + results.size());
+				for(Integer i : results.keySet()) {
+					List<DocumentInfo> doc_infos = results.get(i);
+					for(DocumentInfo di : doc_infos) {
+						out.print(di.getUrl() + QueryGlobal.delimiterUI + di.getTitle() + QueryGlobal.CRLF);
+					}
+				}
+			} else {
+				QueryMaster.logger.error("no query");
+			}
+		} else if (mode.equals(QueryGlobal.modeImage)) {
+			if (request.getParameterMap().containsKey(QueryGlobal.paraQuery)) {
+				String query = request.getParameter(QueryGlobal.paraQuery);
+				Map<Integer, List<DocumentInfo>> results = QueryMaster.search(query, QueryGlobal.modeImage);
+				QueryMaster.logger.info("image map size: " + results.size());
 				for(Integer i : results.keySet()) {
 					List<DocumentInfo> doc_infos = results.get(i);
 					for(DocumentInfo di : doc_infos) {

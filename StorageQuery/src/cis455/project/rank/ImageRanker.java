@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import cis455.project.search.SearchWorker;
-import cis455.project.storage.Storage;
-import cis455.project.storage.StorageGlobal;
 
 public class ImageRanker {
 
@@ -26,7 +24,7 @@ public class ImageRanker {
 	}
 
 	// input: url + \t + score
-	public static Map<Integer, List<DocumentInfo>> rankDocument(Storage database, String[] results) {
+	public static Map<Integer, List<DocumentInfo>> rankDocument(String[] results) {
 		List<String> inputs = parseResult(results);
 		// 1. create tree map to sort by match number
 		Map<Integer, List<DocumentInfo>> result = new TreeMap<Integer, List<DocumentInfo>>(new Comparator<Integer>() {
@@ -42,9 +40,8 @@ public class ImageRanker {
 				//QueryMaster.logger.info("Input: " + input);
 				//QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
 				int num = Integer.parseInt(args[0]);
-				String[] tag = database.get(StorageGlobal.tableImage, args[1]);
 				//QueryMaster.logger.info("Title length: " + title.length);
-				DocumentInfo doc_info = new DocumentInfo(args[1], tag.length > 0 ? tag[0] : "default", 0,
+				DocumentInfo doc_info = new DocumentInfo(args[1], "", 0,
 						 0,  0,  0);
 				if(! result.containsKey(num)) {
 					result.put(num, new ArrayList<DocumentInfo>());

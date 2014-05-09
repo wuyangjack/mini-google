@@ -21,6 +21,7 @@ import org.apache.log4j.PatternLayout;
 import cis455.project.hash.SHA1Partition;
 import cis455.project.rank.DocumentInfo;
 import cis455.project.rank.DocumentRanker;
+import cis455.project.rank.ImageRanker;
 import cis455.project.storage.Storage;
 import cis455.project.storage.StorageGlobal;
 
@@ -83,10 +84,12 @@ class SearchWorkerThread extends Thread {
 	private String result = null;
 	private String server = null;
 	private String query = null;
+	private String mode = null;
 	
-	SearchWorkerThread(String server, String query) {
+	SearchWorkerThread(String server, String query, String mode) {
 		this.server = server;
 		this.query = query;
+		this.mode = mode;
 	}
 	
 	public String result() {
@@ -101,7 +104,7 @@ class SearchWorkerThread extends Thread {
 		String url = null;
 		try {
 			url = "http://" + server + "/" + QueryGlobal.pathContextWorker + "/" + QueryGlobal.pathWorker + "?" 
-					+ QueryGlobal.paraMode + "=" + QueryGlobal.modeSearch + "&"
+					+ QueryGlobal.paraMode + "=" + mode + "&"
 					+ QueryGlobal.paraSearch + "=" + URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			QueryMaster.logger.error("error encoding query");
@@ -167,12 +170,12 @@ public class QueryMaster {
 		}
 	}
 	
-	public static Map<Integer, List<DocumentInfo>> search(String query) throws IOException {
+	public static Map<Integer, List<DocumentInfo>> search(String query, String mode) throws IOException {
 		logger.info("search query: " + query);
 		String[] results = new String[servers.length];
 		Thread[] threads = new Thread[servers.length];
 		for (int i = 0; i < servers.length; i ++) {
-			threads[i] = new SearchWorkerThread(servers[i], query);
+			threads[i] = new SearchWorkerThread(servers[i], query, mode);
 			logger.error("start thread #" + i);
 			threads[i].start();
 		}
@@ -187,7 +190,10 @@ public class QueryMaster {
 			results[i] = ((SearchWorkerThread)threads[i]).result();
 		}
 		// Rank
-		Map<Integer, List<DocumentInfo>> ret = DocumentRanker.rankDocument(storage, results);
+		Map<Integer, List<DocumentInfo>> ret;
+		if(mode.equals(QueryGlobal.modeSearch)) ret = DocumentRanker.rankDocument(storage, results);
+		else if (mode.equals(QueryGlobal.modeImage)) ret = ImageRanker.rankDocument(results);
+		else ret = null;
 		return ret;
 	}
 	
