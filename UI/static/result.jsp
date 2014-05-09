@@ -184,8 +184,14 @@
                     %>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info" >
-                            <a href='<%= url%>'> <%=title%> </a>
-                            <span class="badge"><%=price%></span>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href='<%= url%>'> <%=title%> </a>
+                                </div>
+                            </div>
+                            <div class="row" align="right">
+                                <span class="badge"><%=price%></span>
+                            </div>
                          </li>
                          <li align="center" >
                             <div> &nbsp;
