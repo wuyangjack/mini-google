@@ -157,49 +157,52 @@
 
         <div class="ad-display" border="1">
             <fieldset>
-
-            <% for (int i = 0; i < amazonItems.size(); i ++) { %>
-                <%
-                Item item = ((Item)amazonItems.get(i));
-                String title = item.getTitle();
-                String img = item.getImg();
-                String price = item.getPrice();
-                String url = item.getUrl();
-                %>
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-info" >
-                        <a href='<%= url%>'> <%=title%> </a>
-                        <span class="badge"><%=price%></span>
-                     </li>
-                     <li align="center" >
-                        <div> &nbsp;
-                        </div>
-                        <div height="160">
-                            <img src='<%= img%>'></img>
-                        </div>
-                     </li>
-                </ul>
+            <% if (amazonItems != null) %>
+                <% for (int i = 0; i < amazonItems.size(); i ++) { %>
+                    <%
+                    Item item = ((Item)amazonItems.get(i));
+                    String title = item.getTitle();
+                    String img = item.getImg();
+                    String price = item.getPrice();
+                    String url = item.getUrl();
+                    %>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info" >
+                            <a href='<%= url%>'> <%=title%> </a>
+                            <span class="badge"><%=price%></span>
+                         </li>
+                         <li align="center" >
+                            <div> &nbsp;
+                            </div>
+                            <div height="160">
+                                <img src='<%= img%>'></img>
+                            </div>
+                         </li>
+                    </ul>
+                <% } %>
             <% } %>
 
-            <%for (int i = 0; i < youtubeItems.item_Num; i++){ %>
-                <%
-                String y_title = youtubeItems.title[i];
-                String y_img = youtubeItems.img[i];
-                String y_url = youtubeItems.url[i];
-                String y_embed_url = youtubeItems.embed_url[i];
-                %>
-               
-                <ul class="list-group" >
-                    <li class="nav nav-pills nav-justified">
-                        <a href='<%= y_url%>'>  <%=y_title%> </a>
-                    </li>
-                    <li align="center">
-                        <div height="160">
-                            <iframe width="275" height="auto" src='<%= y_embed_url%>' >
-                            </iframe>
-                        </div>
-                    </li>
-                </ul>
+            <% if (youtubeItems != null) %>
+                <%for (int i = 0; i < youtubeItems.item_Num; i++){ %>
+                    <%
+                    String y_title = youtubeItems.title[i];
+                    String y_img = youtubeItems.img[i];
+                    String y_url = youtubeItems.url[i];
+                    String y_embed_url = youtubeItems.embed_url[i];
+                    %>
+                   
+                    <ul class="list-group" >
+                        <li class="nav nav-pills nav-justified">
+                            <a href='<%= y_url%>'>  <%=y_title%> </a>
+                        </li>
+                        <li align="center">
+                            <div height="160">
+                                <iframe width="275" height="auto" src='<%= y_embed_url%>' >
+                                </iframe>
+                            </div>
+                        </li>
+                    </ul>
+                <% } %>
             <% } %>
 
         </fieldset>
