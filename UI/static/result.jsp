@@ -16,6 +16,7 @@
     <title>Avernus Search Engine</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/google_styles.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/logo6.png">
   </head>
   <body>
   <%
