@@ -117,6 +117,7 @@
                 </fieldset>
             <% } %>
 
+            <% if (mode.equals(UIGlobal.modeSearchWeb)) { %>
             <% for (int i = 0; i < records; i++) { %>
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -126,7 +127,6 @@
                             </font>
                         </a>
                     </div>
-<!--****************************added the preview button************************************-->
                     <div class="panel-body">
                          <div class="row">
                             <div class="col-md-9 result_link">
@@ -140,10 +140,10 @@
                                     Preview
                                 </button>
                             </div>
-<!--****************************************************************-->
                         </div>
                     </div>
                 </div>
+            <% } %>
             <% } %>
             
         <div class="row">
