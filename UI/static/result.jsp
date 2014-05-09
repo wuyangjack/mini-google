@@ -36,7 +36,8 @@
     String urlPrev = searchResult.getNeighborPageUrl(false);
     String urlSpellCheck = searchResult.getSpellCheckPageUrl();
     String urlSearch = searchResult.getSearchUrl();
-    String time = (String)request.getAttribute(UIGlobal.attrTime);
+    //String time = (String)request.getAttribute(UIGlobal.attrTime);
+    String time = searchResult.getTime();
     String countString = String.valueOf(count);
     String mode = searchResult.getMode();
   %>

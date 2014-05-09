@@ -127,6 +127,11 @@ public class UIServlet extends HttpServlet {
 			
 			result = new SearchResult(mode, sessionID, message, page, query, queryCheck, amazonItems, youtubeItems, wikipediaUrl);
 			
+			// Time
+			Long timeEnd = System.currentTimeMillis();
+			String time = String.valueOf(timeEnd - timeStart);
+			result.setTime(time);
+			
 			// Save to session
 			this.sessions.put(sessionID, result);
 		} else {
@@ -138,9 +143,7 @@ public class UIServlet extends HttpServlet {
 		}
 		
 		// Forward parameters to JSP
-		Long timeEnd = System.currentTimeMillis();
-		String time = String.valueOf(timeEnd - timeStart);
-		request.setAttribute(UIGlobal.attrTime, time);
+		//request.setAttribute(UIGlobal.attrTime, time);
 		request.setAttribute(UIGlobal.attrSearchResult, result);
 		RequestDispatcher view = request.getRequestDispatcher(UIGlobal.jspResult);
 		UIWorker.logger.info("enter forward");

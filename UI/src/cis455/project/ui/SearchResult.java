@@ -25,6 +25,7 @@ public class SearchResult {
 	private String wikipediaUrl = null;
 	private String sessionID = null;
 	private String mode = null;
+	private String time = null;
 	
 	SearchResult(String mode, String sessionID, String result, String page, String query, String queryCheck, List<Item> amazonItems, YoutubeItem youtubeItems, String wikipediaUrl) {		
 		// Parse result
@@ -96,6 +97,14 @@ public class SearchResult {
 			this.pageValid = true;
 			return;
 		}
+	}
+	
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
+	public String getTime() {
+		return time;
 	}
 	
 	public String getMode() {
