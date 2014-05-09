@@ -35,6 +35,7 @@
     String urlNext = searchResult.getNeighborPageUrl(true);
     String urlPrev = searchResult.getNeighborPageUrl(false);
     String urlSpellCheck = searchResult.getSpellCheckPageUrl();
+    String urlSearch = searchResult.getSearchUrl();
     String time = (String)request.getAttribute(UIGlobal.attrTime);
     String countString = String.valueOf(count);
   %>
@@ -63,7 +64,7 @@
 
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
-        <form method="post" action='<%= UIGlobal.urlSearchSubmit()%>'>
+        <form method="post" action='<%= urlSearch%>'>
             <div class="col-lg-8">
                 <div class="input-group">
                     <span class="glyphicon glyphicon-search input-group-btn"></span>
