@@ -58,9 +58,13 @@ public class SearchResult {
 			count = 3;
 		}
 		if (count == 0 && mode.equals(UIGlobal.modeSearchImage)) {
-			urlsList.add("https://www.google.com/");
-			titlesList.add("https://www.google.com/");
-			count = 1;
+			urlsList.add("img/google.jpg");
+			titlesList.add("Google");
+			urlsList.add("img/yahoo.png");
+			titlesList.add("Yahoo!");
+			urlsList.add("img/bing.jpg");
+			titlesList.add("Bing");
+			count = 3;
 		}
 		UIWorker.logger.info("parsed titles/urls: " + count);
 		pages = (int) Math.ceil((double)count / (double)UIGlobal.pageVolume);
