@@ -185,8 +185,10 @@ public class SearchWorker {
 			}
 			else {
 				DocumentInfo di = weightMap.get(titleInfo.getWordweights().size()).get(entry.getKey());
-				di.setMetaTfIdf(meta_tfidf);
-				di.setScore(di.getScore() + final_score);
+				if(di != null) {
+					di.setMetaTfIdf(meta_tfidf);
+					di.setScore(di.getScore() + final_score);
+				}
 			}
 		}
 
@@ -198,38 +200,41 @@ public class SearchWorker {
 		return resultMap;
 	}
 	
-	
 	public static String search(List<String> words) {
-		// 1. calcute tf of the query
-		QueryWorker.logger.info("Begin Search");
-		QueryInfo queryInfo = getQueryInfo(words);
-		// 2. get all the words and their corresponds doc
-		Map<String, SearchInfo> urlMap = getSearchInfo(StorageGlobal.tableFreqTitle, words);
-		Map<String, SearchInfo> metaMap = getSearchInfo(StorageGlobal.tableFreqMeta, words);
-		QueryWorker.logger.info("Url Map: " + urlMap.size());
-		// the node don't have the matching doc
-		if(urlMap.size() == 0)
-			return "";
-		// 3. calculate the weight
-		Map<Integer, List<DocumentInfo>> weightMap = getWeightMap(queryInfo, urlMap, metaMap);
-		QueryWorker.logger.info("WeightMap size: " + weightMap.size());
-		// 4. Sort by values
-		StringBuffer sb = new StringBuffer();
-		for(int num : weightMap.keySet()) {
-			List<DocumentInfo> results = weightMap.get(num);
-			Collections.sort(results, new Comparator<DocumentInfo>() {
-				@Override
-				public int compare(DocumentInfo o1, DocumentInfo o2) {
-					if(o1.getScore() > o2.getScore()) return -1;
-					else if(o1.getScore() < o2.getScore()) return 1;
-					else return 0;
+		try {
+			// 1. calcute tf of the query
+			QueryWorker.logger.info("Begin Search");
+			QueryInfo queryInfo = getQueryInfo(words);
+			// 2. get all the words and their corresponds doc
+			Map<String, SearchInfo> urlMap = getSearchInfo(StorageGlobal.tableFreqTitle, words);
+			Map<String, SearchInfo> metaMap = getSearchInfo(StorageGlobal.tableFreqMeta, words);
+			QueryWorker.logger.info("Url Map: " + urlMap.size());
+			// the node don't have the matching doc
+			if(urlMap.size() == 0)
+				return "";
+			// 3. calculate the weight
+			Map<Integer, List<DocumentInfo>> weightMap = getWeightMap(queryInfo, urlMap, metaMap);
+			QueryWorker.logger.info("WeightMap size: " + weightMap.size());
+			// 4. Sort by values
+			StringBuffer sb = new StringBuffer();
+			for(int num : weightMap.keySet()) {
+				List<DocumentInfo> results = weightMap.get(num);
+				Collections.sort(results, new Comparator<DocumentInfo>() {
+					@Override
+					public int compare(DocumentInfo o1, DocumentInfo o2) {
+						if(o1.getScore() > o2.getScore()) return -1;
+						else if(o1.getScore() < o2.getScore()) return 1;
+						else return 0;
+					}
+				});
+				sb.append(num + CRLF);
+				for(DocumentInfo di : results) {
+					sb.append(di.toString() + CRLF);
 				}
-			});
-			sb.append(num + CRLF);
-			for(DocumentInfo di : results) {
-				sb.append(di.toString() + CRLF);
 			}
+			return sb.toString();
+		} catch(Exception e) {
+			return "";
 		}
-		return sb.toString();
 	}
 }
