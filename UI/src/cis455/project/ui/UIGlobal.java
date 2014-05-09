@@ -29,8 +29,8 @@ public class UIGlobal {
 	public static final String initPathDict = "pathDict";
 	
 	
-	public static String urlSearchSubmit() {
-		return pathSearch + "?" + paraMode + "=" + modeSearchWeb + "&" + paraPage + "=1&" + paraWiki + "=1";
+	public static String urlSearchSubmit(String mode) {
+		return pathSearch + "?" + paraMode + "=" + mode + "&" + paraPage + "=1&" + paraWiki + "=1";
 	}
 	
 	public static String urlError() {

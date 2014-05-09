@@ -38,7 +38,7 @@
         <div align="center">
             <img src="img/logo6.png"/>
         </div>
-        <form id="searchFormStyle" method="post" action='<%= UIGlobal.urlSearchSubmit()%>'>
+        <form id="searchFormStyle" method="post" action='<%= UIGlobal.urlSearchSubmit(mode)%>'>
     		<fieldset>
                 <input type="text"  x-webkit-speech placeholder="Search Keyword" name="query" id="s" />
                 <input type="submit" name="submit" id="submitButton" value="Search"/>
