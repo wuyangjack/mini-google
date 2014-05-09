@@ -132,7 +132,7 @@ public class SearchResult {
 		return ret;
 	}
 	
-	public String getPageUrl(int page, String queryString, boolean session) {
+	public String getPageUrl(int page, String queryString, boolean session, boolean wiki, boolean amazon, boolean youtube, boolean spellcheck) {
 		if (page > pages || page < 1) {
 			return null;
 		} else {
@@ -144,29 +144,40 @@ public class SearchResult {
 				return null;
 			}
 			url += "&" + UIGlobal.paraPage + "=" + String.valueOf(page);
-			if (this.amazonItems != null) url += "&" + UIGlobal.paraAmazon + "=1";
-			if (this.youtubeItems != null) url += "&" + UIGlobal.paraYoutube + "=1";
-			if (this.queryCheck != null) url += "&" + UIGlobal.paraSpellCheck + "=1";
-			if (page == 1) url += "&" + UIGlobal.paraWiki + "=1";
+			if (amazon) url += "&" + UIGlobal.paraAmazon + "=1";
+			if (youtube) url += "&" + UIGlobal.paraYoutube + "=1";
+			if (spellcheck) url += "&" + UIGlobal.paraSpellCheck + "=1";
+			if (wiki) url += "&" + UIGlobal.paraWiki + "=1";
 			else url += "&" + UIGlobal.paraWiki + "=0";
 			if (session) url += "&" + UIGlobal.paraSessionID + "=" + sessionID;
 			return url;
 		}
 	}
 	
-	public String getSearchUrl() {
-		return getPageUrl(1, null, false);
+	public String getSearchUrl() {		
+		boolean amazon = false, youtube = false, wiki = true, session = false, spellcheck = true;
+		if (amazonItems != null) amazon = true;
+		if (youtubeItems != null) youtube = true;
+		return getPageUrl(1, null, session, wiki, amazon, youtube, spellcheck);
 	}
 	
 	public String getSpellCheckPageUrl() {
-		if (this.queryCheck != null) return getPageUrl(1, queryCheck, false);
-		else return null;
+		if (this.queryCheck == null) return null;
+		boolean amazon = false, youtube = false, wiki = true, session = false, spellcheck = true;
+		if (amazonItems != null) amazon = true;
+		if (youtubeItems != null) youtube = true;
+		return getPageUrl(1, queryCheck, session, wiki, amazon, youtube, spellcheck);
 	}
 	
 	public String getNeighborPageUrl(boolean next) {
 		int pageNeighbor = pageCurrent;
 		if (next) pageNeighbor = pageCurrent + 1;
 		else pageNeighbor = pageCurrent - 1;
-		return getPageUrl(pageNeighbor, query, true);
+		boolean amazon = false, youtube = false, wiki = false, session = true, spellcheck = false;
+		if (amazonItems != null) amazon = true;
+		if (youtubeItems != null) youtube = true;
+		if (queryCheck != null) spellcheck = true;
+		if (pageNeighbor == 1) wiki = true;
+		return getPageUrl(pageNeighbor, query, session, wiki, amazon, youtube, spellcheck);
 	}
 }

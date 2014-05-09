@@ -1,5 +1,7 @@
 package cis455.project.search;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,6 +39,16 @@ public class SearchWorker {
 		double getModule() {
 			return module;
 		}
+	}
+	
+	private static boolean poorPages(String s) throws MalformedURLException {
+		URL url;
+		try {
+			url = new URL(s);
+		} catch (MalformedURLException e) {
+			url = new URL("http://" + s);
+		}
+		return SearchGlobal.blackList.contains(url.getHost());
 	}
 	
 	private static QueryInfo getQueryInfo(List<String> words) {
@@ -79,6 +91,12 @@ public class SearchWorker {
 		while(tf_iterator.hasNext()) {
 			TFIDFEntry entry = tf_iterator.next();
 			SearchInfo info = null;
+			try {
+				if(poorPages(entry.getUrl()))
+					continue;
+			} catch (MalformedURLException e) {
+				continue;
+			}
 			// 1.1 for each word, add the weight and position to url map
 			if(! urlMap.containsKey(entry.getUrl())) {
 				info = new SearchInfo();
@@ -168,7 +186,7 @@ public class SearchWorker {
 			else {
 				DocumentInfo di = weightMap.get(titleInfo.getWordweights().size()).get(entry.getKey());
 				di.setMetaTfIdf(meta_tfidf);
-				di.setScore(di.getTitleTfIdf() + meta_tfidf);
+				di.setScore(di.getScore() + final_score);
 			}
 		}
 
