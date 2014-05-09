@@ -45,7 +45,7 @@ public class UIServlet extends HttpServlet {
 	private void search(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, InterruptedException, ExecutionException, TimeoutException {
 		// Start
 		Long timeStart = System.currentTimeMillis();
-		UIWorker.logger.info("request: " + request.getPathInfo());
+		UIWorker.logger.info("request: " + request.getQueryString());
 		
 		// Get sessionID
 		String sessionID = request.getParameter(UIGlobal.paraSessionID);
@@ -60,7 +60,8 @@ public class UIServlet extends HttpServlet {
 			String wiki = request.getParameter(UIGlobal.paraWiki);
 			String spellcheck = request.getParameter(UIGlobal.paraSpellCheck);
 			String mode = request.getParameter(UIGlobal.paraCatagory);
-			
+			UIWorker.logger.info("search mode: " + mode);
+
 			
 			// Session 
 			sessionID = new BigInteger(130, sessionGenerator).toString(32);
