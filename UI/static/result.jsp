@@ -66,7 +66,7 @@
             <div class="col-lg-8">
                 <div class="input-group">
                     <span class="glyphicon glyphicon-search input-group-btn"></span>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="query">
                     <span class="input-group-btn">
                         <input type="submit" name="submit" id="submitButton" value="Search"/>
                     </span>
@@ -137,6 +137,12 @@
                     <div class="panel-body">
                         <%= urls[i]%>
                     </div>
+                    <div class="col-md-1">
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                Preview
+                            </button>
+                            
+                    </div>
                 </div>
             <% } %>
             
@@ -206,6 +212,28 @@
     <div><p>Query String: <%=query%></p></div>
     <div><p>Page String: <%=pageCurrent%></p></div>
 	</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <!-- ... -->
+                        <iframe height = "400px" width="100%" src="http://www.upenn.edu"> </iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/google_script.js"></script>
