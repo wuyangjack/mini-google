@@ -3,6 +3,8 @@ package cis455.project.rank;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class DocumentRanker {
 	// input: url + \t + score
 	public static Map<Integer, List<DocumentInfo>> rankDocument(Storage database, String[] results) {
 		List<String> inputs = parseResult(results);
+		Set<String> title_set = new HashSet<String>();
 		// 1. create tree map to sort by match number
 		Map<Integer, List<DocumentInfo>> result = new TreeMap<Integer, List<DocumentInfo>>(new Comparator<Integer>() {
 			@Override
@@ -48,14 +51,24 @@ public class DocumentRanker {
 			else {
 				//QueryMaster.logger.info("Input: " + input);
 				//QueryMaster.logger.info("Args: " + args[0] + "; " + args[1]);
-				String[] title = database.get(StorageGlobal.tableTitle, args[0]);
+				String[] titles = database.get(StorageGlobal.tableTitle, args[0]);
+				String title = titles.length > 0 ? titles[0] : "default";
 				//QueryMaster.logger.info("Title length: " + title.length);
-				DocumentInfo doc_info = new DocumentInfo(args[0], title.length > 0 ? title[0] : "default", Double.parseDouble(args[1]),
+				DocumentInfo doc_info = new DocumentInfo(args[0], title, Double.parseDouble(args[1]),
 						 Double.parseDouble(args[2]),  Double.parseDouble(args[3]),  Double.parseDouble(args[4]));
-				if(! result.containsKey(num)) {
-					result.put(num, new ArrayList<DocumentInfo>());
+				if(! title_set.contains(title)) {
+					if(! result.containsKey(num)) {
+						result.put(num, new ArrayList<DocumentInfo>());
+					}
+					result.get(num).add(doc_info);
 				}
-				result.get(num).add(doc_info);
+				else {
+					if(! result.containsKey(0)) {
+						result.put(0, new ArrayList<DocumentInfo>());
+					}
+					result.get(0).add(doc_info);
+				}
+				title_set.add(title);
 			}
 		}
 		for(Integer i : result.keySet()) {

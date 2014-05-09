@@ -131,8 +131,9 @@ public class SpellChecker {
 	public String correct(String query) {
 		String ret = "";
 		String[] query_split_list = query.split("\\s"); 
-	    for(int i = 0; i < query_split_list.length; i++){
-	    	ret += this.check(query_split_list[i]);
+		ret = this.check(query_split_list[0]);
+	    for(int i = 1; i < query_split_list.length; i++){
+	    	ret = ret + " " + this.check(query_split_list[i]);
 	    }
 	    if (ret.length() == 0) return null;
 	    else if (query.equals(ret)) return null;
