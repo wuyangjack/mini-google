@@ -1,8 +1,6 @@
 # MiniGoogle
 
-MiniGoogle is a search engine that is comprehensive, fast, accurate and scalable. It was deployed on AWS.
-
-**Our search engine is the top among all 21 competing teams in [CIS 555](http://www.cis.upenn.edu/~cis455/), Spring 2014. We received [prizes from Google](http://www.cis.upenn.edu/~cis455/hall-of-fame.html) for our exceptional performance.**
+MiniGoogle is a search engine that is comprehensive, fast, accurate and scalable. It was deployed on AWS. **The search engine is the top among all 21 competing teams at Penn [CIS 555](http://www.cis.upenn.edu/~cis455/), Spring 2014. We received [prizes from Google](http://www.cis.upenn.edu/~cis455/hall-of-fame.html) for our exceptional performance.**
 
 ![alt text](https://github.com/wuyangjack/MiniGoogle/blob/master/Screenshots/cis-555-hall-of-fame.png "A screenshot from the CIS 555 hall of fame.")
 
