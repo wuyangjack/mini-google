@@ -21,7 +21,9 @@ You can search **both webpages and images** using our search engine.
 
 
 
-## Folders
+## Details
 
 #### AWS
 *	CLI utilities to automatically run AWS jobs (e.g., Elastic Map Reduce, S3)
+
+#### TBD
